@@ -38,5 +38,10 @@ namespace Entities
         public required int CategoryId { get; set; }
         [Required]
         public required Category Category { get; set; }
+        [Required]
+        [ForeignKey("UserPerson")]
+        public required int UserPersonId { get; set; }
+        [Required]
+        public UserPerson Persons { get; set; }
     }
 }
