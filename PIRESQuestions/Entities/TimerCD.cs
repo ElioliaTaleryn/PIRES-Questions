@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Timer
+    public class TimerCD
     {
         #region Fields
         public int Id { get; set; }
-        public int DurationSecond { get; set; }
+        public int CountDown { get; set; }
         #endregion
         #region Relative Fields
         public List<Question>? Question { get; set; }
