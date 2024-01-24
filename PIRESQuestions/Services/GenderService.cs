@@ -1,12 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities;
+using IRepositories;
+using IServices;
 
 namespace Services
 {
-    internal class GenderService
+    public class GenderService : IGenderService
     {
+        private readonly IGenderRepository _genderRepository;
+        public GenderService(IGenderRepository genderRepository)
+        {
+            _genderRepository = genderRepository;
+        }
+        public async Task<Gender> CreateGenderAsync(Gender gender)
+        {
+            return await _genderRepository.CreateGenderAsync(gender);
+        }
     }
 }
