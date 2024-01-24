@@ -43,7 +43,7 @@ namespace Entities
         [ForeignKey("UserPerson")]
         public required int UserPersonId { get; set; }
         [Required]
-        public UserPerson Persons { get; set; }
+        public UserPerson UserPerson { get; set; }
         #endregion
     }
 }
