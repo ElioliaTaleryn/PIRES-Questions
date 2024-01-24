@@ -20,7 +20,7 @@ namespace Entities
         #region Relative Fields N-N
         public List<Question>? Questions { get; set; }
         #endregion
-        #region Relative fields 0-1
+        #region Relative Fields 0-1
         [ForeignKey("Timer")]
         public int? TimerId { get; set; }
         public Timer? Timer { get; set; }
