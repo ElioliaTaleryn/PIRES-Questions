@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PIRESQuestions.Data;
+using Repositories.Entity_Framework;
 
 var builder = WebApplication.CreateBuilder(args);
 
