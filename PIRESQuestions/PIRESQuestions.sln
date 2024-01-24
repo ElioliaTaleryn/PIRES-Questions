@@ -5,15 +5,17 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PIRESQuestions", "PIRESQuestions\PIRESQuestions.csproj", "{E58003AA-EA1D-44E8-933C-662F37331C50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{4C2E6D34-38EB-48F6-AAE3-F3D4DE94B96B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{4C2E6D34-38EB-48F6-AAE3-F3D4DE94B96B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRepositories", "IRepositories\IRepositories.csproj", "{A60AC3B7-D5A4-40BA-829A-843DB8B6D9D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IRepositories", "IRepositories\IRepositories.csproj", "{A60AC3B7-D5A4-40BA-829A-843DB8B6D9D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{8C149A88-1226-4812-A950-4B1992808660}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{8C149A88-1226-4812-A950-4B1992808660}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IServices", "IServices\IServices.csproj", "{9677BF86-B740-4B95-B043-AA17476DF8E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IServices", "IServices\IServices.csproj", "{9677BF86-B740-4B95-B043-AA17476DF8E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{34B2BED7-043E-47D7-B4F9-93C869B16335}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{34B2BED7-043E-47D7-B4F9-93C869B16335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{37F0B073-7143-4F08-B2E9-57EB56C2AD6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{34B2BED7-043E-47D7-B4F9-93C869B16335}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34B2BED7-043E-47D7-B4F9-93C869B16335}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34B2BED7-043E-47D7-B4F9-93C869B16335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37F0B073-7143-4F08-B2E9-57EB56C2AD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F0B073-7143-4F08-B2E9-57EB56C2AD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F0B073-7143-4F08-B2E9-57EB56C2AD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F0B073-7143-4F08-B2E9-57EB56C2AD6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
