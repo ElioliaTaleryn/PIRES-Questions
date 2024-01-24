@@ -14,12 +14,16 @@ namespace Entities
         public int Id { get; set; }
         [Required]
         public required string Label { get; set; }
-        public string Description { get; set; }
+
+        public string? Description { get; set; }
         #endregion
         #region Relative Fields
         public List<Choice>? Choices { get; set; }
-        public int FormId { get; set; }
+
+        [Required]
+        public required int FormId { get; set; }
         public Form Form { get; set; }
+
         public int? TimerCDId { get; set; }
         public TimerCD TimerCD { get; set; }
         #endregion
