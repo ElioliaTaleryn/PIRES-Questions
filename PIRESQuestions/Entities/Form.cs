@@ -24,7 +24,7 @@ namespace Entities
         #region Relative Fields 0-1
         [ForeignKey("Timer")]
         public int? TimerId { get; set; }
-        public Timer? Timer { get; set; }
+        public TimerCD? TimerCD { get; set; }
         [ForeignKey("Duration")]
         public int? DurationId { get; set; }
         public Duration? Duration { get; set; }

@@ -13,7 +13,7 @@ namespace Entities
         public int CountDown { get; set; }
         #endregion
         #region Relative Fields
-        public List<Question>? Question { get; set; }
+        public List<Question>? Questions { get; set; }
         public List<Form>? Forms { get; set; }
         #endregion
     }
