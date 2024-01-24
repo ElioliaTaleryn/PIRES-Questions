@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Duration
+    public class Period
     {
         #region Fields
         public int Id { get; set; }
