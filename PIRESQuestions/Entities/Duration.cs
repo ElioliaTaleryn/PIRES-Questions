@@ -9,15 +9,15 @@ namespace Entities
 {
     public class Duration
     {
-        //Attributs propres
+        #region Fields
         public int Id { get; set; }
         [Required]
         public required  DateTime Start {  get; set; }
         [Required]
         public required DateTime End { get; set; }
-
-        //Liens des autres entités
-        // n-n
+        #endregion
+        #region Relative Fields N-N
         public List<Form>? Forms { get; set; }
+        #endregion
     }
 }

@@ -9,13 +9,13 @@ namespace Entities
 {
     public class Category
     {
-        //Attributs propres
+        #region Fields
         public int Id { get; set; }
         [Required]
         public required string Label { get; set; }
-
-        //Liens des autres entités
-        // n-n
+        #endregion
+        #region Relative Fields N-N
         public List<Form>? Forms { get; set; }
+        #endregion
     }
 }

@@ -10,24 +10,25 @@ namespace Entities
 {
     public class Form
     {
-        //Attributs propres
+        #region  Fields
         public int Id { get; set; }
         [Required]
         public required string Title { get; set; }
         [Required]
         public required string Description { get; set; }
-
-        //Liens des autres entités
-        // n-n
+        #endregion
+        #region Relative Fields N-N
         public List<Question>? Questions { get; set; }
-        // 0-1
+        #endregion
+        #region Relative fields 0-1
         [ForeignKey("Timer")]
         public int? TimerId { get; set; }
         public Timer? Timer { get; set; }
         [ForeignKey("Duration")]
         public int? DurationId { get; set; }
         public Duration? Duration { get; set; }
-        // 1-1
+        #endregion
+        #region Relative Fields 1-1
         [Required]
         [ForeignKey("Status")]
         public required int StatusId { get; set; }
@@ -43,5 +44,6 @@ namespace Entities
         public required int UserPersonId { get; set; }
         [Required]
         public UserPerson Persons { get; set; }
+        #endregion
     }
 }
