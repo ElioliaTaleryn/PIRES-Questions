@@ -2,7 +2,7 @@
 
 namespace PIRESQuestions.Controllers
 {
-    public class TimerController : Controller
+    public class TimerCDController : Controller
     {
         public IActionResult Index()
         {
