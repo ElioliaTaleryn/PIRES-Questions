@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities
+﻿namespace Entities
 {
-    internal class Gender
+    public class Gender
     {
+        #region Fields
+        public int Id { get; set; }
+        public required string Label { get; set; }
+        #endregion
+        #region Relatives Fields
+        public List<UserPerson>? UserPersons { get; set; }
+        #endregion
     }
 }
