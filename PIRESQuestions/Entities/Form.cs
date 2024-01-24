@@ -32,17 +32,14 @@ namespace Entities
         [Required]
         [ForeignKey("Status")]
         public required int StatusId { get; set; }
-        [Required]
-        public required Status Status { get; set; }
+        public Status Status { get; set; }
         [Required]
         [ForeignKey("Category")]
         public required int CategoryId { get; set; }
-        [Required]
-        public required Category Category { get; set; }
+        public Category Category { get; set; }
         [Required]
         [ForeignKey("UserPerson")]
         public required int UserPersonId { get; set; }
-        [Required]
         public UserPerson UserPerson { get; set; }
         #endregion
     }
