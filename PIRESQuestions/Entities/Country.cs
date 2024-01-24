@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Entities
 {
-    internal class Country
+    public class Country
     {
+        #region Fields
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        #endregion
+        #region Relatives Fields
+        public List<UserPerson>? UserPersons { get; set; }
+        #endregion
     }
 }
