@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using PIRESQuestions.Models;
 using System.Diagnostics;
+using ViewModels;
 
 namespace PIRESQuestions.Controllers
 {
