@@ -12,6 +12,7 @@ namespace Entities
         #region Fields
         public int Id { get; set; }
         [Required]
+        [MaxLength(50)]
         public required string Label { get; set; }
         #endregion
         #region Relative Fields N-N

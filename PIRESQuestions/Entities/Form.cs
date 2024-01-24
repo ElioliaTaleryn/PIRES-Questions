@@ -13,6 +13,7 @@ namespace Entities
         #region  Fields
         public int Id { get; set; }
         [Required]
+        [MaxLength(150)]
         public required string Title { get; set; }
         [Required]
         public required string Description { get; set; }
