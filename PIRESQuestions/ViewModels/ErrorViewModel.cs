@@ -1,4 +1,4 @@
-namespace PIRESQuestions.Models
+namespace ViewModels
 {
     public class ErrorViewModel
     {
