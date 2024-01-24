@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class Duration
+    public class Duration
     {
+        //Attributs propres
+        public int Id { get; set; }
+        public DateTime Start {  get; set; }
+        public DateTime End { get; set; }
+
+        //Liens des autres entités
+        // n-n
+        public List<Form>? Forms { get; set; }
     }
 }

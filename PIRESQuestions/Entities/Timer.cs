@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class Timer
+    public class Timer
     {
+        //Attributs propres
+        public int Id { get; set; }
+        public int DurationInS {  get; set; }
+
+        //Liens des autres entités
+        // n-n
+        public List<Form>? Forms { get; set; }
     }
 }
