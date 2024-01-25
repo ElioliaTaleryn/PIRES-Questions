@@ -11,7 +11,7 @@ namespace IRepositories
     {
         Task<Question> CreateQuestionAsync(Question question);
         Task<Question> UpdateQuestionAsync(Question question);
-        Task<Question> DeleteQuestionAsync(int id);
+        Task<bool> DeleteQuestionAsync(int id);
         Task<Question> GetQuestionByIdAsync(int id);
         Task<List<Question>> GetAllQuestionsAsync();
     }
