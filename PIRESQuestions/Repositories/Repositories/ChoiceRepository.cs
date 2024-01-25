@@ -1,5 +1,7 @@
 ﻿using Entities;
 using IRepositories;
+using Microsoft.EntityFrameworkCore;
+using Repositories.Entity_Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +12,66 @@ namespace Repositories.Repositories
 {
     public class ChoiceRepository : IChoiceRepository
     {
-        public Task<Choice> CreateChoiceAsync(Choice choice)
+        ApplicationDbContext appContext;
+        public ChoiceRepository(ApplicationDbContext applicationDbContext)
         {
-            throw new NotImplementedException();
+            appContext = applicationDbContext;
         }
 
-        public Task<bool> DeleteChoiceAsync(int id)
+        public async Task<Choice> CreateChoiceAsync(Choice choice)
         {
-            throw new NotImplementedException();
+            appContext.Choices.Add(choice);
+            await appContext.SaveChangesAsync();
+            return choice;
         }
 
-        public Task<List<Choice>> GetAllChoiceAsync()
+        public async Task<bool> DeleteChoiceAsync(int id)
         {
-            throw new NotImplementedException();
+            var choice = appContext.Choices.FirstOrDefault(c => c.Id == id);
+            if (choice != null)
+            {
+                appContext.Choices.Remove(choice);
+                await appContext.SaveChangesAsync();
+                return true;
+            }
+            else return false;
         }
 
-        public Task<Choice> GetChoiceByIdAsync(int id)
+        public async Task<List<Choice>> GetAllChoiceAsync()
         {
-            throw new NotImplementedException();
+            List<Choice> listChoices = new List<Choice>();
+            listChoices = await appContext.Choices.ToListAsync();
+            if (listChoices.Any())
+            {
+                return listChoices;
+            }
+            else throw new Exception("Aucun choix de réponse trouvé");
         }
 
-        public Task<Choice> UpdateChoiceAsync(Choice choice)
+        public async Task<Choice> GetChoiceByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Choice choice = await appContext.Choices.FindAsync(id);
+            if (choice != null)
+            {
+                return choice;
+            }
+            else throw new Exception($"Aucun choix de réponse trouvé avec l'id {id} ");
+        }
+
+        public async Task<Choice> UpdateChoiceAsync(Choice choice)
+        {
+            Choice choiceUpdate = appContext.Choices.FirstOrDefault(c => c.Id == choice.Id);
+            if (choiceUpdate != null) 
+            {
+                choiceUpdate.Label = choice.Label;
+                choiceUpdate.QuestionId = choice.QuestionId;
+                await appContext.SaveChangesAsync();
+                return choice;
+            }
+            else
+            {
+                throw new InvalidOperationException("La mise à jour a échoué");
+            }
         }
 
     }
