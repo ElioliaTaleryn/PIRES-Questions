@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities;
+using IRepositories;
+using IServices;
 
 namespace Services
 {
-    internal class CountryService
+    public class CountryService(ICountryRepository countryRepository) : ICountryService
     {
+        public async Task<Country> CreateCountryAsync(Country country)
+        {
+            return await countryRepository.CreateCountryAsync(country);
+        }
     }
 }
