@@ -22,12 +22,12 @@ namespace Entities
         public List<Question>? Questions { get; set; }
         #endregion
         #region Relative Fields 0-1
-        [ForeignKey("Timer")]
-        public int? TimerId { get; set; }
+        [ForeignKey("TimerCD")]
+        public int? TimerCDId { get; set; }
         public TimerCD? TimerCD { get; set; }
-        [ForeignKey("Duration")]
-        public int? DurationId { get; set; }
-        public Duration? Duration { get; set; }
+        [ForeignKey("Period")]
+        public int? PeriodId { get; set; }
+        public Period? Period { get; set; }
         #endregion
         #region Relative Fields 1-1
         [Required]
@@ -40,7 +40,7 @@ namespace Entities
         public Category Category { get; set; }
         [Required]
         [ForeignKey("UserPerson")]
-        public required int UserPersonId { get; set; }
+        public required string UserPersonId { get; set; }
         public UserPerson UserPerson { get; set; }
         #endregion
     }

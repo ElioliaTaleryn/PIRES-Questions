@@ -12,12 +12,10 @@ namespace Entities
     {
         #region Fields
         public int Id { get; set; }
-
         [Required]
         public required string Label { get; set; }
 
-        [Required]
-        public required string Description { get; set; }
+        public string? Description { get; set; }
         #endregion
         #region Relative Fields
         public List<Choice>? Choices { get; set; }
