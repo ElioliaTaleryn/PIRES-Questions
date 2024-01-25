@@ -1,7 +1,9 @@
 ﻿using Entities;
 using IRepositories;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
 using Repositories.Exceptions;
+using System.Reflection;
 
 namespace Repositories.Repositories
 {
@@ -19,5 +21,14 @@ namespace Repositories.Repositories
             return country;
         }
 
+        public async Task<bool> DeleteCountryAsync(Country country)
+        {
+            return await context.Countries.Where(i => i.Id == country.Id).ExecuteDeleteAsync() == 1;
+        }
+
+        public async Task<IEnumerable<Country>> GetAllCountriesAsync()
+        {
+            return await context.Countries.ToListAsync();
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Entities;
 using IRepositories;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
 using Repositories.Exceptions;
+using System.Diagnostics.Metrics;
 
 namespace Repositories.Repositories
 {
@@ -16,6 +18,15 @@ namespace Repositories.Repositories
             context.Genders.Add(gender);
             await context.SaveChangesAsync();
             return gender;
+        }
+        public async Task<bool> DeleteGenderAsync(Gender gender)
+        {
+            return await context.Genders.Where(g => g.Id == gender.Id).ExecuteDeleteAsync() == 1;
+        }
+
+        public async Task<IEnumerable<Gender>> GetAllGendersAsync()
+        {
+            return await context.Genders.ToListAsync();
         }
     }
 }
