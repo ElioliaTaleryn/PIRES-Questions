@@ -9,20 +9,18 @@ namespace Repositories.Repositories
     {
         public async Task<Gender> CreateGenderAsync(Gender gender)
         {
-            if (gender == null)
+            if(gender.Id != 0) {
+                throw new GenderRepositoryException($"Gender id value invalid: must be 0.");
+            }
+            context.Genders.Add(gender);
+            await context.SaveChangesAsync();
+            return gender;
+
+            // controller
+            /*if (gender == null || string.IsNullOrEmpty(gender.Label))
             {
-                throw new GenderRepositoryException($"Gender object invalid: null.");
-            }
-            bool val = context.Genders.Contains(gender);
-            if (string.IsNullOrEmpty(gender.Label) || val)
-            {
-                throw new GenderRepositoryException($"Gender label value invalid: null, empty or mismatch.");
-            }
-            else {
-                context.Genders.Add(gender);
-                await context.SaveChangesAsync();
-                return gender;
-            }
+                throw new GenderRepositoryException($"Gender object invalid: null or empty.");
+            }*/
         }
     }
 }

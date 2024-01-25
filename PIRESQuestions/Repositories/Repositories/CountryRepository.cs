@@ -9,22 +9,19 @@ namespace Repositories.Repositories
     {
         public async Task<Country> CreateCountryAsync(Country country)
         {
-            if (country == null)
+            if (country.Id != 0)
+            {
+                throw new CountryRepositoryException($"Country id value invalid: must be 0.");
+            }
+            context.Countries.Add(country);
+            await context.SaveChangesAsync();
+            return country;
+
+            // controller
+            /*if (country == null)
             {
                 throw new CountryRepositoryException($"Country object invalid: null.");
-            }
-
-            bool contains = context.Countries.Contains(country);
-            if (string.IsNullOrEmpty(country.Name) || contains)
-            {
-                throw new GenderRepositoryException($"Country name value invalid: null, empty or mismatch.");
-            }
-            else
-            {
-                context.Countries.Add(country);
-                await context.SaveChangesAsync();
-                return country;
-            }
+            }*/
         }
 
     }
