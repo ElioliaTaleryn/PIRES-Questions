@@ -28,18 +28,18 @@ namespace Repositories.Repositories
 
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
-            List<Question> list = new List<Question>();
-            list = await appContext.Questions.ToListAsync();
-            if (list.Any())
+            List<Question> listQuestions = new List<Question>();
+            listQuestions = await appContext.Questions.ToListAsync();
+            if (listQuestions.Any())
             {
-                return list;
+                return listQuestions;
             }
             else throw new Exception("Aucune questions trouvées");
         }
 
         public async Task<Question> GetQuestionByIdAsync(int id)
         {
-            var question = await appContext.Questions.FindAsync(id);
+            var question = await appContext.Questions.Include(q => q.Choices).FirstOrDefaultAsync(q => q.Id == id);
             if (question != null)
             {
                 return question;
@@ -59,11 +59,8 @@ namespace Repositories.Repositories
             else return false;        
         }
 
-
-
         public async Task<Question> UpdateQuestionAsync(Question question)
         {
-
             var questionUpdate = appContext.Questions.FirstOrDefault(q => q.Id == question.Id);
 
             if (questionUpdate != null)
