@@ -6,8 +6,10 @@ using Services.Exceptions;
 
 namespace Services
 {
-    public class CountryService(ICountryRepository countryRepository, ApplicationDbContext context) : ICountryService
+    public class CountryService(ICountryRepository _countryRepository, ApplicationDbContext _context) : ICountryService
     {
+        private readonly ICountryRepository countryRepository = _countryRepository;
+        private readonly ApplicationDbContext context = _context;
         public async Task<Country> CreateCountryAsync(Country country)
         {
             if (!context.Countries.Contains(country))

@@ -6,8 +6,10 @@ using Services.Exceptions;
 
 namespace Services
 {
-    public class GenderService(ApplicationDbContext context, IGenderRepository genderRepository) : IGenderService
+    public class GenderService(ApplicationDbContext _context, IGenderRepository _genderRepository) : IGenderService
     {
+        private readonly ApplicationDbContext context = _context;
+        private readonly IGenderRepository genderRepository = _genderRepository;
         public async Task<Gender> CreateGenderAsync(Gender gender)
         {
             if (!context.Genders.Contains(gender))
