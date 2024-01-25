@@ -1,5 +1,6 @@
 ﻿using Entities;
 using IRepositories;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
 using System;
 using System.Collections.Generic;
@@ -20,27 +21,49 @@ namespace Repositories
 
         public async Task<Question> CreateQuestionAsync(Question question)
         {
-            return null;
+
+            appContext.Questions.Add(question);
+            await appContext.SaveChangesAsync();
+            return question;
         }
 
-        public Task<Question> DeleteQuestionAsync(int id)
+        public async Task<List<Question>> GetAllQuestionsAsync()
         {
-            throw new NotImplementedException();
+            return await appContext.Questions.ToListAsync();
         }
 
-        public Task<List<Question>> GetAllQuestionsAsync()
+        public async Task<Question> GetQuestionByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await appContext.Question.Find(id);
         }
 
-        public Task<Question> GetQuestionByIdAsync(int id)
+        public async Task<bool> DeleteQuestionAsync(int id)
         {
-            throw new NotImplementedException();
+            appContext.Question.Remove(id);
+            await appContext.SaveChangesAsync();
+            return true;
         }
 
-        public Task<Question> UpdateQuestionAsync(Question question)
+
+
+        public async Task<Question> UpdateQuestionAsync(Question question)
         {
-            throw new NotImplementedException();
+
+            var questionUpdate = appContext.Question.FirstOrDefault(q => q.Id == question.Id);
+
+            if (questionUpdate != null)
+            {
+                questionUpdate.Label = question.Label;
+                questionUpdate.Description = question.Description;
+                await appContext.SaveChangesAsync();
+
+                return question;
+            }
+            else
+            {
+                throw new InvalidOperationException("La mise à jour a échoué");
+            }           
         }
     }
 }
+
