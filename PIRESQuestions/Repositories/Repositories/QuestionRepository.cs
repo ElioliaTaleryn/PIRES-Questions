@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories
+namespace Repositories.Repositories
 {
     public class QuestionRepository : IQuestionRepository
     {
@@ -34,14 +34,19 @@ namespace Repositories
 
         public async Task<Question> GetQuestionByIdAsync(int id)
         {
-            return await appContext.Question.Find(id);
+            return await appContext.Questions.FindAsync(id);
         }
 
         public async Task<bool> DeleteQuestionAsync(int id)
         {
-            appContext.Question.Remove(id);
-            await appContext.SaveChangesAsync();
-            return true;
+            var question = appContext.Questions.FirstOrDefault(q => q.Id == id);
+            if (question != null)
+            {
+                appContext.Questions.Remove(question);
+                await appContext.SaveChangesAsync();
+                return true;
+            }
+            else return false;        
         }
 
 
@@ -49,7 +54,7 @@ namespace Repositories
         public async Task<Question> UpdateQuestionAsync(Question question)
         {
 
-            var questionUpdate = appContext.Question.FirstOrDefault(q => q.Id == question.Id);
+            var questionUpdate = appContext.Questions.FirstOrDefault(q => q.Id == question.Id);
 
             if (questionUpdate != null)
             {
@@ -62,7 +67,7 @@ namespace Repositories
             else
             {
                 throw new InvalidOperationException("La mise à jour a échoué");
-            }           
+            }
         }
     }
 }

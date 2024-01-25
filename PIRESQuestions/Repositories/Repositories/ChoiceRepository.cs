@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories
+namespace Repositories.Repositories
 {
     public class ChoiceRepository : IChoiceRepository
     {
@@ -15,7 +15,7 @@ namespace Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Choice> DeleteChoiceAsync(int id)
+        public Task<bool> DeleteChoiceAsync(int id)
         {
             throw new NotImplementedException();
         }
@@ -34,5 +34,6 @@ namespace Repositories
         {
             throw new NotImplementedException();
         }
+
     }
 }
