@@ -21,7 +21,6 @@ namespace Repositories.Repositories
 
         public async Task<Question> CreateQuestionAsync(Question question)
         {
-
             appContext.Questions.Add(question);
             await appContext.SaveChangesAsync();
             return question;
@@ -29,12 +28,23 @@ namespace Repositories.Repositories
 
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
-            return await appContext.Questions.ToListAsync();
+            List<Question> list = new List<Question>();
+            list = await appContext.Questions.ToListAsync();
+            if (list.Any())
+            {
+                return list;
+            }
+            else throw new Exception("Aucune questions trouvées");
         }
 
         public async Task<Question> GetQuestionByIdAsync(int id)
         {
-            return await appContext.Questions.FindAsync(id);
+            var question = await appContext.Questions.FindAsync(id);
+            if (question != null)
+            {
+                return question;
+            }
+            else throw new Exception($"Aucune question trouvé avec l'id {id} ");
         }
 
         public async Task<bool> DeleteQuestionAsync(int id)
@@ -60,6 +70,9 @@ namespace Repositories.Repositories
             {
                 questionUpdate.Label = question.Label;
                 questionUpdate.Description = question.Description;
+                questionUpdate.Choices = question.Choices;
+                questionUpdate.FormId = question.FormId;
+                questionUpdate.TimerCDId = question.TimerCDId;
                 await appContext.SaveChangesAsync();
 
                 return question;
