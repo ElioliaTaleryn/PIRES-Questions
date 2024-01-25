@@ -24,7 +24,12 @@ namespace Repositories.Entity_Framework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString: @"Data Source=(localdb)\MSSQLLOCALDB;Initial Catalog=PIRESQuestionsDB;Integrated Security=True");
+                base.OnConfiguring(optionsBuilder);
+            }
+               
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
