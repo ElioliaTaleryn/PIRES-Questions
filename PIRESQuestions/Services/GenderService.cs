@@ -4,16 +4,11 @@ using IServices;
 
 namespace Services
 {
-    public class GenderService : IGenderService
+    public class GenderService(IGenderRepository genderRepository) : IGenderService
     {
-        private readonly IGenderRepository _genderRepository;
-        public GenderService(IGenderRepository genderRepository)
-        {
-            _genderRepository = genderRepository;
-        }
         public async Task<Gender> CreateGenderAsync(Gender gender)
         {
-            return await _genderRepository.CreateGenderAsync(gender);
+            return await genderRepository.CreateGenderAsync(gender);
         }
     }
 }

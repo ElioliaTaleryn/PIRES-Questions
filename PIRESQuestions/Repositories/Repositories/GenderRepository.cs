@@ -7,8 +7,6 @@ namespace Repositories.Repositories
 {
     public class GenderRepository(ApplicationDbContext context) : IGenderRepository
     {
-        private readonly ApplicationDbContext _context = context;
-
         public async Task<Gender> CreateGenderAsync(Gender gender)
         {
             
@@ -17,14 +15,14 @@ namespace Repositories.Repositories
                 throw new GenderRepositoryException($"Gender object invalid: null.");
             }
 
-            bool val = _context.Genders.Contains(gender);
+            bool val = context.Genders.Contains(gender);
             if (string.IsNullOrEmpty(gender.Label) || val)
             {
                 throw new GenderRepositoryException($"Gender label value invalid: null, empty or mismatch.");
             }
             else {
-                _context.Genders.Add(gender);
-                await _context.SaveChangesAsync();
+                context.Genders.Add(gender);
+                await context.SaveChangesAsync();
                 return gender;
             }
         }
