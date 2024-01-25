@@ -9,12 +9,10 @@ namespace Repositories.Repositories
     {
         public async Task<Gender> CreateGenderAsync(Gender gender)
         {
-            
             if (gender == null)
             {
                 throw new GenderRepositoryException($"Gender object invalid: null.");
             }
-
             bool val = context.Genders.Contains(gender);
             if (string.IsNullOrEmpty(gender.Label) || val)
             {
