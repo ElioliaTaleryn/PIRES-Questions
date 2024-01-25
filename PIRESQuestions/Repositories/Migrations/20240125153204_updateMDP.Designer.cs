@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.Entity_Framework;
 
 #nullable disable
 
-namespace PIRESQuestions.Migrations
+namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240125153204_updateMDP")]
+    partial class updateMDP
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,6 +188,16 @@ namespace PIRESQuestions.Migrations
                             PeriodId = 1,
                             StatusId = 2,
                             Title = "Europeans Capitals",
+                            UserPersonId = "981173f4-7557-4cde-b839-1ac488b30f9f"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Description = "Questions about cities v2",
+                            PeriodId = 1,
+                            StatusId = 2,
+                            Title = "Europeans Capitals",
                             UserPersonId = "951173f4-7557-4cde-b839-1ac488b30f9f"
                         });
                 });
@@ -239,7 +252,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Durations");
+                    b.ToTable("Periods");
 
                     b.HasData(
                         new
@@ -290,14 +303,14 @@ namespace PIRESQuestions.Migrations
                         {
                             Id = 1,
                             Description = "choose 1 reply",
-                            FormId = 1,
+                            FormId = 2,
                             Label = "Witch city is the French Capital"
                         },
                         new
                         {
                             Id = 2,
                             Description = "choose 1 reply",
-                            FormId = 1,
+                            FormId = 2,
                             Label = "What is the color of the sky"
                         });
                 });
@@ -349,7 +362,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Timers");
+                    b.ToTable("TimerCD");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -594,6 +607,45 @@ namespace PIRESQuestions.Migrations
                     b.HasIndex("GenderId");
 
                     b.HasDiscriminator().HasValue("UserPerson");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5c068548-92d2-4cf2-8183-94e9e32c0783",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6fe6301a-c18e-4d28-b7c5-9d5f07d39d86",
+                            TwoFactorEnabled = false,
+                            CountryId = 1,
+                            DateOfBirth = new DateOnly(1991, 12, 25),
+                            FirstName = "Michel",
+                            GenderId = 2,
+                            LastName = "Does"
+                        },
+                        new
+                        {
+                            Id = "951173f4-7557-4cde-b839-1ac488b30f9f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "514a216a-0c07-4ca1-bae7-25b389afc715",
+                            Email = "example@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EXAMPLE@EXAMPLE.COM",
+                            NormalizedUserName = "BOB",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEtM0G8yJiz5QPiNu4bkpQyhQcMtPWB0EkxiCNV2IGqjriKU7WLoDwvBr6uCjH1+Fg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2EKLCF5HV2AN7DRFWTAEU5A5MCQ2OOYX",
+                            TwoFactorEnabled = false,
+                            UserName = "bob",
+                            CountryId = 1,
+                            DateOfBirth = new DateOnly(1991, 12, 25),
+                            FirstName = "Michel",
+                            GenderId = 2,
+                            LastName = "Does"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Choice", b =>
