@@ -23,7 +23,7 @@ namespace Repositories.Repositories.Tests
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
             Question question1 = new Question { Id = 1, Label = "question test 1 ?", FormId = 1 };
-           
+
             QuestionRepository questionRepository = new QuestionRepository(context);
 
             //Act
@@ -121,6 +121,53 @@ namespace Repositories.Repositories.Tests
 
             //Assert
             Assert.AreEqual(2, question.Id);
+        }
+       
+        [TestMethod()]
+        public async Task UpdateQuestionAsyncTest()
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("question");
+
+            var context = new ApplicationDbContext(builder.Options);
+            context.Database.EnsureDeleted();
+
+            context.Questions.Add(new Question { Id = 1, Label = "question test 1 ?", FormId = 1 });
+            context.SaveChanges();
+
+            QuestionRepository questionRepository = new QuestionRepository(context);
+
+            Question questionUpdate = new Question { Id = 1, Label = "nouveau label", FormId = 1 }; 
+
+            //Act
+            await questionRepository.UpdateQuestionAsync(questionUpdate);
+
+            var questionConfirmed = await context.Questions.FindAsync(1);
+
+            //Assert
+            Assert.AreEqual("nouveau label", questionConfirmed.Label);
+        }
+        [TestMethod()]
+        public async Task UpdateQuestionAsyncTestFormId()
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("question");
+
+            var context = new ApplicationDbContext(builder.Options);
+            context.Database.EnsureDeleted();
+
+            context.Questions.Add(new Question { Id = 1, Label = "question test 1 ?", FormId = 1 });
+            context.SaveChanges();
+
+            QuestionRepository questionRepository = new QuestionRepository(context);
+
+            Question questionUpdate = new Question { Id = 1, Label = "nouveau label", FormId = 2 };
+
+            //Act
+            await questionRepository.UpdateQuestionAsync(questionUpdate);
+
+            var questionConfirmed = await context.Questions.FindAsync(1);
+
+            //Assert
+            Assert.AreEqual(2, questionConfirmed.FormId);
         }
     }
 }
