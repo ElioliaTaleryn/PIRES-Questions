@@ -28,8 +28,7 @@ namespace Repositories.Repositories
 
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
-            List<Question> listQuestions = new List<Question>();
-            listQuestions = await appContext.Questions.ToListAsync();
+            List<Question> listQuestions = await appContext.Questions.Include(q => q.Choices).Include(q => q.Form).ToListAsync();
             if (listQuestions.Any())
             {
                 return listQuestions;
@@ -39,7 +38,7 @@ namespace Repositories.Repositories
 
         public async Task<Question> GetQuestionByIdAsync(int id)
         {
-            var question = await appContext.Questions.Include(q => q.Choices).FirstOrDefaultAsync(q => q.Id == id);
+            var question = await appContext.Questions.Include(q => q.Choices).Include(q => q.Form).FirstOrDefaultAsync(q => q.Id == id);
             if (question != null)
             {
                 return question;
@@ -47,16 +46,19 @@ namespace Repositories.Repositories
             else throw new Exception($"Aucune question trouvé avec l'id {id} ");
         }
 
-        public async Task<bool> DeleteQuestionAsync(int id)
+        public async Task DeleteQuestionAsync(int id)
         {
-            var question = appContext.Questions.FirstOrDefault(q => q.Id == id);
+            var question = appContext.Questions.Include(q => q.Choices).SingleOrDefault(q => q.Id == id);
             if (question != null)
             {
+                appContext.Choices.RemoveRange(question.Choices);
+
                 appContext.Questions.Remove(question);
+
                 await appContext.SaveChangesAsync();
-                return true;
+                
             }
-            else return false;        
+            else throw new Exception("Echec de la suppression");
         }
 
         public async Task<Question> UpdateQuestionAsync(Question question)
@@ -78,6 +80,17 @@ namespace Repositories.Repositories
             {
                 throw new InvalidOperationException("La mise à jour a échoué");
             }
+        }
+
+        public async Task<List<Question>> GetQuestionByFormIdAsync(int formId)
+        {
+            var questions = await appContext.Questions.Include(q => q.Choices).Include(q => q.Form).Where(q => q.FormId == formId).ToListAsync(); ;
+            return questions;
+            //if (questions != null)
+            //{
+            //    return questions;
+            //}
+            //else throw new Exception($"Aucune question(s) trouvée(s) pour le formulaire {formId} ");
         }
     }
 }
