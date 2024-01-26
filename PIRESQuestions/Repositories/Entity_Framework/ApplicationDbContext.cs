@@ -33,7 +33,7 @@ namespace Repositories.Entity_Framework
                 optionsBuilder.UseSqlServer(connectionString: @"Data Source=(localdb)\MSSQLLOCALDB;Initial Catalog=PIRESQuestionsDB;Integrated Security=True");
                 base.OnConfiguring(optionsBuilder);
             }
-               
+            optionsBuilder.LogTo(Console.Write);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
