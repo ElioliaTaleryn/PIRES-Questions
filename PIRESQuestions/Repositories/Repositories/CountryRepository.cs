@@ -3,12 +3,12 @@ using IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
 using Repositories.Exceptions;
-using System.Reflection;
 
 namespace Repositories.Repositories
 {
     public class CountryRepository(ApplicationDbContext _context) : ICountryRepository
     {
+        
         private readonly ApplicationDbContext context = _context;
         public async Task<Country> CreateCountryAsync(Country country)
         {
@@ -29,6 +29,16 @@ namespace Repositories.Repositories
         public async Task<IEnumerable<Country>> GetAllCountriesAsync()
         {
             return await context.Countries.ToListAsync();
+        }
+
+        public async Task<Country> GetByIdCountryAsync(int id)
+        {
+            var country = await context.Countries.FindAsync(id);
+            if (country == null)
+            {
+                throw new CountryRepositoryException($"Country Id value invalid: doesn't exists in DB.");
+            }
+            return country;
         }
     }
 }

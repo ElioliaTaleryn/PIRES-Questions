@@ -2,7 +2,6 @@
 using IRepositories;
 using IServices;
 using Repositories.Entity_Framework;
-using Repositories.Repositories;
 using Services.Exceptions;
 
 namespace Services
@@ -29,6 +28,11 @@ namespace Services
         public async Task<IEnumerable<Gender>> GetAllGendersAsync()
         {
             return await genderRepository.GetAllGendersAsync();
+        }
+
+        public async Task<Gender> GetByIdGenderAsync(int id)
+        {
+            return await genderRepository.GetByIdGenderAsync(id);
         }
     }
 }

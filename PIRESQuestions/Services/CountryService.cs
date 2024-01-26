@@ -34,7 +34,7 @@ namespace Services
 
         public async Task<Country> GetByIdCountryAsync(int id)
         {
-            throw new NotImplementedException();
+            return await countryRepository.GetByIdCountryAsync(id);
         }
     }
 }
