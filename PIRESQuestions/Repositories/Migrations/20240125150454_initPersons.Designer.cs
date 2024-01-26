@@ -9,11 +9,11 @@ using Repositories.Entity_Framework;
 
 #nullable disable
 
-namespace PIRESQuestions.Migrations
+namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240124155305_addData")]
-    partial class addData
+    [Migration("20240125150454_initPersons")]
+    partial class initPersons
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,33 +74,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Choices");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Label = "Paris",
-                            QuestionId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Label = "Bordeau",
-                            QuestionId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Label = "Red",
-                            QuestionId = 2
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Label = "Cyan",
-                            QuestionId = 2
-                        });
+                    b.ToTable("Choice");
                 });
 
             modelBuilder.Entity("Entities.Country", b =>
@@ -177,19 +151,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasIndex("UserPersonId");
 
-                    b.ToTable("Forms");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Description = "Questions about cities",
-                            PeriodId = 1,
-                            StatusId = 2,
-                            Title = "Europeans Capitals",
-                            UserPersonId = "951173f4-7557-4cde-b839-1ac488b30f9f"
-                        });
+                    b.ToTable("Form");
                 });
 
             modelBuilder.Entity("Entities.Gender", b =>
@@ -242,7 +204,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Durations");
+                    b.ToTable("Periods");
 
                     b.HasData(
                         new
@@ -286,23 +248,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasIndex("TimerCDId");
 
-                    b.ToTable("Questions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "choose 1 reply",
-                            FormId = 1,
-                            Label = "Witch city is the French Capital"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "choose 1 reply",
-                            FormId = 1,
-                            Label = "What is the color of the sky"
-                        });
+                    b.ToTable("Question");
                 });
 
             modelBuilder.Entity("Entities.Status", b =>
@@ -352,7 +298,7 @@ namespace PIRESQuestions.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Timers");
+                    b.ToTable("TimerCD");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -597,6 +543,24 @@ namespace PIRESQuestions.Migrations
                     b.HasIndex("GenderId");
 
                     b.HasDiscriminator().HasValue("UserPerson");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "db06354b-5dce-4b2a-ba1e-3394cff421a4",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "088d810a-6417-41bc-872b-9c4e9d356d5a",
+                            TwoFactorEnabled = false,
+                            CountryId = 1,
+                            DateOfBirth = new DateOnly(1991, 12, 25),
+                            FirstName = "Michel",
+                            GenderId = 2,
+                            LastName = "Does"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Choice", b =>
