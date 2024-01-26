@@ -60,8 +60,9 @@ namespace Repositories.Repositories.Tests
             context.Database.EnsureDeleted();
             context.Questions.Add(new Question { Id = 1, Label = "question test 1 ?", FormId = 1 });
             context.Questions.Add(new Question { Id = 2, Label = "question test 2 ?", FormId = 1 });
-            context.Questions.Add(new Question { Id = 3, Label = "question test 3 ?", FormId = 2 });
-            context.Questions.Add(new Question { Id = 4, Label = "question test 4 ?", FormId = 2 });
+            context.Questions.Add(new Question { Id = 3, Label = "question test 3 ?", FormId = 1 });
+            context.Questions.Add(new Question { Id = 4, Label = "question test 4 ?", FormId = 1 });
+            context.Forms.Add(new Form { Id = 1, CategoryId = 1, Description = "test test", StatusId = 1, Title = "test", UserPersonId = "1" });
 
             context.SaveChanges();
 
@@ -122,7 +123,7 @@ namespace Repositories.Repositories.Tests
             //Assert
             Assert.AreEqual(2, question.Id);
         }
-       
+
         [TestMethod()]
         public async Task UpdateQuestionAsyncTest()
         {
@@ -136,7 +137,7 @@ namespace Repositories.Repositories.Tests
 
             QuestionRepository questionRepository = new QuestionRepository(context);
 
-            Question questionUpdate = new Question { Id = 1, Label = "nouveau label", FormId = 1 }; 
+            Question questionUpdate = new Question { Id = 1, Label = "nouveau label", FormId = 1 };
 
             //Act
             await questionRepository.UpdateQuestionAsync(questionUpdate);
@@ -168,6 +169,31 @@ namespace Repositories.Repositories.Tests
 
             //Assert
             Assert.AreEqual(2, questionConfirmed.FormId);
+        }
+
+        [TestMethod()]
+        public async Task GetQuestionByFormIdAsyncTest()
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("question");
+
+            var context = new ApplicationDbContext(builder.Options);
+            context.Database.EnsureDeleted();
+            context.Questions.Add(new Question { Id = 1, Label = "question test 1 ?", FormId = 1 });
+            context.Questions.Add(new Question { Id = 2, Label = "question test 2 ?", FormId = 1 });
+            context.Questions.Add(new Question { Id = 3, Label = "question test 3 ?", FormId = 2 });
+            context.Questions.Add(new Question { Id = 4, Label = "question test 4 ?", FormId = 2 });
+            context.Forms.Add(new Form { Id = 1, CategoryId = 1, Description = "test test", StatusId = 1, Title = "test", UserPersonId = "1" });
+
+            context.SaveChanges();
+
+            QuestionRepository questionRepository = new QuestionRepository(context);
+
+            //Act
+            var questions = await questionRepository.GetQuestionByFormIdAsync(1);
+
+            //Assert
+            Assert.IsNotNull(questions);
+            Assert.AreEqual(2, questions.Count());
         }
     }
 }
