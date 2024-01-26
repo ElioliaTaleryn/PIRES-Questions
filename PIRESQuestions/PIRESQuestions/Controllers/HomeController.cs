@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
+using ViewModels;
 
 namespace PIRESQuestions.Controllers
 {

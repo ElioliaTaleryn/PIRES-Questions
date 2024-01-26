@@ -1,6 +1,8 @@
 ﻿using Entities;
 using IServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.IdentityModel.Abstractions;
 
 namespace PIRESQuestions.Controllers
 {
@@ -11,9 +13,11 @@ namespace PIRESQuestions.Controllers
         {
             QuestionService = questionService;
         }
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var questions = await QuestionService.GetAllQuestionsAsync();
+            return View(questions);
         }
 
         [HttpGet]
@@ -34,9 +38,40 @@ namespace PIRESQuestions.Controllers
             else
             {
                 question = await QuestionService.CreateQuestionAsync(question);
-
-                return View("Index");
+                var questionCreate = await QuestionService.GetQuestionByFormIdAsync(question.FormId);
+                return PartialView("_showQuestions", questionCreate);
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UpdateQuestion(int id)
+        {
+            return View(await QuestionService.GetQuestionByIdAsync(id));
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateQuestion(Question question)
+        {
+            if (!ModelState.IsValid && string.IsNullOrEmpty(question.Label) && question.FormId == null)
+            {
+                ModelState.AddModelError("Label", "Le champ Label est obligatoire.");
+                ModelState.AddModelError("FormId", "La question doit appartenir à un formulaire");
+
+                return View(question);
+            }
+            else 
+            {
+                await QuestionService.UpdateQuestionAsync(question);
+                return RedirectToAction("Index");
+            }            
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteQuestion(int id, int formId) 
+        {
+            await QuestionService.DeleteQuestionAsync(id);
+            var question = await QuestionService.GetQuestionByFormIdAsync(formId);
+            return PartialView("_showQuestions", question);
+        }
+        
     }
 }
