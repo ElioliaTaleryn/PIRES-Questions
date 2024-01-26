@@ -1,0 +1,18 @@
+﻿@model Question
+
+<div class="container">
+    <form asp-action="CreateQuestion" asp-controller="Question" id="formCreateQuestion">
+        <input type="text" asp-for="FormId" id="inputFormId"/>
+        <div class="col-md-3 mb-3">
+            <label asp-for="Label" class="form-label">Question :</label>
+            <input type="text" asp-for="Label" class="form-control" id="inputLabel" placeholder="Saisissez la question...">
+            <span asp-validation-for="Label" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label asp-for="Description" class="form-label">Description :</label>
+            <input type="text" asp-for="Description" class="form-control" id="inputDescription" placeholder="Saisissez la description...">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <button class="btn btn-info">Envoyer via Ajax</button>
+    </form>
+</div>
