@@ -11,9 +11,11 @@ namespace IServices
     {
         Task<Question> CreateQuestionAsync(Question question);
         Task<Question> UpdateQuestionAsync(Question question);
-        Task<bool> DeleteQuestionAsync(int id);
+        Task DeleteQuestionAsync(int id);
         Task<Question> GetQuestionByIdAsync(int id);
         Task<Question> GetQuestionByNumberAsync(int id);
         Task<List<Question>> GetAllQuestionsAsync();
+        Task<List<Question>> GetQuestionByFormIdAsync(int formId);
+
     }
 }

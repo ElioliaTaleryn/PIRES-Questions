@@ -62,11 +62,11 @@ namespace Services
             }
         }
 
-        public async Task<bool> DeleteQuestionAsync(int id)
+        public async Task DeleteQuestionAsync(int id)
         {
             if (id != null)
             {
-                return await QuestionRepository.DeleteQuestionAsync(id);
+                await QuestionRepository.DeleteQuestionAsync(id);
             }
             else throw new Exception("Aucune valeur permettant la suppression de la question");
         }
@@ -83,6 +83,14 @@ namespace Services
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
             return await QuestionRepository.GetAllQuestionsAsync();
+        }
+        public async Task<List<Question>> GetQuestionByFormIdAsync(int formId)
+        {
+            if(formId != null) 
+            {
+                return await QuestionRepository.GetQuestionByFormIdAsync(formId);
+            }
+            else throw new Exception("Aucune valeur permettant de rechercher les questions");
         }
 
         public Task<Question> GetQuestionByNumberAsync(int id)
