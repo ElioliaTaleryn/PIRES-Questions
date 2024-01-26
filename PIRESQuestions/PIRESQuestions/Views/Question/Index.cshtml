@@ -1,0 +1,8 @@
+﻿@model List<Question>
+
+<div id="divContentQuestion">
+    @if (Model != null)
+    {
+        <partial name="_showQuestions" model="Model" />
+    }
+</div>

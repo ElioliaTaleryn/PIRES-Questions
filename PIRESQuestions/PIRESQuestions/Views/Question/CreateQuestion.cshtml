@@ -1,1 +1,40 @@
-﻿<h1>TODO CREATE QUESTION</h1>
+﻿@model Form
+<h1>TODO CREATE QUESTION</h1>
+
+<partial name="_createQuestion" model="Model" />
+
+<hr />
+
+<div id="divContentQuestion">
+    @if(Model != null)
+    {
+        <partial name="_showQuestions" model="Model.Questions" />
+    }
+</div>
+
+<script>
+    $(function () {
+        $('#formCreateQuestion').submit(function (e) {
+            var question = {
+                Label: $('#inputLabel').val(),
+                FormId: $('#inputFormId').val()
+            };
+
+            console.log("question : " + question);
+
+            $.post('/Question/CreateQuestion', { question }, function (data) {
+                $('#divContentQuestion').html(data);
+            });
+            e.preventDefault();
+        });
+    });
+
+    function deleteQuestion(id, formId) {
+
+        $.get('/Question/DeleteQuestion', { id, formId }, function (data) {
+            
+            $('#divContentQuestion').html(data);
+        });
+    }
+
+</script>
