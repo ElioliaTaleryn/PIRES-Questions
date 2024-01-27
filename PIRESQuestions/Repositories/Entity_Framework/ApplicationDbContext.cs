@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Repositories.Entity_Framework
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<UserPerson>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -59,6 +59,8 @@ namespace Repositories.Entity_Framework
             UserPerson userPerson1 = new()
             {
                 Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
+                UserName = "JohnDoe",
+                Email = "john.doe@example.com",
                 DateOfBirth = new DateOnly(1991, 12, 25),
                 FirstName = "Michel",
                 LastName = "Does",
