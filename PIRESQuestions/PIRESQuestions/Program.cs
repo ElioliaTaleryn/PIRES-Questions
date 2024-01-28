@@ -1,7 +1,11 @@
 using Entities;
+using IRepositories;
+using IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
+using Repositories.Repositories;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,14 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<UserPerson>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IGenderService, GenderService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+//builder.Services.AddScoped<IUserPersonService, UserPersonService>();
+
+builder.Services.AddScoped<IGenderRepository, GenderRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+//builder.Services.AddScoped<IUserPersonRepository, UserPersonRepository>();
 
 var app = builder.Build();
 
