@@ -16,6 +16,10 @@ namespace Repositories.Repositories
             {
                 throw new CountryRepositoryException($"Country id value invalid: must be 0.");
             }
+            if (string.IsNullOrWhiteSpace(country.Name))
+            {
+                throw new CountryRepositoryException($"Country Name value invalid: null, empty or whitespace.");
+            }
             context.Countries.Add(country);
             await context.SaveChangesAsync();
             return country;
@@ -33,12 +37,20 @@ namespace Repositories.Repositories
 
         public async Task<Country> GetByIdCountryAsync(int id)
         {
-            var country = await context.Countries.FindAsync(id);
-            if (country == null)
-            {
-                throw new CountryRepositoryException($"Country Id value invalid: doesn't exists in DB.");
-            }
+            var country = await context.Countries.FindAsync(id) ?? throw new CountryRepositoryException($"Country Id value invalid: doesn't exists in DB.");
             return country;
+        }
+        public async Task<int> UpdateCountryAsync(Country country)
+        {
+            if (string.IsNullOrWhiteSpace(country.Name))
+            {
+                throw new CountryRepositoryException($"Country Name value invalid: null, empty or whitespace.");
+            }
+
+            return await context.Countries
+                .Where(g => g.Id == country.Id)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(g => g.Name, g => country.Name));
         }
     }
 }

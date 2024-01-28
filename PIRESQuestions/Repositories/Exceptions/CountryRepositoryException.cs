@@ -3,7 +3,7 @@
 namespace Repositories.Exceptions
 {
     [Serializable]
-    internal class CountryRepositoryException : Exception
+    public class CountryRepositoryException : Exception
     {
         public CountryRepositoryException()
         {
