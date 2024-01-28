@@ -12,10 +12,7 @@ namespace Repositories.Entity_Framework
             : base(options)
         {
         }
-        
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Country> Countries { get; set; }
-        public DbSet<Period> Periods { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<UserPerson> UserPersons { get; set; }
@@ -33,18 +30,11 @@ namespace Repositories.Entity_Framework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            Category category1 = new() { Id = 1, Label = "Travel" };
-            Category category2 = new() { Id = 2, Label = "Food" };
-            List<Category> categories = new List<Category>() {category1,category2};
 
             Country country1 = new() { Id = 1, Name = "France" };
             Country country2 = new() { Id = 2, Name = "Spain" };
             List<Country> countries = new List<Country>() { country1, country2 };
 
-            Period period1 = new() { Id = 1, Start = new DateTime(2024, 02, 11, 10, 50, 0), End = new DateTime(2024, 02, 20, 17, 30, 0) };
-            Period period2 = new() { Id = 2, Start = new DateTime(2024, 01, 01, 5, 30, 0), End = new DateTime(2024, 12, 31, 23, 59, 59) };
-            List<Period> periods = new List<Period>() { period1, period2 };
 
             Status status1 = new() { Id = 1, Label = "In progress" };
             Status status2 = new() { Id = 2, Label = "Validated" };
@@ -125,9 +115,7 @@ namespace Repositories.Entity_Framework
             TimerCD timerCD1 = new TimerCD() { Id = 1, CountDown=90};
             List<TimerCD> timers = new List<TimerCD>() { timerCD1};
             
-            modelBuilder.Entity<Category>().HasData(categories);
             modelBuilder.Entity<Country>().HasData(countries);
-            modelBuilder.Entity<Period>().HasData(periods);
             modelBuilder.Entity<Status>().HasData(statuses);
             modelBuilder.Entity<Gender>().HasData(genders);
             modelBuilder.Entity<UserPerson>().HasData(userPersons);

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Entities
 {
@@ -19,7 +14,7 @@ namespace Entities
 
         [Required]
         public required int QuestionId { get; set; }
-        public Question Question { get; set; }
+        public  Question Question { get; set; }
         public List<UserPerson>? UserPersons { get; set;}
         #endregion
     }
