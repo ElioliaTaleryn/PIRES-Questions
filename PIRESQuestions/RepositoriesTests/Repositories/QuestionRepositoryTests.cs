@@ -195,5 +195,29 @@ namespace Repositories.Repositories.Tests
             Assert.IsNotNull(questions);
             Assert.AreEqual(2, questions.Count());
         }
+
+        [TestMethod()]
+        public async Task CreateQuestionWithChoiceAsyncTest()
+        {
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("question");
+
+            var context = new ApplicationDbContext(builder.Options);
+            context.Database.EnsureDeleted();
+            Question question1 = new Question { Id = 1, Label = "question test 1 ?", FormId = 1 };
+            List<Choice> choices = new List<Choice>
+            {
+                new Choice { Id = 1, Label = "reponse A" , QuestionId = question1.Id},
+                new Choice {Id = 2, Label = "reponse B", QuestionId = question1.Id }
+            };
+
+            QuestionRepository questionRepository = new QuestionRepository(context);
+
+            //Act
+            var question = await questionRepository.CreateQuestionWithChoiceAsync(question1, choices);
+
+            //Assert
+            Assert.AreEqual("question test 1 ?", question.Label);
+            Assert.AreEqual(2, question.Choices.Count());
+        }
     }
 }
