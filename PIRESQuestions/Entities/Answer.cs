@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Response
+    public class Answer
     {
         #region Fields
         public int Id { get; set; }
