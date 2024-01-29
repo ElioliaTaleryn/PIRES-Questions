@@ -14,7 +14,6 @@ namespace Entities
         public int Id { get; set; }
         [Required]
         public required string Label { get; set; }
-
         public string? Description { get; set; }
         #endregion
         #region Relative Fields

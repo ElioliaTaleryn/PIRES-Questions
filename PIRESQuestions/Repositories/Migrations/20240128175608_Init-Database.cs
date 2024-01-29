@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Repositories.Migrations
 {
     /// <inheritdoc />
-    public partial class initCategories : Migration
+    public partial class InitDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,20 +26,7 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -50,11 +35,11 @@ namespace Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Gender",
+                name: "Genders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -63,25 +48,11 @@ namespace Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Gender", x => x.Id);
+                    table.PrimaryKey("PK_Genders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Period",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Start = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    End = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Period", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Status",
+                name: "Statuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -90,11 +61,11 @@ namespace Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Status", x => x.Id);
+                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TimerCD",
+                name: "Timers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -103,7 +74,7 @@ namespace Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TimerCD", x => x.Id);
+                    table.PrimaryKey("PK_Timers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -179,16 +150,15 @@ namespace Repositories.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
+                    DateOfBirth = table.Column<DateOnly>(type: "date", nullable: false),
                     GenderId = table.Column<int>(type: "int", nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: true),
                     ChoiceId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -205,14 +175,14 @@ namespace Repositories.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Country_CountryId",
+                        name: "FK_AspNetUsers_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Gender_GenderId",
+                        name: "FK_AspNetUsers_Genders_GenderId",
                         column: x => x.GenderId,
-                        principalTable: "Gender",
+                        principalTable: "Genders",
                         principalColumn: "Id");
                 });
 
@@ -237,7 +207,7 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Form",
+                name: "Forms",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -245,46 +215,33 @@ namespace Repositories.Migrations
                     Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TimerCDId = table.Column<int>(type: "int", nullable: true),
-                    PeriodId = table.Column<int>(type: "int", nullable: true),
                     StatusId = table.Column<int>(type: "int", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     UserPersonId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Form", x => x.Id);
+                    table.PrimaryKey("PK_Forms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Form_AspNetUsers_UserPersonId",
+                        name: "FK_Forms_AspNetUsers_UserPersonId",
                         column: x => x.UserPersonId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Form_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Form_Period_PeriodId",
-                        column: x => x.PeriodId,
-                        principalTable: "Period",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Form_Status_StatusId",
+                        name: "FK_Forms_Statuses_StatusId",
                         column: x => x.StatusId,
-                        principalTable: "Status",
+                        principalTable: "Statuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Form_TimerCD_TimerCDId",
+                        name: "FK_Forms_Timers_TimerCDId",
                         column: x => x.TimerCDId,
-                        principalTable: "TimerCD",
+                        principalTable: "Timers",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Question",
+                name: "Questions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -296,22 +253,22 @@ namespace Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Question", x => x.Id);
+                    table.PrimaryKey("PK_Questions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Question_Form_FormId",
+                        name: "FK_Questions_Forms_FormId",
                         column: x => x.FormId,
-                        principalTable: "Form",
+                        principalTable: "Forms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Question_TimerCD_TimerCDId",
+                        name: "FK_Questions_Timers_TimerCDId",
                         column: x => x.TimerCDId,
-                        principalTable: "TimerCD",
+                        principalTable: "Timers",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Choice",
+                name: "Choices",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -321,22 +278,13 @@ namespace Repositories.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Choice", x => x.Id);
+                    table.PrimaryKey("PK_Choices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Choice_Question_QuestionId",
+                        name: "FK_Choices_Questions_QuestionId",
                         column: x => x.QuestionId,
-                        principalTable: "Question",
+                        principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "Id", "Label" },
-                values: new object[,]
-                {
-                    { 1, "Travel" },
-                    { 2, "Food" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -382,9 +330,21 @@ namespace Repositories.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_Email",
+                table: "AspNetUsers",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_GenderId",
                 table: "AspNetUsers",
                 column: "GenderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_UserName",
+                table: "AspNetUsers",
+                column: "UserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
@@ -394,43 +354,33 @@ namespace Repositories.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Choice_QuestionId",
-                table: "Choice",
+                name: "IX_Choices_QuestionId",
+                table: "Choices",
                 column: "QuestionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Form_CategoryId",
-                table: "Form",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Form_PeriodId",
-                table: "Form",
-                column: "PeriodId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Form_StatusId",
-                table: "Form",
+                name: "IX_Forms_StatusId",
+                table: "Forms",
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Form_TimerCDId",
-                table: "Form",
+                name: "IX_Forms_TimerCDId",
+                table: "Forms",
                 column: "TimerCDId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Form_UserPersonId",
-                table: "Form",
+                name: "IX_Forms_UserPersonId",
+                table: "Forms",
                 column: "UserPersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_FormId",
-                table: "Question",
+                name: "IX_Questions_FormId",
+                table: "Questions",
                 column: "FormId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Question_TimerCDId",
-                table: "Question",
+                name: "IX_Questions_TimerCDId",
+                table: "Questions",
                 column: "TimerCDId");
 
             migrationBuilder.AddForeignKey(
@@ -458,10 +408,10 @@ namespace Repositories.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AspNetUsers_Choice_ChoiceId",
+                name: "FK_AspNetUsers_Choices_ChoiceId",
                 table: "AspNetUsers",
                 column: "ChoiceId",
-                principalTable: "Choice",
+                principalTable: "Choices",
                 principalColumn: "Id");
         }
 
@@ -469,8 +419,8 @@ namespace Repositories.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Form_AspNetUsers_UserPersonId",
-                table: "Form");
+                name: "FK_Forms_AspNetUsers_UserPersonId",
+                table: "Forms");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -494,31 +444,25 @@ namespace Repositories.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Choice");
+                name: "Choices");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Gender");
+                name: "Genders");
 
             migrationBuilder.DropTable(
-                name: "Question");
+                name: "Questions");
 
             migrationBuilder.DropTable(
-                name: "Form");
+                name: "Forms");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Statuses");
 
             migrationBuilder.DropTable(
-                name: "Period");
-
-            migrationBuilder.DropTable(
-                name: "Status");
-
-            migrationBuilder.DropTable(
-                name: "TimerCD");
+                name: "Timers");
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.Entity_Framework;
 
@@ -11,9 +12,11 @@ using Repositories.Entity_Framework;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240128180114_AddPreset_Forms")]
+    partial class AddPreset_Forms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,62 +45,6 @@ namespace Repositories.Migrations
                     b.HasIndex("QuestionId");
 
                     b.ToTable("Choices");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Label = "Yes",
-                            QuestionId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Label = "No",
-                            QuestionId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Label = "Unconcerned",
-                            QuestionId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Label = "0",
-                            QuestionId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Label = "1",
-                            QuestionId = 2
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Label = "2",
-                            QuestionId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Label = "3",
-                            QuestionId = 2
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Label = "4",
-                            QuestionId = 2
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Label = "5",
-                            QuestionId = 2
-                        });
                 });
 
             modelBuilder.Entity("Entities.Country", b =>
@@ -1197,23 +1144,6 @@ namespace Repositories.Migrations
                     b.HasIndex("TimerCDId");
 
                     b.ToTable("Questions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Choose one answer",
-                            FormId = 2,
-                            Label = "Do you like Paris ?"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Choose one answer",
-                            FormId = 2,
-                            Label = "How much?",
-                            TimerCDId = 1
-                        });
                 });
 
             modelBuilder.Entity("Entities.Status", b =>
@@ -1412,7 +1342,7 @@ namespace Repositories.Migrations
                         {
                             Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e994d681-fd0b-4e94-9813-3c4f5802b54f",
+                            ConcurrencyStamp = "6fd69289-5ed6-41f0-a960-6858bb699843",
                             CountryId = 1,
                             DateOfBirth = new DateOnly(1991, 12, 25),
                             Email = "john.doe@example.com",
@@ -1422,7 +1352,7 @@ namespace Repositories.Migrations
                             LastName = "Does",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c9ad865b-d3a1-4988-8d4c-5e4b12634a2b",
+                            SecurityStamp = "dc2b7c6e-55df-4416-9115-bd3ea3ec2489",
                             TwoFactorEnabled = false,
                             UserName = "JohnDoe"
                         });

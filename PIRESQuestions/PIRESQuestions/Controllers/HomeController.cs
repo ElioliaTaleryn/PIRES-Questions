@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using ViewModels;
+using Entities;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using ViewModels;
@@ -8,9 +10,9 @@ namespace PIRESQuestions.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<UserPerson> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<UserPerson> signInManager)
         {
             _signInManager = signInManager;
             _logger = logger;
