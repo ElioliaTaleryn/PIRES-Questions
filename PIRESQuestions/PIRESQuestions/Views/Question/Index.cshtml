@@ -1,8 +1,22 @@
 ﻿@model List<Question>
 
-<div id="divContentQuestion">
-    @if (Model != null)
-    {
-        <partial name="_showQuestions" model="Model" />
-    }
-</div>
+    @foreach(var q in Model)
+{
+    <div class="card mb-5">
+        <div class="card-body">
+            <input type="text" asp-for="@q.Id" id="inputQuestionId" />
+            <p class="card-text strong">formulaire : @q.Form.Title</p>
+            <p class="card-text">@q.Label</p>
+            <p class="card-text">description : @q.Description</p>
+            <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@q.Id, @q.FormId);" class="btn btn-danger">Supprimer Via Ajax</button>
+            <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@q.Id" class="btn btn-info">Modifier</a>
+            @* <button id="callCreateChoice" data-question-id="@q.Id" class="btn btn-info">Ajouter Choix</button> *@
+        </div>
+        @foreach (var c in q.Choices)
+        {
+            <div class="card-body">
+                <p class="card-text">@c.Label</p>
+            </div>
+        }
+    </div>
+}

@@ -1,14 +1,15 @@
-﻿@model Form
+﻿@model Question
 <h1>TODO CREATE QUESTION</h1>
 
 <partial name="_createQuestion" model="Model" />
+@* <partial name="_createChoice" model="Model" /> *@
 
 <hr />
 
 <div id="divContentQuestion">
     @if(Model != null)
     {
-        <partial name="_showQuestions" model="Model.Questions" />
+        <partial name="_showQuestions" model="Model" />
     }
 </div>
 
@@ -21,7 +22,7 @@
             };
 
             console.log("question : " + question);
-
+            
             $.post('/Question/CreateQuestion', { question }, function (data) {
                 $('#divContentQuestion').html(data);
             });
@@ -36,5 +37,4 @@
             $('#divContentQuestion').html(data);
         });
     }
-
 </script>
