@@ -3,8 +3,6 @@ using IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
 using Repositories.Exceptions;
-using System.Diagnostics.Metrics;
-using System.Reflection.Emit;
 
 namespace Repositories.Repositories
 {

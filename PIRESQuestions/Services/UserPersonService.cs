@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Entities;
+using IRepositories;
+using IServices;
 
 namespace Services
 {
-    public class UserPersonService
+    public class UserPersonService(IUserPersonRepository userRepository) : IUserPersonService
     {
+        public async Task<UserPerson> CreateUserPersonAsync(UserPerson userPerson)
+        {
+            return await userRepository.CreateUserPersonAsync(userPerson);
+        }
     }
 }
