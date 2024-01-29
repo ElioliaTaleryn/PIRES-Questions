@@ -51,12 +51,23 @@ namespace Repositories.Entity_Framework
 
         private List<Answer> AddDefaultAnwers()
         {
-            throw new NotImplementedException();
+            List<Answer> answers = new();
+
+            // ADD Datas
+
+            return answers;
         }
 
         private List<Anonymous> AddDefaultAnonymouses()
         {
-            throw new NotImplementedException();
+            List<Anonymous> anonymouses = new();
+
+            anonymouses.Add(new Anonymous() { Id = 1, Age = 18 });
+            anonymouses.Add(new Anonymous() { Id = 2, Age = 60 });
+            anonymouses.Add(new Anonymous() { Id = 3, Age = 36 });
+            anonymouses.Add(new Anonymous() { Id = 4, Age = 42 });
+
+            return anonymouses;
         }
 
         protected List<Question> AddDefaultTestQuestions()
