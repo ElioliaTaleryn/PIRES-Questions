@@ -9,7 +9,7 @@ namespace Entities
         public required string Name { get; set; }
         #endregion
         #region Relatives Fields
-        public List<UserPerson>? UserPersons { get; set; }
+        public List<Anonymous>? Anonymous { get; set; }
         #endregion
     }
 }
