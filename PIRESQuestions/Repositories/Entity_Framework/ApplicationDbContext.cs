@@ -123,8 +123,6 @@ namespace Repositories.Entity_Framework
                 UserName = "JohnDoe",
                 Email = "john.doe@example.com",
                 DateOfBirth = new DateOnly(1991, 12, 25),
-                FirstName = "Michel",
-                LastName = "Does",
             };
 
             userPersons.Add(userPerson1);
