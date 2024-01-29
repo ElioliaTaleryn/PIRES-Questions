@@ -112,8 +112,6 @@ namespace Repositories.Entity_Framework
                 PasswordHash = "AQAAAAIAAYagAAAAEEtM0G8yJiz5QPiNu4bkpQyhQcMtPWB0EkxiCNV2IGqjriKU7WLoDwvBr6uCjH1+Fg==",
                 FirstName = "Michel",
                 LastName = "Does",
-                GenderId = 2,
-                CountryId = 1,
                 SecurityStamp = "2EKLCF5HV2AN7DRFWTAEU5A5MCQ2OOYX",
                 ConcurrencyStamp = "514a216a-0c07-4ca1-bae7-25b389afc715",
                 AccessFailedCount = 0
@@ -127,8 +125,6 @@ namespace Repositories.Entity_Framework
                 DateOfBirth = new DateOnly(1991, 12, 25),
                 FirstName = "Michel",
                 LastName = "Does",
-                GenderId = 2,
-                CountryId = 1
             };
 
             userPersons.Add(userPerson1);
