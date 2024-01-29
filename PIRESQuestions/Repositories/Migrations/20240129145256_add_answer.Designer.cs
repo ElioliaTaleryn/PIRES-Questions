@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.Entity_Framework;
 
@@ -11,9 +12,11 @@ using Repositories.Entity_Framework;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240129145256_add_answer")]
+    partial class add_answer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,44 +33,9 @@ namespace Repositories.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("GenderId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("GenderId");
-
-                    b.ToTable("Anonymouses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 18
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 60
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 36
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Age = 42
-                        });
+                    b.ToTable("Anonymous");
                 });
 
             modelBuilder.Entity("Entities.Answer", b =>
@@ -1400,6 +1368,9 @@ namespace Repositories.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<int?>("GenderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -1447,6 +1418,8 @@ namespace Repositories.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("GenderId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -1466,10 +1439,12 @@ namespace Repositories.Migrations
                             Id = "951173f4-7557-4cde-b839-1ac488b30f9f",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "514a216a-0c07-4ca1-bae7-25b389afc715",
+                            CountryId = 1,
                             DateOfBirth = new DateOnly(1991, 12, 25),
                             Email = "example@example.com",
                             EmailConfirmed = true,
                             FirstName = "Michel",
+                            GenderId = 2,
                             LastName = "Does",
                             LockoutEnabled = false,
                             NormalizedEmail = "EXAMPLE@EXAMPLE.COM",
@@ -1484,13 +1459,17 @@ namespace Repositories.Migrations
                         {
                             Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce3e6bf0-1a0b-4f5b-8822-9165d907c101",
+                            ConcurrencyStamp = "9aac156b-50d9-4de6-97b4-49dff7079779",
+                            CountryId = 1,
                             DateOfBirth = new DateOnly(1991, 12, 25),
                             Email = "john.doe@example.com",
                             EmailConfirmed = false,
+                            FirstName = "Michel",
+                            GenderId = 2,
+                            LastName = "Does",
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a4dd2916-9b82-4c60-b552-e7fe605b2fcf",
+                            SecurityStamp = "ea545996-af8a-4289-8a9b-799b05ecaf4f",
                             TwoFactorEnabled = false,
                             UserName = "JohnDoe"
                         });
@@ -1633,21 +1612,6 @@ namespace Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.Anonymous", b =>
-                {
-                    b.HasOne("Entities.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("Entities.Gender", "Gender")
-                        .WithMany("Anonymous")
-                        .HasForeignKey("GenderId");
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Gender");
-                });
-
             modelBuilder.Entity("Entities.Answer", b =>
                 {
                     b.HasOne("Entities.Anonymous", "Anonymous")
@@ -1732,9 +1696,17 @@ namespace Repositories.Migrations
                         .WithMany("UserPersons")
                         .HasForeignKey("ChoiceId");
 
-                    b.HasOne("Entities.Country", null)
+                    b.HasOne("Entities.Country", "Country")
                         .WithMany("UserPersons")
                         .HasForeignKey("CountryId");
+
+                    b.HasOne("Entities.Gender", "Gender")
+                        .WithMany("UserPersons")
+                        .HasForeignKey("GenderId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("Gender");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1805,7 +1777,7 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Entities.Gender", b =>
                 {
-                    b.Navigation("Anonymous");
+                    b.Navigation("UserPersons");
                 });
 
             modelBuilder.Entity("Entities.Question", b =>
