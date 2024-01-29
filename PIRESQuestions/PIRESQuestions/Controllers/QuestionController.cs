@@ -8,15 +8,15 @@ namespace PIRESQuestions.Controllers
 {
     public class QuestionController : Controller
     {
-        IQuestionService QuestionService { get; }
+        IQuestionService _questionService;
         public QuestionController(IQuestionService questionService)
         {
-            QuestionService = questionService;
+            _questionService = questionService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var questions = await QuestionService.GetAllQuestionsAsync();
+            var questions = await _questionService.GetAllQuestionsAsync();
             return View(questions);
         }
 
@@ -37,16 +37,34 @@ namespace PIRESQuestions.Controllers
             }
             else
             {
-                question = await QuestionService.CreateQuestionAsync(question);
-                var questionCreate = await QuestionService.GetQuestionByFormIdAsync(question.FormId);
-                return PartialView("_showQuestions", questionCreate);
+                question = await _questionService.CreateQuestionAsync(question);
+                var questionCreate = await _questionService.GetQuestionByIdAsync(question.Id);
+                return PartialView("_showQuestion", questionCreate);
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateQuestionWithChoiceAsync(Question question)
+        {
+            if (!ModelState.IsValid && string.IsNullOrEmpty(question.Label) && question.FormId == null && question.Choices.Any(choice => string.IsNullOrEmpty(choice.Label)))
+            {
+                ModelState.AddModelError("Label", "Le champ Label est obligatoire.");
+                ModelState.AddModelError("FormId", "La question doit appartenir à un formulaire");
+                ModelState.AddModelError("Choices", "Le libellé du choix de réponse est obligatoire");
+
+                return View(question);
+            }
+            else
+            {
+                question = await _questionService.CreateQuestionWithChoiceAsync(question);
+                var questionCreate = await _questionService.GetQuestionByIdAsync(question.Id);
+                return PartialView("_showQuestion", questionCreate);
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateQuestion(int id)
         {
-            return View(await QuestionService.GetQuestionByIdAsync(id));
+            return View(await _questionService.GetQuestionByIdAsync(id));
         }
         [HttpPost]
         public async Task<IActionResult> UpdateQuestion(Question question)
@@ -60,7 +78,7 @@ namespace PIRESQuestions.Controllers
             }
             else 
             {
-                await QuestionService.UpdateQuestionAsync(question);
+                await _questionService.UpdateQuestionAsync(question);
                 return RedirectToAction("Index");
             }            
         }
@@ -68,10 +86,9 @@ namespace PIRESQuestions.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteQuestion(int id, int formId) 
         {
-            await QuestionService.DeleteQuestionAsync(id);
-            var question = await QuestionService.GetQuestionByFormIdAsync(formId);
-            return PartialView("_showQuestions", question);
-        }
-        
+            await _questionService.DeleteQuestionAsync(id);
+            var question = await _questionService.GetQuestionByFormIdAsync(formId);
+            return PartialView("_showQuestion", question);
+        }       
     }
 }
