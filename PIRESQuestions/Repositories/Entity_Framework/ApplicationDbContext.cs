@@ -19,6 +19,8 @@ namespace Repositories.Entity_Framework
         public DbSet<Form> Forms { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Choice> Choices { get; set; }
+        public DbSet<Anonymous> Anonymouses { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +32,8 @@ namespace Repositories.Entity_Framework
             List<Form> forms = AddDefaultTestForms();
             List<Question> questions = AddDefaultTestQuestions();
             List<Choice> choices = AddPresetChoices();
+            List<Anonymous> anonymouses = AddDefaultAnonymouses();
+            List<Answer> answers = AddDefaultAnwers();
 
             builder.Entity<Country>().HasData(countries);
             builder.Entity<Gender>().HasData(genders);
@@ -39,8 +43,20 @@ namespace Repositories.Entity_Framework
             builder.Entity<Form>().HasData(forms);
             builder.Entity<Question>().HasData(questions);
             builder.Entity<Choice>().HasData(choices);
+            builder.Entity<Anonymous>().HasData(anonymouses);
+            builder.Entity<Answer>().HasData(answers);
 
             base.OnModelCreating(builder);
+        }
+
+        private List<Answer> AddDefaultAnwers()
+        {
+            throw new NotImplementedException();
+        }
+
+        private List<Anonymous> AddDefaultAnonymouses()
+        {
+            throw new NotImplementedException();
         }
 
         protected List<Question> AddDefaultTestQuestions()
