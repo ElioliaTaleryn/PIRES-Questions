@@ -42,24 +42,24 @@ namespace PIRESQuestions.Controllers
                 return PartialView("_showQuestion", questionCreate);
             }
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateQuestionWithChoiceAsync(Question question)
-        {
-            if (!ModelState.IsValid && string.IsNullOrEmpty(question.Label) && question.FormId == null && question.Choices.Any(choice => string.IsNullOrEmpty(choice.Label)))
-            {
-                ModelState.AddModelError("Label", "Le champ Label est obligatoire.");
-                ModelState.AddModelError("FormId", "La question doit appartenir à un formulaire");
-                ModelState.AddModelError("Choices", "Le libellé du choix de réponse est obligatoire");
+        //[HttpPost]
+        //public async Task<IActionResult> CreateQuestionWithChoiceAsync(Question question)
+        //{
+        //    if (!ModelState.IsValid && string.IsNullOrEmpty(question.Label) && question.FormId == null && question.Choices.Any(choice => string.IsNullOrEmpty(choice.Label)))
+        //    {
+        //        ModelState.AddModelError("Label", "Le champ Label est obligatoire.");
+        //        ModelState.AddModelError("FormId", "La question doit appartenir à un formulaire");
+        //        ModelState.AddModelError("Choices", "Le libellé du choix de réponse est obligatoire");
 
-                return View(question);
-            }
-            else
-            {
-                question = await _questionService.CreateQuestionWithChoiceAsync(question);
-                var questionCreate = await _questionService.GetQuestionByIdAsync(question.Id);
-                return PartialView("_showQuestion", questionCreate);
-            }
-        }
+        //        return View(question);
+        //    }
+        //    else
+        //    {
+        //        question = await _questionService.CreateQuestionWithChoiceAsync(question);
+        //        var questionCreate = await _questionService.GetQuestionByIdAsync(question.Id);
+        //        return PartialView("_showQuestion", questionCreate);
+        //    }
+        //}
 
         [HttpGet]
         public async Task<IActionResult> UpdateQuestion(int id)

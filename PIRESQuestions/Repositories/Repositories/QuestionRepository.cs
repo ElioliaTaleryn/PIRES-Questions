@@ -25,20 +25,20 @@ namespace Repositories.Repositories
             await _appContext.SaveChangesAsync();
             return question;
         }
-        public async Task<Question> CreateQuestionWithChoiceAsync(Question question)
-        {
-            _appContext.Questions.Add(question);
-            await _appContext.SaveChangesAsync();
+        //public async Task<Question> CreateQuestionWithChoiceAsync(Question question)
+        //{
+        //    _appContext.Questions.Add(question);
+        //    await _appContext.SaveChangesAsync();
 
-            int questionId = question.Id;
-            foreach (var c in question.Choices) 
-            { 
-                c.QuestionId = questionId;
-                _appContext.Choices.Add(c);
-            }
-            await _appContext.SaveChangesAsync();
-            return question;
-        }
+        //    int questionId = question.Id;
+        //    foreach (var c in question.Choices) 
+        //    { 
+        //        c.QuestionId = questionId;
+        //        _appContext.Choices.Add(c);
+        //    }
+        //    await _appContext.SaveChangesAsync();
+        //    return question;
+        //}
 
         public async Task<List<Question>> GetAllQuestionsAsync()
         {

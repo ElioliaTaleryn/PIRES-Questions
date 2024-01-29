@@ -10,7 +10,7 @@ namespace IServices
     public interface IQuestionService
     {
         Task<Question> CreateQuestionAsync(Question question);
-        Task<Question> CreateQuestionWithChoiceAsync(Question question);
+        //Task<Question> CreateQuestionWithChoiceAsync(Question question);
         Task<Question> UpdateQuestionAsync(Question question);
         Task DeleteQuestionAsync(int id);
         Task<Question> GetQuestionByIdAsync(int id);
