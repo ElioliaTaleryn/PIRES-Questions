@@ -19,9 +19,9 @@ namespace Repositories.Repositories
             {
                 throw new AnonymousRepositoryException($"Anonymous id value invalid: must be 0.");
             }
-            if (anonymous.Age == int.MinValue || anonymous.Age < 0)
+            if (anonymous.Age == int.MinValue || (anonymous.Age < 0 || anonymous.Age > 125))
             {
-                throw new AnonymousRepositoryException($"Anonymous Age value invalid: must be higher than 0.");
+                throw new AnonymousRepositoryException($"Anonymous Age value invalid: must be higher than 0 and lower than 125.");
             }
             _context.Anonymouses.Add(anonymous);
             await _context.SaveChangesAsync();
@@ -39,18 +39,6 @@ namespace Repositories.Repositories
         public async Task<bool> DeleteAnonymousAsync(Anonymous anonymous)
         {
             return await _context.Anonymouses.Where(a => a.Id == anonymous.Id).ExecuteDeleteAsync() == 1;
-        }
-        public async Task<int> UpdateAnonymousAsync(Anonymous anonymous)
-        {
-            if (anonymous.Age == int.MinValue || anonymous.Age < 0)
-            {
-                throw new GenderRepositoryException($"Anonymous Age value invalid: must be higher than 0.");
-            }
-
-            return await _context.Anonymouses
-                .Where(a => a.Id == anonymous.Id)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(a => a.Age, a => anonymous.Age));
         }
     }
 }

@@ -13,6 +13,5 @@ namespace IServices
         Task<Anonymous> GetByIdAnonymousAsync(int id);
         Task<IEnumerable<Anonymous>> GetAllAnonymousesAsync();
         Task<bool> DeleteAnonymousAsync(Anonymous anonymous);
-        Task<int> UpdateAnonymousAsync(Anonymous anonymous);
     }
 }

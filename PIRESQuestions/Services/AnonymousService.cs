@@ -28,9 +28,5 @@ namespace Services
         {
             return await anonymousRepository.GetByIdAnonymousAsync(id);
         }
-        public async Task<int> UpdateAnonymousAsync(Anonymous anonymous)
-        {
-            return await anonymousRepository.UpdateAnonymousAsync(anonymous);
-        }
     }
 }
