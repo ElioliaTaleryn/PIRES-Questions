@@ -3,7 +3,7 @@
 namespace Repositories.Exceptions
 {
     [Serializable]
-    internal class AnonymousRepositoryException : Exception
+    public class AnonymousRepositoryException : Exception
     {
         public AnonymousRepositoryException()
         {
