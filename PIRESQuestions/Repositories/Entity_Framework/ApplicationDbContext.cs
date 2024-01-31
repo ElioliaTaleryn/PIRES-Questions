@@ -21,6 +21,7 @@ namespace Repositories.Entity_Framework
         public DbSet<Choice> Choices { get; set; }
         public DbSet<Anonymous> Anonymouses { get; set; }
         public DbSet<Answer> Answers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             List<Country> countries = AddAllONUCountries();

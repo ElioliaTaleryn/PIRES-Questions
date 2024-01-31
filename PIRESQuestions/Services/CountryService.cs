@@ -2,18 +2,16 @@
 using IRepositories;
 using IServices;
 using Repositories.Entity_Framework;
+using Repositories.Repositories;
 using Services.Exceptions;
+using System.Reflection;
 
 namespace Services
 {
-    public class CountryService(ICountryRepository countryRepository, ApplicationDbContext context) : ICountryService
+    public class CountryService(ICountryRepository countryRepository) : ICountryService
     {
         public async Task<Country> CreateCountryAsync(Country country)
         {
-            if (!context.Countries.Contains(country))
-            {
-                throw new CountryServiceException($"Country name value invalid: doesn't exists in DB.");
-            }
             return await countryRepository.CreateCountryAsync(country);
         }
 
@@ -30,6 +28,11 @@ namespace Services
         public async Task<Country> GetByIdCountryAsync(int id)
         {
             return await countryRepository.GetByIdCountryAsync(id);
+        }
+
+        public async Task<int> UpdateCountryAsync(Country country)
+        {
+            return await countryRepository.UpdateCountryAsync(country);
         }
     }
 }

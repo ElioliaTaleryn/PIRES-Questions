@@ -19,6 +19,13 @@ builder.Services.AddDefaultIdentity<UserPerson>(options => options.SignIn.Requir
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IGenderService, GenderService>();
+builder.Services.AddScoped<ICountryService, CountryService>();
+//builder.Services.AddScoped<IUserPersonService, UserPersonService>();
+
+builder.Services.AddScoped<IGenderRepository, GenderRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+//builder.Services.AddScoped<IUserPersonRepository, UserPersonRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 

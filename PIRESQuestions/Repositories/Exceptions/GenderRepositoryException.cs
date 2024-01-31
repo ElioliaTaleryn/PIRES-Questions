@@ -3,7 +3,7 @@
 namespace Repositories.Exceptions
 {
     [Serializable]
-    internal class GenderRepositoryException : Exception
+    public class GenderRepositoryException : Exception
     {
         public GenderRepositoryException()
         {

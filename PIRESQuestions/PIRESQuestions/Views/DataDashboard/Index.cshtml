@@ -1,0 +1,57 @@
+﻿<h2>Data Dashboard</h2>
+@* <h3>User Person</h3>
+
+<ul class="btn-group list-unstyled">
+    <li><button class="btn btn-success m-2" type="button" onclick="CreateUserPersonFormDisplay()">Create</button></li>
+    <li><button class="btn btn-info m-2" type="button" onclick="ReadUserPersonFormDisplay()">Read</button></li>
+    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllUserPersonFormDisplay()">Read All</button></li>
+    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateUserPersonFormDisplay()">Update</button></li>
+    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteUserPersonFormDisplay()">Delete</button></li>
+</ul> *@
+
+<h3>Countries</h3>
+
+<ul class="btn-group list-unstyled">
+    <li><button class="btn btn-success m-2" type="button" onclick="CreateCountryFormDisplay()">Create</button></li>
+    <li><button class="btn btn-info m-2" type="button" onclick="ReadCountryFormDisplay()">Read</button></li>
+    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllCountryFormDisplay()">Read All</button></li>
+    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateCountryFormDisplay()">Update</button></li>
+    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteCountryFormDisplay()">Delete</button></li>
+</ul>
+
+<div id="CountriesFormDiv"></div>
+
+<h3>Genders</h3>
+
+<ul class="btn-group list-unstyled">
+    <li><button class="btn btn-success m-2" type="button" onclick="CreateGenderFormDisplay()">Create</button></li>
+    <li><button class="btn btn-info m-2" type="button" onclick="ReadGenderFormDisplay()">Read</button></li>
+    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllGenderFormDisplay()">Read All</button></li>
+    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateGenderFormDisplay()">Update</button></li>
+    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteGenderFormDisplay()">Delete</button></li>
+</ul>
+
+<script type="text/javascript">
+    const countriesFormDiv = document.querySelector("#CountriesFormDiv");
+    
+    function CreateCountryFormDisplay() {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/DataDashboard/CreateCountryAsync");
+
+        var nameInput = document.createElement("input");
+        nameInput.setAttribute("type", "text");
+        nameInput.setAttribute("name", "Name");
+        nameInput.setAttribute("placeholder", "Country name");
+
+        var submitButton = document.createElement("button");
+        submitButton.setAttribute("class", "btn btn-secondary");
+        submitButton.setAttribute("type", "submit")
+        submitButton.textContent = "Submit";
+
+        form.appendChild(nameInput);
+        form.appendChild(submitButton);
+        
+        countriesFormDiv.appendChild(form);
+    }
+</script>

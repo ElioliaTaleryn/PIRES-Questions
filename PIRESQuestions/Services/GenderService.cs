@@ -6,14 +6,10 @@ using Services.Exceptions;
 
 namespace Services
 {
-    public class GenderService(ApplicationDbContext context, IGenderRepository genderRepository) : IGenderService
+    public class GenderService(IGenderRepository genderRepository) : IGenderService
     {
         public async Task<Gender> CreateGenderAsync(Gender gender)
         {
-            if (!context.Genders.Contains(gender))
-            {
-                throw new GenderServiceException($"Gender label value invalid: doesn't exists in DB.");
-            }
             return await genderRepository.CreateGenderAsync(gender);
         }
 
@@ -30,6 +26,11 @@ namespace Services
         public async Task<Gender> GetByIdGenderAsync(int id)
         {
             return await genderRepository.GetByIdGenderAsync(id);
+        }
+
+        public async Task<int> UpdateGenderAsync(Gender gender)
+        {
+            return await genderRepository.UpdateGenderAsync(gender);
         }
     }
 }

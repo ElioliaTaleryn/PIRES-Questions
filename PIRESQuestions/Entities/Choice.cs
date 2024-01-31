@@ -14,7 +14,7 @@ namespace Entities
 
         public int? QuestionId { get; set; }
         public Question Question { get; set; }
-        public List<UserPerson>? UserPersons { get; set;}
+        public List<UserPerson>? UserPersons { get; set; }
         #endregion
     }
 }
