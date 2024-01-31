@@ -1,0 +1,25 @@
+﻿@model Question
+
+<div class="container">
+    <div class="card mb-5">
+        <h5 class="card-header">Modification de la question</h5>
+        <div class="card-body">
+            <form asp-action="UpdateQuestion" asp-controller="Question">
+                <input asp-for="Id" type="hidden" id="inputId" />
+                <input asp-for="FormId" type="hidden" id="inputFormId" />
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Label" class="form-label">Question :</label>
+                    <input type="text" asp-for="Label" class="form-control" id="inputLabel" />
+                    <span asp-validation-for="Label" class="text-danger"></span>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label asp-for="Description" class="form-label">Description :</label>
+                    <input type="text" asp-for="Description" class="form-control" id="inputDescription">
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-info">Envoyer</button>
+                <a asp-controller="Question" asp-action="Index" class="btn btn-info">Annuler</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@model Choice
+
+<partial name="_createChoice" model="Model" />
+
+<hr/>
+<div id="divContentChoice">
+    @if (Model != null)
+    {
+        <partial name="_showChoice" model="Model" />
+    }
+</div>
+
+
+<script>
+    $(function () {
+        $('#formCreateChoice').submit(function (e) {
+            
+            var choice = {
+                Label: $('#inputLabel').val(),
+                QuestionId: $('#inputQuestionId').val()
+            }; 
+            console.log("choix: " + choice.Label + choice.QuestionId);
+            
+            $.post('/Choice/CreateChoice', { choice }, function (data) {
+                $('#divContentChoice').html(data);
+            });
+            e.preventDefault();
+        });
+    });
+</script>
