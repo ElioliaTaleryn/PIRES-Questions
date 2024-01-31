@@ -60,7 +60,7 @@ namespace Repositories.Repositories
             else throw new Exception($"Aucune question trouvé avec l'id {id} ");
         }
 
-        public async Task DeleteQuestionAsync(int id)
+    public async Task DeleteQuestionAsync(int id)
         {
             var question = _appContext.Questions.Include(q => q.Choices).SingleOrDefault(q => q.Id == id);
             if (question != null)
@@ -70,7 +70,7 @@ namespace Repositories.Repositories
                 _appContext.Questions.Remove(question);
 
                 await _appContext.SaveChangesAsync();
-                
+
             }
             else throw new Exception("Echec de la suppression");
         }

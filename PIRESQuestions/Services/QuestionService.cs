@@ -61,7 +61,7 @@ namespace Services
 
         public async Task DeleteQuestionAsync(int id)
         {
-            if (id != null)
+            if (id > 0 )
             {
                 await _questionRepository.DeleteQuestionAsync(id);
             }
@@ -72,7 +72,7 @@ namespace Services
         {
             if (id != null)
             {
-                return await _questionRepository.GetQuestionByIdAsync(id);
+               return await _questionRepository.GetQuestionByIdAsync(id);
             }
             else throw new Exception("Aucune valeur permettant de rechercher la question");
         }

@@ -3,15 +3,18 @@ using IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.IdentityModel.Abstractions;
+using Services;
 
 namespace PIRESQuestions.Controllers
 {
     public class QuestionController : Controller
     {
         IQuestionService _questionService;
-        public QuestionController(IQuestionService questionService)
+        IChoiceService _choiceService;
+        public QuestionController(IQuestionService questionService, IChoiceService choiceService)
         {
             _questionService = questionService;
+            _choiceService = choiceService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
@@ -23,6 +26,8 @@ namespace PIRESQuestions.Controllers
         [HttpGet]
         public async Task<IActionResult> CreateQuestion()
         {
+            var choixPossibles = await _choiceService.GetAllChoicesAsync();
+            ViewBag.ChoixPossibles = choixPossibles;
             return View();
         }
         [HttpPost]

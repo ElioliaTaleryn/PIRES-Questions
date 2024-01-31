@@ -93,12 +93,11 @@ namespace Repositories.Repositories.Tests
             QuestionRepository questionRepository = new QuestionRepository(context);
 
             //Act
-            await questionRepository.DeleteQuestionAsync(4);
+           await questionRepository.DeleteQuestionAsync(3);
+           var questionDeleted = await context.Questions.FindAsync(3);
 
-            //Assert
-            var questionDeleted = await context.Questions.FindAsync(4);
+            //Assert             
             Assert.IsNull(questionDeleted);
-
         }
 
         [TestMethod()]
