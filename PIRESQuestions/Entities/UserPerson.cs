@@ -23,10 +23,6 @@ namespace Entities
         #endregion
         #region Relatives Fields
         public List<Form>? Forms { get; set; }
-        public int? GenderId { get; set; }
-        public Gender? Gender {  get; set; } 
-        public int? CountryId { get; set; }
-        public Country? Country { get; set; }
-        #endregion
+        #endregion 
     }
 }

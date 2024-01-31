@@ -11,6 +11,7 @@
     <ProjectReference Include="..\IRepositories\IRepositories.csproj" />
     <ProjectReference Include="..\IServices\IServices.csproj" />
     <ProjectReference Include="..\Repositories\Repositories.csproj" />
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

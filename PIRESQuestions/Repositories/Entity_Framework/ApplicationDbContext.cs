@@ -19,7 +19,8 @@ namespace Repositories.Entity_Framework
         public DbSet<Form> Forms { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Choice> Choices { get; set; }
-
+        public DbSet<Anonymous> Anonymouses { get; set; }
+        public DbSet<Answer> Answers { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             List<Country> countries = AddAllONUCountries();
@@ -30,6 +31,8 @@ namespace Repositories.Entity_Framework
             List<Form> forms = AddDefaultTestForms();
             List<Question> questions = AddDefaultTestQuestions();
             List<Choice> choices = AddPresetChoices();
+            List<Anonymous> anonymouses = AddDefaultAnonymouses();
+            List<Answer> answers = AddDefaultAnwers();
 
             builder.Entity<Country>().HasData(countries);
             builder.Entity<Gender>().HasData(genders);
@@ -39,8 +42,31 @@ namespace Repositories.Entity_Framework
             builder.Entity<Form>().HasData(forms);
             builder.Entity<Question>().HasData(questions);
             builder.Entity<Choice>().HasData(choices);
+            builder.Entity<Anonymous>().HasData(anonymouses);
+            builder.Entity<Answer>().HasData(answers);
 
             base.OnModelCreating(builder);
+        }
+
+        private List<Answer> AddDefaultAnwers()
+        {
+            List<Answer> answers = new();
+
+            // ADD Datas
+
+            return answers;
+        }
+
+        private List<Anonymous> AddDefaultAnonymouses()
+        {
+            List<Anonymous> anonymouses = new();
+
+            anonymouses.Add(new Anonymous() { Id = 1, Age = 18 });
+            anonymouses.Add(new Anonymous() { Id = 2, Age = 60 });
+            anonymouses.Add(new Anonymous() { Id = 3, Age = 36 });
+            anonymouses.Add(new Anonymous() { Id = 4, Age = 42 });
+
+            return anonymouses;
         }
 
         protected List<Question> AddDefaultTestQuestions()
@@ -112,8 +138,6 @@ namespace Repositories.Entity_Framework
                 PasswordHash = "AQAAAAIAAYagAAAAEEtM0G8yJiz5QPiNu4bkpQyhQcMtPWB0EkxiCNV2IGqjriKU7WLoDwvBr6uCjH1+Fg==",
                 FirstName = "Michel",
                 LastName = "Does",
-                GenderId = 2,
-                CountryId = 1,
                 SecurityStamp = "2EKLCF5HV2AN7DRFWTAEU5A5MCQ2OOYX",
                 ConcurrencyStamp = "514a216a-0c07-4ca1-bae7-25b389afc715",
                 AccessFailedCount = 0
@@ -125,10 +149,6 @@ namespace Repositories.Entity_Framework
                 UserName = "JohnDoe",
                 Email = "john.doe@example.com",
                 DateOfBirth = new DateOnly(1991, 12, 25),
-                FirstName = "Michel",
-                LastName = "Does",
-                GenderId = 2,
-                CountryId = 1
             };
 
             userPersons.Add(userPerson1);

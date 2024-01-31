@@ -12,9 +12,8 @@ namespace Entities
         #endregion
         #region Relative Fields
 
-        [Required]
-        public required int QuestionId { get; set; }
-        public  Question Question { get; set; }
+        public int? QuestionId { get; set; }
+        public Question Question { get; set; }
         public List<UserPerson>? UserPersons { get; set;}
         #endregion
     }

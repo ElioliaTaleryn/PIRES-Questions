@@ -1,0 +1,27 @@
+﻿@model List<Choice>
+
+<div class="container">
+    <form asp-action="Create">
+        <div class="form-group">
+            <label for="options">Choisissez une option :</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="oui" name="option" value="oui">
+                <label class="form-check-label" for="oui">Oui</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="non" name="option" value="non">
+                <label class="form-check-label" for="non">Non</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="indifferent" name="option" value="indifferent">
+                <label class="form-check-label" for="indifferent">Indifférent</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="autre" name="option" value="autre">
+                <label class="form-check-label" for="autre">Autre</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
+    </form>
+</div>
+
