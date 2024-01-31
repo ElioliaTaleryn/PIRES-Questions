@@ -1,7 +1,11 @@
 using Entities;
+using IRepositories;
+using IServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Entity_Framework;
+using Repositories.Repositories;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,18 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<UserPerson>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+
+builder.Services.AddScoped<IChoiceRepository, ChoiceRepository>();
+builder.Services.AddScoped<IChoiceService, ChoiceService>();
+
+builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
+
+builder.Services.AddScoped<ITimerCDService, TimerCDService>();
+builder.Services.AddScoped<ITimerCDService, TimerCDService>();
 
 var app = builder.Build();
 
