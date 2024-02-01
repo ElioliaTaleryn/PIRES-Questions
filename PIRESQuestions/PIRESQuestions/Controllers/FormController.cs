@@ -75,7 +75,7 @@ namespace PIRESQuestions.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> AddQuestion(int id) {
+        public IActionResult AddQuestion(int id) {
             var model = new AddQuestionToForm() { IdForm = id, QuestionId=0};
             return View(model);
         }
@@ -89,6 +89,30 @@ namespace PIRESQuestions.Controllers
 
             int ajout = await _formService.UpdateFormAsync(form);
             var ajout2 = await _questionService.UpdateQuestionAsync(question);
+            return RedirectToAction("Detail", new { Id = form.Id });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Validate(int id) {
+            Form form = await _formService.GetByIdFormAsync(id);
+            if (form.StatusId == 1)
+            {
+                form.StatusId = 2;
+            }
+            await _formService.UpdateFormAsync(form);
+            return RedirectToAction("Detail", new { Id = form.Id });
+        }
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Close(int id)
+        {
+            Form form = await _formService.GetByIdFormAsync(id);
+            if (form.StatusId == 2)
+            {
+                form.StatusId = 3;
+            }
+            await _formService.UpdateFormAsync(form);
             return RedirectToAction("Detail", new { Id = form.Id });
         }
 

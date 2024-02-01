@@ -1,6 +1,6 @@
 ﻿@model Form
 
-<form asp-action="Edit">
+<form asp-action="Edit" method="post">
     <div class="form-groupe">
         <input type="hidden" asp-for="Id" class="form-control" />
 
@@ -12,11 +12,21 @@
         <label asp-for="Title">Title</label>
         <input type="text" asp-for="Title" class="form-control" placeholder="Entrez le titre" />
         <span asp-validation-for="Title" class="text-danger"></span>
-
+        <!--
         <label asp-for="StatusId">Status: 1: In Progress; 2: Validated; 3: CLosed</label>
         <input type="number" asp-for="StatusId" class="form-control" placeholder="Entrez le status" value="1" />
         <span asp-validation-for="StatusId" class="text-danger"></span>
-
+        -->
+        @{
+            if (Model.StatusId == 1)
+            {
+                <a type="submit" asp-action="Validate" asp-controller="Form" asp-route-Id="@Model.Id" method="post" class="btn btn-primary">Validate</a>
+            }
+            if (Model.StatusId == 2)
+            {
+                <a type="submit" asp-action="Close" asp-controller="Form" asp-route-Id=" @Model.Id" method="post" class="btn btn-primary">Close</a>
+            }
+        }
 
         <input type="hidden" asp-for="UserPersonId" class="form-control" placeholder="Entrez votre Id" value="@Model.UserPersonId" />
 
