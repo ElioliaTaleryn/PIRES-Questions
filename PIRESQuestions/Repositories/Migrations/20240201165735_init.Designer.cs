@@ -12,7 +12,7 @@ using Repositories.Entity_Framework;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240201133816_init")]
+    [Migration("20240201165735_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -1483,13 +1483,13 @@ namespace Repositories.Migrations
                         {
                             Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e9ea9c5d-12a1-4c07-b6c9-42da38d5ca8a",
+                            ConcurrencyStamp = "32460c76-64a1-4418-8e25-b74bcea60a2d",
                             DateOfBirth = new DateOnly(1991, 12, 25),
                             Email = "john.doe@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e141c959-ec7e-4dae-968b-97ea71a176a7",
+                            SecurityStamp = "eaee3de4-249f-4fb8-9848-ae70c17500c1",
                             TwoFactorEnabled = false,
                             UserName = "JohnDoe"
                         });

@@ -393,7 +393,7 @@ namespace Repositories.Migrations
                 values: new object[,]
                 {
                     { "951173f4-7557-4cde-b839-1ac488b30f9f", 0, null, "514a216a-0c07-4ca1-bae7-25b389afc715", new DateOnly(1991, 12, 25), "example@example.com", true, "Michel", "Does", false, null, "EXAMPLE@EXAMPLE.COM", "EXAMPLE@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEtM0G8yJiz5QPiNu4bkpQyhQcMtPWB0EkxiCNV2IGqjriKU7WLoDwvBr6uCjH1+Fg==", null, false, "2EKLCF5HV2AN7DRFWTAEU5A5MCQ2OOYX", false, "example@example.com" },
-                    { "981173f4-7557-4cde-b839-1ac488b30f9f", 0, null, "e9ea9c5d-12a1-4c07-b6c9-42da38d5ca8a", new DateOnly(1991, 12, 25), "john.doe@example.com", false, null, null, false, null, null, null, null, null, false, "e141c959-ec7e-4dae-968b-97ea71a176a7", false, "JohnDoe" }
+                    { "981173f4-7557-4cde-b839-1ac488b30f9f", 0, null, "32460c76-64a1-4418-8e25-b74bcea60a2d", new DateOnly(1991, 12, 25), "john.doe@example.com", false, null, null, false, null, null, null, null, null, false, "eaee3de4-249f-4fb8-9848-ae70c17500c1", false, "JohnDoe" }
                 });
 
             migrationBuilder.InsertData(

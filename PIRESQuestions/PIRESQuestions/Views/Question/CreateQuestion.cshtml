@@ -42,12 +42,4 @@
             e.preventDefault();
         });
     });
-
-    function deleteQuestion(id, formId) {
-
-        $.get('/Question/DeleteQuestion', { id, formId }, function (data) {
-            
-            $('#divContentQuestion').html(data);
-        });
-    }
 </script>

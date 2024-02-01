@@ -57,11 +57,6 @@ namespace PIRESQuestions.Controllers
             {
                 var question = await _questionService.GetQuestionByIdAsync(id);
                 
-                //var model = new UpdateQuestionViewModel
-                //{
-                //    Question = question,
-                //    Choices = question.Choices
-                //};
                 return View(question);
             }
             else return RedirectToAction("Index");
@@ -91,9 +86,9 @@ namespace PIRESQuestions.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteQuestion(int id, int formId) 
         {
-            await _questionService.DeleteQuestionAsync(id);
-            var question = await _questionService.GetQuestionByFormIdAsync(formId);
-            return PartialView("_showQuestion", question);
+           await _questionService.DeleteQuestionAsync(id);
+           var question = await _questionService.GetQuestionByFormIdAsync(formId);
+           return RedirectToAction("Index");
         }       
     }
 }

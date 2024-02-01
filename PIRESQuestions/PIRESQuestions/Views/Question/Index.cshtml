@@ -8,9 +8,8 @@
             <p class="card-text strong">formulaire : @q.Form.Title</p>
             <p class="card-text">@q.Label</p>
             <p class="card-text">description : @q.Description</p>
-            <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@q.Id, @q.FormId);" class="btn btn-danger">Supprimer Via Ajax</button>
+            <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@q.Id, @q.FormId);" class="btn btn-danger">Supprimer</button>
             <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@q.Id" class="btn btn-info">Modifier</a>
-            @* <button id="callCreateChoice" data-question-id="@q.Id" class="btn btn-info">Ajouter Choix</button> *@
         </div>
         @foreach (var c in q.Choices)
         {
@@ -20,3 +19,12 @@
         }
     </div>
 }
+<script>
+    function deleteQuestion(id, formId) {
+
+        $.get('/Question/DeleteQuestion', { id, formId }, function (data) {
+
+            // window.location.href = '/Question/Index';
+        });
+    }
+</script>
