@@ -2,10 +2,12 @@
 
 <form asp-action="AddQuestion">
     <div class="form-groupe">
-        <input type="number" asp-for="IdForm" class="form-control"/>
+        <input type="hidden" asp-for="IdForm" class="form-control"/>
 
-
+        <label asp-for="QuestionId">Entrez l'ID de la question à ajouter au formualaire</label>
         <input type="number" asp-for="QuestionId" class="form-control" placeholder="Entrez l'Id de la question à ajouter'" />
+        <span asp-validation-for="QuestionId" class="text-danger"></span>
+
 
 
     </div>
