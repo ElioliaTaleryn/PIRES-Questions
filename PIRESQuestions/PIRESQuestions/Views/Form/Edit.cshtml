@@ -4,19 +4,38 @@
     <div class="form-groupe">
         <input type="hidden" asp-for="Id" class="form-control" />
 
+  
 
         <label asp-for="Description">Description</label>
-        <input type="text" asp-for="Description" class="form-control" placeholder="Entrez votre description" />
+        @{
+            if (Model.StatusId != 1)
+            {
+                <input type="text" asp-for="Description" class="form-control" placeholder="Entrez votre description" disabled/>
+
+            }
+            else
+            {
+                <input type="text" asp-for="Description" class="form-control" placeholder="Entrez votre description" />
+
+            }
+        }
         <span asp-validation-for="Description" class="text-danger"></span>
 
+
         <label asp-for="Title">Title</label>
-        <input type="text" asp-for="Title" class="form-control" placeholder="Entrez le titre" />
+        @{
+            if (Model.StatusId != 1)
+            {
+                <input type="text" asp-for="Title" class="form-control" placeholder="Entrez le titre" disabled/>
+            }
+            else
+            {
+                <input type="text" asp-for="Title" class="form-control" placeholder="Entrez le titre" />
+
+            }
+        }
         <span asp-validation-for="Title" class="text-danger"></span>
-        <!--
-        <label asp-for="StatusId">Status: 1: In Progress; 2: Validated; 3: CLosed</label>
-        <input type="number" asp-for="StatusId" class="form-control" placeholder="Entrez le status" value="1" />
-        <span asp-validation-for="StatusId" class="text-danger"></span>
-        -->
+
         @{
             if (Model.StatusId == 1)
             {
