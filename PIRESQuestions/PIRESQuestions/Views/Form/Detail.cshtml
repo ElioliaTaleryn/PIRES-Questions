@@ -1,5 +1,7 @@
 ﻿@model Form
 <div> 
     <partial name="_showForm" model="@Model" />
-
+    <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-Id="@Model.Id">Editer le formulaire</a>
+    <a type="button" class="btn btn-warning" asp-action="AddQuestion" asp-route-Id="@Model.Id">Ajouter une question</a>
+    <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-Id="@Model.Id">Supprimer le formiualire</a>
 </div>

@@ -1,0 +1,13 @@
+﻿@model AddQuestionToForm
+
+<form asp-action="AddQuestion">
+    <div class="form-groupe">
+        <input type="number" asp-for="IdForm" class="form-control"/>
+
+
+        <input type="number" asp-for="QuestionId" class="form-control" placeholder="Entrez l'Id de la question à ajouter'" />
+
+
+    </div>
+    <button class="btn btn-primary">Ajouter la question</button>
+</form>
