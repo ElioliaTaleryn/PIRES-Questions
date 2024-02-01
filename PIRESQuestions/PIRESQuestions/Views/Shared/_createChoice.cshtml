@@ -2,7 +2,7 @@
 
 <div class="container">
     <form asp-action="CreateChoice" asp-controller="Choice" id="formCreateChoice">
-        <input type="text" asp-for="@Model.QuestionId" id="inputQuestionId" />
+        @* <input type="text" asp-for="@Model.QuestionId" id="inputQuestionId" /> *@
         <div class="col-md-3 mb-3">
             <label asp-for="@Model.Label" class="form-label">Réponse :</label>
             <input type="text" asp-for="@Model.Label" class="form-control" id="inputLabel" placeholder="Saisissez le choix...">

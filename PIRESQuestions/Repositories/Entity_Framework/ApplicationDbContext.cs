@@ -184,15 +184,15 @@ namespace Repositories.Entity_Framework
         {
             List<Choice> choices = new();
 
-            choices.Add(new Choice() { Id = 1, Label = "Yes", QuestionId = 1 });
-            choices.Add(new Choice() { Id = 2, Label = "No", QuestionId = 1 });
-            choices.Add(new Choice() { Id = 3, Label = "Unconcerned", QuestionId = 1 });
-            choices.Add(new Choice() { Id = 4, Label = "0", QuestionId = 2 });
-            choices.Add(new Choice() { Id = 5, Label = "1", QuestionId = 2 });
-            choices.Add(new Choice() { Id = 6, Label = "2", QuestionId = 2 });
-            choices.Add(new Choice() { Id = 7, Label = "3", QuestionId = 2 });
-            choices.Add(new Choice() { Id = 8, Label = "4", QuestionId = 2 });
-            choices.Add(new Choice() { Id = 9, Label = "5", QuestionId = 2 });
+            choices.Add(new Choice() { Id = 1, Label = "Yes"});
+            choices.Add(new Choice() { Id = 2, Label = "No"});
+            choices.Add(new Choice() { Id = 3, Label = "Unconcerned"});
+            choices.Add(new Choice() { Id = 4, Label = "0"});
+            choices.Add(new Choice() { Id = 5, Label = "1"});
+            choices.Add(new Choice() { Id = 6, Label = "2"});
+            choices.Add(new Choice() { Id = 7, Label = "3"});
+            choices.Add(new Choice() { Id = 8, Label = "4"});
+            choices.Add(new Choice() { Id = 9, Label = "5"});
 
             return choices;
         }

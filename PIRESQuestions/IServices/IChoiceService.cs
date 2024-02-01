@@ -13,6 +13,8 @@ namespace IServices
         Task<Choice> UpdateChoiceAsync(Choice choice);
         Task<bool> DeleteChoiceAsync(int id);
         Task<Choice> GetChoiceByIdAsync(int id);
+        Task<List<Choice>> GetChoicesByIdsAsync(List<int> choiceIds);
+        Task<List<Choice>> GetChoicesByIdQuestionAsync(int id);
         Task<Choice> GetChoiceByNumberAsync(int id);
         Task<List<Choice>> GetAllChoicesAsync();
     }

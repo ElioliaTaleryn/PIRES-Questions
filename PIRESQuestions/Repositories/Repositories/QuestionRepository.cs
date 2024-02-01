@@ -25,21 +25,7 @@ namespace Repositories.Repositories
             await _appContext.SaveChangesAsync();
             return question;
         }
-        //public async Task<Question> CreateQuestionWithChoiceAsync(Question question)
-        //{
-        //    _appContext.Questions.Add(question);
-        //    await _appContext.SaveChangesAsync();
-
-        //    int questionId = question.Id;
-        //    foreach (var c in question.Choices) 
-        //    { 
-        //        c.QuestionId = questionId;
-        //        _appContext.Choices.Add(c);
-        //    }
-        //    await _appContext.SaveChangesAsync();
-        //    return question;
-        //}
-
+        
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
             List<Question> listQuestions = await _appContext.Questions.Include(q => q.Choices).Include(q => q.Form).ToListAsync();
@@ -77,10 +63,15 @@ namespace Repositories.Repositories
 
         public async Task<Question> UpdateQuestionAsync(Question question)
         {
-            var questionUpdate = _appContext.Questions.FirstOrDefault(q => q.Id == question.Id);
+            //var questionUpdate = _appContext.Questions.FirstOrDefault(q => q.Id == question.Id);
+            var questionUpdate = await GetQuestionByIdAsync(question.Id);
 
             if (questionUpdate != null)
             {
+                if(question.Choices != questionUpdate.Choices && questionUpdate.Choices != null) 
+                {
+                    questionUpdate.Choices.Clear();
+                }
                 questionUpdate.Label = question.Label;
                 questionUpdate.Description = question.Description;
                 questionUpdate.Choices = question.Choices;
@@ -98,13 +89,8 @@ namespace Repositories.Repositories
 
         public async Task<List<Question>> GetQuestionByFormIdAsync(int formId)
         {
-            var questions = await _appContext.Questions.Include(q => q.Choices).Include(q => q.Form).Where(q => q.FormId == formId).ToListAsync(); ;
+            var questions = await _appContext.Questions.Include(q => q.Choices).Include(q => q.Form).Where(q => q.FormId == formId).ToListAsync(); 
             return questions;
-            //if (questions != null)
-            //{
-            //    return questions;
-            //}
-            //else throw new Exception($"Aucune question(s) trouvée(s) pour le formulaire {formId} ");
         }
     }
 }

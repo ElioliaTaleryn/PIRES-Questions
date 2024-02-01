@@ -4,18 +4,34 @@
     <div class="card mb-5">
         <h5 class="card-header">Modification de la question</h5>
         <div class="card-body">
-            <form asp-action="UpdateQuestion" asp-controller="Question">
-                <input asp-for="Id" type="hidden" id="inputId" />
-                <input asp-for="FormId" type="hidden" id="inputFormId" />
-                <div class="col-md-3 mb-3">
-                    <label asp-for="Label" class="form-label">Question :</label>
-                    <input type="text" asp-for="Label" class="form-control" id="inputLabel" />
-                    <span asp-validation-for="Label" class="text-danger"></span>
+            <form asp-action="UpdateQuestion" asp-controller="Question" id="formUpdateQuestion">
+                <input asp-for="@Model.Id" type="hidden" id="inputId" />
+                <input asp-for="@Model.FormId" type="hidden" id="inputFormId" />
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.Label" class="form-label">Question :</label>
+                    <input type="text" asp-for="@Model.Label" class="form-control" id="inputLabel" />
+                    <span asp-validation-for="@Model.Label" class="text-danger"></span>
                 </div>
-                <div class="col-md-3 mb-3">
-                    <label asp-for="Description" class="form-label">Description :</label>
-                    <input type="text" asp-for="Description" class="form-control" id="inputDescription">
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="@Model.Description" class="form-label">Description :</label>
+                    <input type="text" asp-for="@Model.Description" class="form-control" id="inputDescription">
+                    <span asp-validation-for="@Model.Description" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="mb-3 form-check form-check-inline">
+                            <input type="checkbox" class="form-check-input" type="checkbox" value="1,2" id="YesNo" checked="@(Model.Choices.Any(c => c.Id == 1 || c.Id == 2))" >
+                            <label class="form-check-label">Yes/No</label>
+                        </div>
+                        <div class="mb-3 form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="3" id="unconcerned" checked="@(Model.Choices.Any(c => c.Id == 3))" >
+                            <label class="form-check-label">unconcerned</label>
+                        </div>
+                        <div class="mb-3 form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="4,5,6,7,8,9" id="NumCheck" checked="@(Model.Choices.Any(c => c.Id >= 4 && c.Id <= 9))"> 
+                            <label class="form-check-label"> valeur 0 à 5 </label>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-info">Envoyer</button>
                 <a asp-controller="Question" asp-action="Index" class="btn btn-info">Annuler</a>
@@ -23,3 +39,65 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Ajouter des écouteurs d'événements pour les cases à cocher "YesNo" et "numCheck"
+    var yesNoCheckbox = document.querySelector('#YesNo');
+    var numCheckbox = document.querySelector('#NumCheck');
+    yesNoCheckbox.addEventListener('change', numCheckBoxDisabled);
+    numCheckbox.addEventListener('change', YesNoCheckBoxDisabled);
+   
+    function numCheckBoxDisabled(event) {
+        var numCheckbox = document.querySelector('#NumCheck');
+        var yesNoCheckbox = document.querySelector('#YesNo');
+        numCheckbox.disabled = event.target.checked;
+
+        if ($('#YesNo').is(':checked')) {
+            $('#NumCheck').prop('checked', false);
+            $('#NumCheck').prop('disabled', true);
+        }
+    }
+
+    function YesNoCheckBoxDisabled(event) {
+        var numCheckbox = document.querySelector('#NumCheck');
+        var yesNoCheckbox = document.querySelector('#YesNo');
+        yesNoCheckbox.disabled = event.target.checked;
+
+        if ($('#NumCheck').is(':checked')) {
+            $('#YesNo').prop('checked', false);
+            $('#YesNo').prop('disabled', true);
+        }
+    }
+
+    $(function () {
+        $('#formUpdateQuestion').submit(function (e) {
+            var listChoices = [];
+
+            // Parcourez toutes les cases à cocher cochées
+            $('.form-check-input:checked').each(function () {
+                var values = $(this).val().split(","); // Séparez les valeurs par la virgule
+                for (var i = 0; i < values.length; i++) {
+                    var value = values[i].trim(); // Supprimez les espaces inutiles
+                    var intValue = parseInt(value);
+                    if (!isNaN(intValue) && !listChoices.includes(intValue)) {
+                        listChoices.push(intValue)
+                    }
+                }
+            });
+            var question = {
+                Label: $('#inputLabel').val(),
+                FormId: $('#inputFormId').val(),
+                Id: $('#inputId').val(),
+                Description: $('#inputDescription').val()
+                };
+
+            console.log("question : " + listChoices);
+
+            $.post('/Question/UpdateQuestion', { question: question, choiceIds: listChoices }, function (data) {
+                window.location.href = '/Question/Index';
+            });
+            e.preventDefault();
+        });
+    });
+
+</script>

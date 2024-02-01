@@ -12,8 +12,8 @@ using Repositories.Entity_Framework;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240128175859_AddPreset_Statuses")]
-    partial class AddPreset_Statuses
+    [Migration("20240201133816_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,100 @@ namespace Repositories.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ChoiceQuestion", b =>
+                {
+                    b.Property<int>("ChoicesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChoicesId", "QuestionsId");
+
+                    b.HasIndex("QuestionsId");
+
+                    b.ToTable("ChoiceQuestion");
+                });
+
+            modelBuilder.Entity("Entities.Anonymous", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("GenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("GenderId");
+
+                    b.ToTable("Anonymouses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 18
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 60
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Age = 36
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Age = 42
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Answer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AnonymousId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Horodatage")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnonymousId");
+
+                    b.HasIndex("ChoiceId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+                });
 
             modelBuilder.Entity("Entities.Choice", b =>
                 {
@@ -37,14 +131,56 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("QuestionId");
-
                     b.ToTable("Choices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Label = "Yes"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Label = "No"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Label = "Unconcerned"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Label = "0"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Label = "1"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Label = "2"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Label = "3"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Label = "4"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Label = "5"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Country", b =>
@@ -1062,6 +1198,24 @@ namespace Repositories.Migrations
                     b.HasIndex("UserPersonId");
 
                     b.ToTable("Forms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Questions about cities",
+                            StatusId = 1,
+                            Title = "Europeans Capitals",
+                            UserPersonId = "981173f4-7557-4cde-b839-1ac488b30f9f"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Questions about cities v2",
+                            StatusId = 2,
+                            Title = "Europeans Capitals",
+                            UserPersonId = "951173f4-7557-4cde-b839-1ac488b30f9f"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Gender", b =>
@@ -1126,6 +1280,23 @@ namespace Repositories.Migrations
                     b.HasIndex("TimerCDId");
 
                     b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Choose one answer",
+                            FormId = 2,
+                            Label = "Do you like Paris ?"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Choose one answer",
+                            FormId = 2,
+                            Label = "How much?",
+                            TimerCDId = 1
+                        });
                 });
 
             modelBuilder.Entity("Entities.Status", b =>
@@ -1176,6 +1347,28 @@ namespace Repositories.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Timers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountDown = 30
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountDown = 60
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountDown = 90
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountDown = 120
+                        });
                 });
 
             modelBuilder.Entity("Entities.UserPerson", b =>
@@ -1193,9 +1386,6 @@ namespace Repositories.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
@@ -1210,9 +1400,6 @@ namespace Repositories.Migrations
                     b.Property<string>("FirstName")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
-
-                    b.Property<int?>("GenderId")
-                        .HasColumnType("int");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(150)
@@ -1256,12 +1443,8 @@ namespace Repositories.Migrations
 
                     b.HasIndex("ChoiceId");
 
-                    b.HasIndex("CountryId");
-
                     b.HasIndex("Email")
                         .IsUnique();
-
-                    b.HasIndex("GenderId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -1275,6 +1458,41 @@ namespace Repositories.Migrations
                         .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "951173f4-7557-4cde-b839-1ac488b30f9f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "514a216a-0c07-4ca1-bae7-25b389afc715",
+                            DateOfBirth = new DateOnly(1991, 12, 25),
+                            Email = "example@example.com",
+                            EmailConfirmed = true,
+                            FirstName = "Michel",
+                            LastName = "Does",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EXAMPLE@EXAMPLE.COM",
+                            NormalizedUserName = "EXAMPLE@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEtM0G8yJiz5QPiNu4bkpQyhQcMtPWB0EkxiCNV2IGqjriKU7WLoDwvBr6uCjH1+Fg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2EKLCF5HV2AN7DRFWTAEU5A5MCQ2OOYX",
+                            TwoFactorEnabled = false,
+                            UserName = "example@example.com"
+                        },
+                        new
+                        {
+                            Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e9ea9c5d-12a1-4c07-b6c9-42da38d5ca8a",
+                            DateOfBirth = new DateOnly(1991, 12, 25),
+                            Email = "john.doe@example.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e141c959-ec7e-4dae-968b-97ea71a176a7",
+                            TwoFactorEnabled = false,
+                            UserName = "JohnDoe"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1414,13 +1632,59 @@ namespace Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Entities.Choice", b =>
+            modelBuilder.Entity("ChoiceQuestion", b =>
                 {
+                    b.HasOne("Entities.Choice", null)
+                        .WithMany()
+                        .HasForeignKey("ChoicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Question", null)
+                        .WithMany()
+                        .HasForeignKey("QuestionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Anonymous", b =>
+                {
+                    b.HasOne("Entities.Country", "Country")
+                        .WithMany("Anonymous")
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("Entities.Gender", "Gender")
+                        .WithMany("Anonymous")
+                        .HasForeignKey("GenderId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("Gender");
+                });
+
+            modelBuilder.Entity("Entities.Answer", b =>
+                {
+                    b.HasOne("Entities.Anonymous", "Anonymous")
+                        .WithMany()
+                        .HasForeignKey("AnonymousId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Choice", "Choice")
+                        .WithMany()
+                        .HasForeignKey("ChoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Question", "Question")
-                        .WithMany("Choices")
+                        .WithMany()
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Anonymous");
+
+                    b.Navigation("Choice");
 
                     b.Navigation("Question");
                 });
@@ -1472,18 +1736,6 @@ namespace Repositories.Migrations
                     b.HasOne("Entities.Choice", null)
                         .WithMany("UserPersons")
                         .HasForeignKey("ChoiceId");
-
-                    b.HasOne("Entities.Country", "Country")
-                        .WithMany("UserPersons")
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("Entities.Gender", "Gender")
-                        .WithMany("UserPersons")
-                        .HasForeignKey("GenderId");
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Gender");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1544,7 +1796,7 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Entities.Country", b =>
                 {
-                    b.Navigation("UserPersons");
+                    b.Navigation("Anonymous");
                 });
 
             modelBuilder.Entity("Entities.Form", b =>
@@ -1554,12 +1806,7 @@ namespace Repositories.Migrations
 
             modelBuilder.Entity("Entities.Gender", b =>
                 {
-                    b.Navigation("UserPersons");
-                });
-
-            modelBuilder.Entity("Entities.Question", b =>
-                {
-                    b.Navigation("Choices");
+                    b.Navigation("Anonymous");
                 });
 
             modelBuilder.Entity("Entities.Status", b =>

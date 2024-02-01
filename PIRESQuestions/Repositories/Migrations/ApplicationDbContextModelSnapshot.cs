@@ -22,6 +22,21 @@ namespace Repositories.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ChoiceQuestion", b =>
+                {
+                    b.Property<int>("ChoicesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuestionsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ChoicesId", "QuestionsId");
+
+                    b.HasIndex("QuestionsId");
+
+                    b.ToTable("ChoiceQuestion");
+                });
+
             modelBuilder.Entity("Entities.Anonymous", b =>
                 {
                     b.Property<int>("Id")
@@ -113,12 +128,7 @@ namespace Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("QuestionId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("QuestionId");
 
                     b.ToTable("Choices");
 
@@ -126,56 +136,47 @@ namespace Repositories.Migrations
                         new
                         {
                             Id = 1,
-                            Label = "Yes",
-                            QuestionId = 1
+                            Label = "Yes"
                         },
                         new
                         {
                             Id = 2,
-                            Label = "No",
-                            QuestionId = 1
+                            Label = "No"
                         },
                         new
                         {
                             Id = 3,
-                            Label = "Unconcerned",
-                            QuestionId = 1
+                            Label = "Unconcerned"
                         },
                         new
                         {
                             Id = 4,
-                            Label = "0",
-                            QuestionId = 2
+                            Label = "0"
                         },
                         new
                         {
                             Id = 5,
-                            Label = "1",
-                            QuestionId = 2
+                            Label = "1"
                         },
                         new
                         {
                             Id = 6,
-                            Label = "2",
-                            QuestionId = 2
+                            Label = "2"
                         },
                         new
                         {
                             Id = 7,
-                            Label = "3",
-                            QuestionId = 2
+                            Label = "3"
                         },
                         new
                         {
                             Id = 8,
-                            Label = "4",
-                            QuestionId = 2
+                            Label = "4"
                         },
                         new
                         {
                             Id = 9,
-                            Label = "5",
-                            QuestionId = 2
+                            Label = "5"
                         });
                 });
 
@@ -1479,13 +1480,13 @@ namespace Repositories.Migrations
                         {
                             Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "042a1d08-7d6c-4e51-96b1-e08e6efa1dd1",
+                            ConcurrencyStamp = "e9ea9c5d-12a1-4c07-b6c9-42da38d5ca8a",
                             DateOfBirth = new DateOnly(1991, 12, 25),
                             Email = "john.doe@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "243ae951-8c78-494f-8fb4-81ff89f0af02",
+                            SecurityStamp = "e141c959-ec7e-4dae-968b-97ea71a176a7",
                             TwoFactorEnabled = false,
                             UserName = "JohnDoe"
                         });
@@ -1628,6 +1629,21 @@ namespace Repositories.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ChoiceQuestion", b =>
+                {
+                    b.HasOne("Entities.Choice", null)
+                        .WithMany()
+                        .HasForeignKey("ChoicesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Question", null)
+                        .WithMany()
+                        .HasForeignKey("QuestionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Entities.Anonymous", b =>
                 {
                     b.HasOne("Entities.Country", "Country")
@@ -1666,15 +1682,6 @@ namespace Repositories.Migrations
                     b.Navigation("Anonymous");
 
                     b.Navigation("Choice");
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("Entities.Choice", b =>
-                {
-                    b.HasOne("Entities.Question", "Question")
-                        .WithMany("Choices")
-                        .HasForeignKey("QuestionId");
 
                     b.Navigation("Question");
                 });
@@ -1797,11 +1804,6 @@ namespace Repositories.Migrations
             modelBuilder.Entity("Entities.Gender", b =>
                 {
                     b.Navigation("Anonymous");
-                });
-
-            modelBuilder.Entity("Entities.Question", b =>
-                {
-                    b.Navigation("Choices");
                 });
 
             modelBuilder.Entity("Entities.Status", b =>

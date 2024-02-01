@@ -16,14 +16,27 @@
 <script>
     $(function () {
         $('#formCreateQuestion').submit(function (e) {
+            var listChoices = [];
+
+            // Parcourez toutes les cases à cocher cochées
+            $('.form-check-input:checked').each(function () {
+                var values = $(this).val().split(","); // Séparez les valeurs par la virgule
+                for (var i = 0; i < values.length; i++) {
+                    var value = values[i].trim(); // Supprimez les espaces inutiles
+                    var intValue = parseInt(value);
+                    if (!isNaN(intValue) && !listChoices.includes(intValue)) {
+                        listChoices.push(intValue)
+                    }
+                }
+            });
             var question = {
                 Label: $('#inputLabel').val(),
-                FormId: $('#inputFormId').val()
+                FormId: $('#inputFormId').val(),
             };
 
-            console.log("question : " + question);
+            console.log("question : " + listChoices[1]);
             
-            $.post('/Question/CreateQuestion', { question }, function (data) {
+            $.post('/Question/CreateQuestion', { question: question, choiceIds: listChoices }, function (data) {
                 $('#divContentQuestion').html(data);
             });
             e.preventDefault();

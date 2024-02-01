@@ -12,8 +12,7 @@ namespace Entities
         #endregion
         #region Relative Fields
 
-        public int? QuestionId { get; set; }
-        public Question Question { get; set; }
+        public List<Question>? Questions { get; set; }
         public List<UserPerson>? UserPersons { get; set; }
         #endregion
     }
