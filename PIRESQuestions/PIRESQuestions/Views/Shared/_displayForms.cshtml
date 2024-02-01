@@ -1,0 +1,10 @@
+﻿@model List<Form>
+
+@foreach (Form form in Model)
+{
+    <div class="mb-3">
+        <partial name="_showForm" model="form" />
+        <a asp-action="Detail" asp-route-Id="@form.Id">Detail</a>
+    </div>
+
+}

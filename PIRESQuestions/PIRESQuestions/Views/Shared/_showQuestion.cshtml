@@ -10,12 +10,18 @@
         <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@Model.Id" class="btn btn-info">Modifier</a>
             @* <button id="callCreateChoice" data-question-id="@q.Id" class="btn btn-info">Ajouter Choix</button> *@
         </div>
-        @foreach (var c in Model.Choices)
+    @{
+        if (Model.Choices != null)
         {
-            <div class="card-body">
-                <p class="card-text">@c.Label</p>
-            </div>
+            @foreach (var c in Model.Choices)
+            {
+                <div class="card-body">
+                    <p class="card-text">@c.Label</p>
+                </div>
+            }
         }
+    }
+
     </div>
 
 

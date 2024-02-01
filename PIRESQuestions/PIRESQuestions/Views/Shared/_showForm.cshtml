@@ -1,0 +1,36 @@
+﻿@model Form
+
+
+<div class="card mb-3" style="width: 90%;">
+    <div class="card-body" style="background-color: #F4B164;">
+        <h5 class="card-title" >@Model.Title</h5>
+        <h5 class="card-subtitle mb-2 text-muted">
+            Rédigé par @Model.UserPerson.FirstName @Model.UserPerson.LastName
+            <br/>
+            @if (Model.StatusId == 1)
+            {
+                <text>En cours</text>
+            }
+            @if (Model.StatusId == 2)
+            {
+                <text>Validé</text>
+            }
+            @if (Model.StatusId == 3)
+            {
+                <text>Cloturé</text>
+            }
+            <br />
+            @Model.Description
+        </h5>
+        @{
+            if (Model.Questions != null)
+            {
+                foreach (var q in Model.Questions)
+                {
+                        <partial name="_showQuestion" model="q"> </partial>
+                };
+            }
+        }
+
+    </div>
+</div>

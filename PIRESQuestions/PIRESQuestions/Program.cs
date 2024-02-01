@@ -38,6 +38,13 @@ builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<ITimerCDService, TimerCDService>();
 builder.Services.AddScoped<ITimerCDService, TimerCDService>();
 
+builder.Services.AddScoped<IFormService, FormService>();
+builder.Services.AddScoped<IFormRepository, FormRepository>();
+
+builder.Services.AddScoped<IStatusService, StatusService>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

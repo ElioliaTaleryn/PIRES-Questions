@@ -30,11 +30,11 @@ namespace Entities
         [Required]
         [ForeignKey("Status")]
         public required int StatusId { get; set; }
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
         [Required]
         [ForeignKey("UserPerson")]
         public required string UserPersonId { get; set; }
-        public UserPerson UserPerson { get; set; }
+        public UserPerson? UserPerson { get; set; }
         #endregion
     }
 }

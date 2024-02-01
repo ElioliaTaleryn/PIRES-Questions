@@ -6,7 +6,7 @@ using Services.Exceptions;
 
 namespace Services
 {
-    public class StatusService(IStatusRepository statusRepository) : IStatusRepository
+    public class StatusService(IStatusRepository statusRepository) : IStatusService
     {
         public async Task<Status> CreateStatusAsync(Status status)
         {
