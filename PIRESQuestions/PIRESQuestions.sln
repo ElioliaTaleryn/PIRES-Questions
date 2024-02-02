@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModels", "ViewModels\ViewModels.csproj", "{37F0B073-7143-4F08-B2E9-57EB56C2AD6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoriesTests", "RepositoriesTests\RepositoriesTests.csproj", "{1F8A8F34-2862-46C5-ADFA-D0BAEBE81B29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoriesTests", "RepositoriesTests\RepositoriesTests.csproj", "{1F8A8F34-2862-46C5-ADFA-D0BAEBE81B29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

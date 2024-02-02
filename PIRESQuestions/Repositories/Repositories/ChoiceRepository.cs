@@ -57,6 +57,25 @@ namespace Repositories.Repositories
             }
             else throw new Exception($"Aucun choix de réponse trouvé avec l'id {id} ");
         }
+        public async Task<List<Choice>> GetChoicesByIdsAsync(List<int> choiceIds)
+        {
+            List<Choice> choices = await _appContext.Choices.Where(c => choiceIds.Contains(c.Id)).ToListAsync();
+            if (choices.Any())
+            {
+                return choices;
+            }
+            else throw new Exception($"Aucun choix de réponse trouvé");
+        }
+
+        public async Task<List<Choice>> GetChoicesByIdQuestionAsync(int questionId) 
+        {
+            List<Choice> choices = await _appContext.Choices.Where(c => c.Questions.Any(q => q.Id == questionId)).ToListAsync();
+            if (choices.Any())
+            {
+                return choices;
+            }
+            else throw new Exception("Aucun choix de réponse trouvé");
+        }
 
         public async Task<Choice> UpdateChoiceAsync(Choice choice)
         {
@@ -64,7 +83,6 @@ namespace Repositories.Repositories
             if (choiceUpdate != null) 
             {
                 choiceUpdate.Label = choice.Label;
-                choiceUpdate.QuestionId = choice.QuestionId;
                 await _appContext.SaveChangesAsync();
                 return choice;
             }

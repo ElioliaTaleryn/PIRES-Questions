@@ -25,21 +25,7 @@ namespace Repositories.Repositories
             await _appContext.SaveChangesAsync();
             return question;
         }
-        //public async Task<Question> CreateQuestionWithChoiceAsync(Question question)
-        //{
-        //    _appContext.Questions.Add(question);
-        //    await _appContext.SaveChangesAsync();
-
-        //    int questionId = question.Id;
-        //    foreach (var c in question.Choices) 
-        //    { 
-        //        c.QuestionId = questionId;
-        //        _appContext.Choices.Add(c);
-        //    }
-        //    await _appContext.SaveChangesAsync();
-        //    return question;
-        //}
-
+        
         public async Task<List<Question>> GetAllQuestionsAsync()
         {
             List<Question> listQuestions = await _appContext.Questions.Include(q => q.Choices).Include(q => q.Form).ToListAsync();
@@ -60,14 +46,15 @@ namespace Repositories.Repositories
             else throw new Exception($"Aucune question trouvé avec l'id {id} ");
         }
 
-    public async Task DeleteQuestionAsync(int id)
+        public async Task DeleteQuestionAsync(int id)
         {
-            var question = _appContext.Questions.Include(q => q.Choices).SingleOrDefault(q => q.Id == id);
-            if (question != null)
+            //var question = _appContext.Questions.Include(q => q.Choices).SingleOrDefault(q => q.Id == id);
+            var questionDeleted = await GetQuestionByIdAsync(id);
+            if (questionDeleted != null)
             {
-                _appContext.Choices.RemoveRange(question.Choices);
+                questionDeleted.Choices.RemoveAll(c => true);
 
-                _appContext.Questions.Remove(question);
+                _appContext.Questions.Remove(questionDeleted);
 
                 await _appContext.SaveChangesAsync();
 
@@ -77,10 +64,15 @@ namespace Repositories.Repositories
 
         public async Task<Question> UpdateQuestionAsync(Question question)
         {
-            var questionUpdate = _appContext.Questions.FirstOrDefault(q => q.Id == question.Id);
+            
+            var questionUpdate = await GetQuestionByIdAsync(question.Id);
 
             if (questionUpdate != null)
             {
+                if(question.Choices != questionUpdate.Choices && questionUpdate.Choices != null) 
+                {
+                    questionUpdate.Choices.RemoveAll(c => true);
+                }
                 questionUpdate.Label = question.Label;
                 questionUpdate.Description = question.Description;
                 questionUpdate.Choices = question.Choices;
@@ -98,13 +90,8 @@ namespace Repositories.Repositories
 
         public async Task<List<Question>> GetQuestionByFormIdAsync(int formId)
         {
-            var questions = await _appContext.Questions.Include(q => q.Choices).Include(q => q.Form).Where(q => q.FormId == formId).ToListAsync(); ;
+            var questions = await _appContext.Questions.Include(q => q.Choices).Include(q => q.Form).Where(q => q.FormId == formId).ToListAsync(); 
             return questions;
-            //if (questions != null)
-            //{
-            //    return questions;
-            //}
-            //else throw new Exception($"Aucune question(s) trouvée(s) pour le formulaire {formId} ");
         }
     }
 }

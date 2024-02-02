@@ -13,6 +13,8 @@ namespace IRepositories
         Task<Choice> UpdateChoiceAsync(Choice choice);
         Task<bool> DeleteChoiceAsync(int id);
         Task<Choice> GetChoiceByIdAsync(int id);
+        Task<List<Choice>> GetChoicesByIdsAsync(List<int> choiceIds);
+        Task<List<Choice>> GetChoicesByIdQuestionAsync(int id);
         Task<List<Choice>> GetAllChoiceAsync();
     }
 }
