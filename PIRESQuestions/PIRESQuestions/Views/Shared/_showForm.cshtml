@@ -1,7 +1,21 @@
 ﻿@model Form
 
 <div class="card mb-3" style="width: 90%;">
-    <div class="card-body" style="background-color: #F4B164;">
+    <div class="card-header" style="background-color: #F4B164;">
+        @{
+            if (Model.Status.Label == "In progress")
+            {
+                <img width="20" height="20" src="/img/inprogress.png" />
+            }
+            if (Model.Status.Label == "Validated")
+            {
+                <img width="20" height="20" src="/img/valide.png" />
+            }
+            if (Model.Status.Label == "Archived")
+            {
+                <img width="20" height="20" src="/img/close.png" />
+            }
+        }
         <div id="displayInfoForm">
             <h5 class="card-title">Titre du formulaire : @Model.Title</h5>
             <br />
@@ -25,6 +39,10 @@
             <p class="card-text">Status : Cloturé</p>
         }
         </h6>
+
+        </div>
+    <div class="card-body">
+
         <div id="divContentQuestion">
             @{
                 if (Model.Questions != null)
