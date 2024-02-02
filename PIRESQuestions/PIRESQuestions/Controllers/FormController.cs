@@ -62,8 +62,9 @@ namespace PIRESQuestions.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(Form form)
         {
-            int nbFormModif = await _formService.UpdateFormAsync(form);
-            return RedirectToAction("Detail", new { Id = form.Id });
+            await _formService.UpdateFormAsync(form);
+            Form formView = await _formService.GetByIdFormAsync(form.Id);
+            return View("Detail", formView);
         }
         [Authorize]
         public async Task<IActionResult> Delete(int id)

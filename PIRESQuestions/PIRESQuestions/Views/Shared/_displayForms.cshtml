@@ -1,10 +1,18 @@
 ﻿@model List<Form>
 
-@foreach (Form form in Model)
+@foreach(var form in Model)
 {
-    <div class="mb-3">
-        <partial name="_showForm" model="form" />
-        <a asp-action="Detail" asp-route-Id="@form.Id">Detail</a>
+    <div class="card mb-5">
+        <div class="card-header" style="background-color: #338B98;">
+            <p class="card-text strong" style="color: #F5F5F5">Formulaire : @form.Title</p>
+        </div>
+        <div class="card-body">         
+            <p class="card-text">Description : @form.Description</p>
+            <p class="card-text">Rédigé par : @form.UserPerson.FirstName @form.UserPerson.LastName</p>
+            <p class="card-text">Status : @form.Status.Label</p>
+            <a asp-controller="Form" asp-action="Detail" asp-route-Id="@form.Id" class="btn btn-info">Detail</a>
+        </div>
     </div>
-
 }
+
+    

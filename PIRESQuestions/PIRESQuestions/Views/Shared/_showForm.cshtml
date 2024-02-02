@@ -2,30 +2,33 @@
 
 <div class="card mb-3" style="width: 90%;">
     <div class="card-body" style="background-color: #F4B164;">
-        <h5 class="card-title">@Model.Title</h5>
-        <h5 class="card-subtitle mb-2 text-muted">
-            Rédigé par @Model.UserPerson.FirstName @Model.UserPerson.LastName
+        <div id="displayInfoForm">
+            <h5 class="card-title">Titre du formulaire : @Model.Title</h5>
             <br />
-            @if (Model.StatusId == 1)
-            {
-                <text>En cours</text>
-            }
-            @if (Model.StatusId == 2)
-            {
-                <text>Validé</text>
-            }
-            @if (Model.StatusId == 3)
-            {
-                <text>Cloturé</text>
-            }
-            <br />
-            @Model.Description
-        </h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                <p class="card-text">Description du formulaire : @Model.Description</p>
+        </div>
+        <div id="editInfoForm" hidden>
+            <partial name="_editForm" model="Model" />
+        </div>
+        <p class="card-text">Rédigé par : @Model.UserPerson.FirstName @Model.UserPerson.LastName</p>
+        @if (Model.StatusId == 1)
+        {
+            <p class="card-text">Status : En Cours</p>
+        }
+        @if (Model.StatusId == 2)
+        {
+            <p class="card-text">Status : Validé</p>
+        }
+        @if (Model.StatusId == 3)
+        {
+            <p class="card-text">Status : Cloturé</p>
+        }
+        </h6>
         <div id="divContentQuestion">
             @{
                 if (Model.Questions != null)
                 {
-
                     @foreach (var question in Model.Questions)
                     {
                         <div class="card mb-5">
@@ -49,22 +52,69 @@
                                     }
                                 }
                             }
-
                         </div>
-
                     }
-
                 };
-
             }
         </div>
-        <!--
-        <button id="editFormButton" class="btn btn-warning"> Editer le formulaire</button>
+    </div>
+    <div class="card-footer">
         <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
-        <button id="deleteFormButton" class="btn btn-danger"> Supprimer le formulaire</button>
-        -->
-        <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
-        
+        @{
+            if (Model.Status.Label == "In progress")
+            {
+                <button id="editFormButton" class="btn btn-warning">Editer le formulaire</button>
+                //<a type="button" class="btn btn-warning" id="editFormButton" asp-action="Edit" asp-route-Id="@Model.Id">Editer le formulaire</a>
+            }
+        }
 
+        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-Id="@Model.Id">Supprimer le formulaire</a>
+        @{
+            if (Model.Status.Label == "In progress")
+            {
+                <a type="submit" asp-action="Validate" asp-controller="Form" asp-route-Id="@Model.Id" method="post" class="btn btn-primary">Validate</a>
+            }
+            if (Model.Status.Label == "Validated")
+            {
+                <a type="submit" asp-action="Close" asp-controller="Form" asp-route-Id=" @Model.Id" method="post" class="btn btn-primary">Close</a>
+            }
+        }
     </div>
 </div>
+
+<script>
+    var editFButton = document.querySelector('#editFormButton');
+    editFButton.addEventListener('click', hideShowEditForm);
+
+    var updateFButton = document.querySelector('#updateInfoFormButton');
+    updateFButton.addEventListener('click', hideShowEditForm);
+
+    function hideShowEditForm() {
+
+        var divEditForm = document.querySelector('#editInfoForm');
+        divEditForm.hidden = !divEditForm.hidden;
+        displayInfoForm
+
+        var divDisplayInfo = document.querySelector('#displayInfoForm');
+        divDisplayInfo.hidden = !divDisplayInfo.hidden;
+    }
+
+    $(function () {
+        console.log("je rentre");
+        $('#editInfoForm').submit(function (e) {
+
+            var form = {
+                Id: $('#inputFormID').val(),
+                StatusId: $('#inputStatusID').val(),
+                Title: $('#inputLabel').val(),
+                Description: $('#inputDescription').val()
+            };
+
+            console.log(form);
+
+            $.post('/Form/Edit', { form }, function (data) {
+            });
+            e.preventDefault();
+        });
+    });
+</script>

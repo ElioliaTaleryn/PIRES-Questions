@@ -2,32 +2,13 @@
 
 <div id="contentAddQuestion" hidden>
     <partial name="_createQuestion" model="new Question{FormId=Model.Id}" />
-
 </div>
 
 <div id="divContentForm">
     <partial name="_showForm" model="@Model" />
-
 </div>
 
-@{
-    if (Model.Status.Label == "In progress")
-    {
-        <a type="button" class="btn btn-warning" asp-action="Edit" asp-route-Id="@Model.Id">Editer le formulaire</a>
-    }
-}
 
-<a type="button" class="btn btn-danger" asp-action="Delete" asp-route-Id="@Model.Id">Supprimer le formiualire</a>
-@{
-    if (Model.Status.Label == "In progress")
-    {
-        <a type="submit" asp-action="Validate" asp-controller="Form" asp-route-Id="@Model.Id" method="post" class="btn btn-primary">Validate</a>
-    }
-    if (Model.Status.Label == "Validated")
-    {
-        <a type="submit" asp-action="Close" asp-controller="Form" asp-route-Id=" @Model.Id" method="post" class="btn btn-primary">Close</a>
-    }
-}
 <script>
     $(function () {
         $('#formCreateQuestion').submit(function (e) {
@@ -62,20 +43,21 @@
 
         $.get('/Question/DeleteQuestion', { id, formId }, function (data) {
             $('#divContentForm').html(data);
-            // window.location.href = '/Question/Index';
         });
     }
 
     var addQbutton = document.querySelector('#addQuestionButton');
     addQbutton.addEventListener('click', hideShowAddQuestion);
 
-    var sendbutton = document.querySelector('#sendQuestionButton');
-    sendbutton.addEventListener('click', hideShowAddQuestion);
+    var sendQbutton = document.querySelector('#sendQuestionButton');
+    sendQbutton.addEventListener('click', hideShowAddQuestion);
+
+    var cancelQbutton = document.querySelector('#cancelQuestionButton');
+    cancelQbutton.addEventListener('click', hideShowAddQuestion);
 
     function hideShowAddQuestion() {
         var divAddQ = document.querySelector('#contentAddQuestion');
         divAddQ.hidden = !divAddQ.hidden;
-
     }
 
 </script>

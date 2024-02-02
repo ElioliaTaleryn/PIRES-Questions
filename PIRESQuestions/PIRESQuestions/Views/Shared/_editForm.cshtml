@@ -1,0 +1,14 @@
+﻿@model Form
+
+<form asp-action="Edit" asp-controller="Form" id="editInfoForm">
+    <div class="form-groupe">
+        <input type="hidden" asp-for="Id" id="inputFormID" />
+        <input type="hidden" asp-for="StatusId" id="inputStatusID" />
+        <input type="hidden" asp-for="UserPersonId" id="inputUserPersonId" />
+        <label asp-for="Title">Titre : </label>
+        <input type="text" asp-for="Title" id="inputTitle" />
+        <label asp-for="Description">Description</label>
+        <input type="text" asp-for="Description" id="inputDescription" />
+    </div>
+    <button class="btn btn-primary">Editer le formulaire</button>
+</form>
