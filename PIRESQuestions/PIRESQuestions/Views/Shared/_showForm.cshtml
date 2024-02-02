@@ -1,12 +1,11 @@
 ﻿@model Form
 
-
 <div class="card mb-3" style="width: 90%;">
     <div class="card-body" style="background-color: #F4B164;">
-        <h5 class="card-title" >@Model.Title</h5>
+        <h5 class="card-title">@Model.Title</h5>
         <h5 class="card-subtitle mb-2 text-muted">
             Rédigé par @Model.UserPerson.FirstName @Model.UserPerson.LastName
-            <br/>
+            <br />
             @if (Model.StatusId == 1)
             {
                 <text>En cours</text>
@@ -22,15 +21,50 @@
             <br />
             @Model.Description
         </h5>
-        @{
-            if (Model.Questions != null)
-            {
-                foreach (var q in Model.Questions)
+        <div id="divContentQuestion">
+            @{
+                if (Model.Questions != null)
                 {
-                        <partial name="_showQuestion" model="q"> </partial>
+
+                    @foreach (var question in Model.Questions)
+                    {
+                        <div class="card mb-5">
+                            <div class="card-body">
+                                <input type="text" asp-for="@question.Id" id="inputQuestionId" />
+                                @* <p class="card-text strong">formulaire : @Model.Form.Title</p> *@
+                                <p class="card-text">@question.Label</p>
+                                <p class="card-text">description : @question.Description</p>
+                                <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@question.Id, @question.FormId);" class="btn btn-danger">Supprimer Via Ajax</button>
+                                <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@question.Id" class="btn btn-info">Modifier</a>
+                                @* <button id="callCreateChoice" data-question-id="@q.Id" class="btn btn-info">Ajouter Choix</button> *@
+                            </div>
+                            @{
+                                if (question.Choices != null)
+                                {
+                                    @foreach (var c in question.Choices)
+                                    {
+                                        <div class="card-body">
+                                            <p class="card-text">@c.Label</p>
+                                        </div>
+                                    }
+                                }
+                            }
+
+                        </div>
+
+                    }
+
                 };
+
             }
-        }
+        </div>
+        <!--
+        <button id="editFormButton" class="btn btn-warning"> Editer le formulaire</button>
+        <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
+        <button id="deleteFormButton" class="btn btn-danger"> Supprimer le formulaire</button>
+        -->
+        <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
+        
 
     </div>
 </div>

@@ -3,6 +3,7 @@ using IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.IdentityModel.Abstractions;
+using Microsoft.SqlServer.Server;
 using Services;
 using ViewModels;
 
@@ -11,10 +12,12 @@ namespace PIRESQuestions.Controllers
     public class QuestionController : Controller
     {
         IQuestionService _questionService;
+        IFormService _formService;
         IChoiceService _choiceService;
-        public QuestionController(IQuestionService questionService, IChoiceService choiceService)
+        public QuestionController(IQuestionService questionService, IChoiceService choiceService, IFormService formService)
         {
             _questionService = questionService;
+            _formService = formService;
             _choiceService = choiceService;
         }
         [HttpGet]
@@ -46,7 +49,8 @@ namespace PIRESQuestions.Controllers
 
                 question = await _questionService.CreateQuestionAsync(question);
                 var questionCreate = await _questionService.GetQuestionByIdAsync(question.Id);
-                return PartialView("_showQuestion", questionCreate);
+                Form form = await _formService.GetByIdFormAsync(question.FormId);
+                return PartialView("_showForm", form);
             }
         }
        
@@ -86,9 +90,11 @@ namespace PIRESQuestions.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteQuestion(int id, int formId) 
         {
+            //TODO : List Questions 
            await _questionService.DeleteQuestionAsync(id);
-           var question = await _questionService.GetQuestionByFormIdAsync(formId);
-           return RedirectToAction("Index");
+           var questions = await _questionService.GetQuestionByFormIdAsync(formId);
+            Form form = await _formService.GetByIdFormAsync(formId);
+            return PartialView("_showForm", form);
         }       
     }
 }

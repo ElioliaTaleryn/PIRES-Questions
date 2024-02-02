@@ -35,17 +35,8 @@
             }
         }
         <span asp-validation-for="Title" class="text-danger"></span>
+        <input type="hidden" asp-for="StatusId" class="form-control" />
 
-        @{
-            if (Model.StatusId == 1)
-            {
-                <a type="submit" asp-action="Validate" asp-controller="Form" asp-route-Id="@Model.Id" method="post" class="btn btn-primary">Validate</a>
-            }
-            if (Model.StatusId == 2)
-            {
-                <a type="submit" asp-action="Close" asp-controller="Form" asp-route-Id=" @Model.Id" method="post" class="btn btn-primary">Close</a>
-            }
-        }
 
         <input type="hidden" asp-for="UserPersonId" class="form-control" placeholder="Entrez votre Id" value="@Model.UserPersonId" />
 

@@ -45,12 +45,12 @@ namespace Repositories.Repositories
 
         public async Task<IEnumerable<Form>> GetAllFormsAsync()
         {
-            return await _context.Forms.Include(f => f.Questions).Include(q => q.Questions).Include(f => f.UserPerson).ToListAsync();
+            return await _context.Forms.Include(f => f.Questions).Include(q => q.Questions).Include(f => f.UserPerson).Include(f => f.Status).ToListAsync();
         }
 
         public async Task<Form> GetByIdFormAsync(int id)
         {
-            var form = await _context.Forms.Include(f => f.Questions).Include(q => q.Questions).Include(f => f.UserPerson).FirstOrDefaultAsync(f=> f.Id == id) ?? throw new FormRepositoryException($"Form Id value invalid: doesn't exists in DB.");
+            var form = await _context.Forms.Include(f => f.Questions).Include(q => q.Questions).Include(f => f.UserPerson).Include(f => f.Status).FirstOrDefaultAsync(f=> f.Id == id) ?? throw new FormRepositoryException($"Form Id value invalid: doesn't exists in DB.");
             return form;
         }
 

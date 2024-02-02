@@ -2,7 +2,7 @@
 
 <div class="container">
     <form asp-action="CreateQuestion" asp-controller="Question" id="formCreateQuestion">
-        <input type="text" asp-for="FormId" id="inputFormId" />
+        <input type="hidden" asp-for="FormId" id="inputFormId" />
         <div class="col-md-6 mb-3">
             <label asp-for="Label" class="form-label">Question :</label>
             <input type="text" asp-for="Label" class="form-control" id="inputLabel" placeholder="Saisissez la question...">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div> 
-        <button class="btn btn-success">Envoyer</button>
+        <button id="sendQuestionButton" class="btn btn-success">Envoyer</button>
     </form>
 </div>
 
