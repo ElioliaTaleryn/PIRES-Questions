@@ -24,21 +24,6 @@ namespace Services
             return await _questionRepository.CreateQuestionAsync(question);
         }
   
-        //public async Task<Question> CreateQuestionWithChoiceAsync(Question question)
-        //{
-        //    var questionToCreate = new Question()
-        //    {
-        //        Label = question.Label,
-        //        Description = question.Description,
-        //        FormId = question.FormId,
-        //        Choices = question.Choices.Select(question => new Choice
-        //        {
-        //            Label = question.Label,
-        //            QuestionId = question.QuestionId,
-        //        }).ToList()
-        //    };
-        //    return await _questionRepository.CreateQuestionWithChoiceAsync(question);
-        //}
         public async Task<Question> UpdateQuestionAsync(Question question)
         {
             if (question.Label != null && question.FormId != null)

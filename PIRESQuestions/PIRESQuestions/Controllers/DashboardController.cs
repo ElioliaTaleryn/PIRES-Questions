@@ -3,7 +3,7 @@ using IServices;
 
 namespace PIRESQuestions.Controllers
 {
-    public class DataDashboardController : Controller
+    public class DashboardController : Controller
     {
         // model.isvalid dans les post
         // controller
@@ -20,15 +20,18 @@ namespace PIRESQuestions.Controllers
         }*/
         private readonly IGenderService _genderService;
         private readonly ICountryService _countryService;
+        private readonly IFormService _formService;
 
-        public DataDashboardController(IGenderService genderService, ICountryService countryService)
+        public DashboardController(IGenderService genderService, ICountryService countryService, IFormService formService)
         {
             _genderService = genderService;
             _countryService = countryService;
+            _formService = formService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string userId)
         {
-            return View();
+            var forms = await _formService.GetFormByUserIdAsync(userId);
+            return View(forms);
         }
     }
 }

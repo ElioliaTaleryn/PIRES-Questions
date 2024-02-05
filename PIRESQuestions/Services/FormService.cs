@@ -27,6 +27,14 @@ namespace Services
         {
             return await formRepository.GetByIdFormAsync(id);
         }
+        public async Task<List<Form>> GetFormByUserIdAsync(string userId) 
+        {
+            if (!string.IsNullOrEmpty(userId)) 
+            {
+                return await formRepository.GetFormByUserIdAsync(userId);
+            }
+            else throw new Exception("Impossible de rechercher les formulaires sans la personne");
+        }
 
         public async Task<int> UpdateFormAsync(Form form)
         {

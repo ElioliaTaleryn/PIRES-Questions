@@ -2,8 +2,6 @@
 <h1>TODO CREATE QUESTION</h1>
 
 <partial name="_createQuestion" model="Model" />
-@* <partial name="_createChoice" model="Model" /> *@
-
 <hr />
 
 <div id="divContentQuestion">
@@ -18,11 +16,11 @@
         $('#formCreateQuestion').submit(function (e) {
             var listChoices = [];
 
-            // Parcourez toutes les cases à cocher cochées
+            // Parcours toutes les cases à cocher cochées
             $('.form-check-input:checked').each(function () {
-                var values = $(this).val().split(","); // Séparez les valeurs par la virgule
+                var values = $(this).val().split(",");
                 for (var i = 0; i < values.length; i++) {
-                    var value = values[i].trim(); // Supprimez les espaces inutiles
+                    var value = values[i].trim();
                     var intValue = parseInt(value);
                     if (!isNaN(intValue) && !listChoices.includes(intValue)) {
                         listChoices.push(intValue)

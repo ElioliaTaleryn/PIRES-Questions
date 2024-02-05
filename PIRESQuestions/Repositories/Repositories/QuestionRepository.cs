@@ -48,7 +48,6 @@ namespace Repositories.Repositories
 
         public async Task DeleteQuestionAsync(int id)
         {
-            //var question = _appContext.Questions.Include(q => q.Choices).SingleOrDefault(q => q.Id == id);
             var questionDeleted = await GetQuestionByIdAsync(id);
             if (questionDeleted != null)
             {

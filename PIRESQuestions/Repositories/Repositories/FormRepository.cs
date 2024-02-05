@@ -90,5 +90,12 @@ namespace Repositories.Repositories
                 .ExecuteUpdateAsync(s => s
                 .SetProperty(f => f.UserPersonId, f => form.UserPersonId));
         }
+
+        public async Task<List<Form>> GetFormByUserIdAsync(string userId)
+        {
+            var form = await _context.Forms.Include(f => f.Questions).ThenInclude(q => q.Choices).Include(f => f.UserPerson).Include(f => f.Status).Where(f => f.UserPersonId == userId).ToListAsync() ?? throw new FormRepositoryException($"Pas de form avec cet UserId.");
+
+            return form;
+        }
     }
 }

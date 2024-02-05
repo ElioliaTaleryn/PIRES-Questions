@@ -1,0 +1,122 @@
+﻿@model List<Form>
+
+<h2>Dashboard</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Mes Formulaires En Attentes
+                </div>
+                <div class="card-body">
+                    @foreach(var form in Model)
+                    {
+                        if(form.StatusId == 1)
+                        {
+                            <p class="card-title">@form.Title</p>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        }                       
+                    }               
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Mes Formulaires Publiés
+                </div>
+                <div class="card-body">
+                    @foreach (var form in Model)
+                    {
+                        if (form.StatusId == 2)
+                        {
+                            <p class="card-title">@form.Title</p>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Mes Formulaires Cloturés
+                </div>
+                <div class="card-body">
+                    @foreach (var form in Model)
+                    {
+                        if (form.StatusId == 3)
+                        {
+                            <p class="card-title">@form.Title</p>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Statistiques
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <h3>Countries</h3>
+
+<ul class="btn-group list-unstyled">
+    <li><button class="btn btn-success m-2" type="button" onclick="CreateCountryFormDisplay()">Create</button></li>
+    <li><button class="btn btn-info m-2" type="button" onclick="ReadCountryFormDisplay()">Read</button></li>
+    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllCountryFormDisplay()">Read All</button></li>
+    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateCountryFormDisplay()">Update</button></li>
+    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteCountryFormDisplay()">Delete</button></li>
+</ul>
+
+<div id="CountriesFormDiv"></div>
+
+<h3>Genders</h3>
+
+<ul class="btn-group list-unstyled">
+    <li><button class="btn btn-success m-2" type="button" onclick="CreateGenderFormDisplay()">Create</button></li>
+    <li><button class="btn btn-info m-2" type="button" onclick="ReadGenderFormDisplay()">Read</button></li>
+    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllGenderFormDisplay()">Read All</button></li>
+    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateGenderFormDisplay()">Update</button></li>
+    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteGenderFormDisplay()">Delete</button></li>
+</ul>
+
+<script type="text/javascript">
+    const countriesFormDiv = document.querySelector("#CountriesFormDiv");
+    
+    function CreateCountryFormDisplay() {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "/DataDashboard/CreateCountryAsync");
+
+        var nameInput = document.createElement("input");
+        nameInput.setAttribute("type", "text");
+        nameInput.setAttribute("name", "Name");
+        nameInput.setAttribute("placeholder", "Country name");
+
+        var submitButton = document.createElement("button");
+        submitButton.setAttribute("class", "btn btn-secondary");
+        submitButton.setAttribute("type", "submit")
+        submitButton.textContent = "Submit";
+
+        form.appendChild(nameInput);
+        form.appendChild(submitButton);
+        
+        countriesFormDiv.appendChild(form);
+    }
+</script> *@

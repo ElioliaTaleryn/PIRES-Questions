@@ -11,17 +11,19 @@ namespace PIRESQuestions.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<UserPerson> _signInManager;
+        private readonly UserManager<UserPerson> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<UserPerson> signInManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<UserPerson> signInManager, UserManager<UserPerson> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            //var result = await _signInManager.PasswordSignInAsync("bob", "Ab1234%", true, lockoutOnFailure: false);
-
+            UserPerson userBdd = await _userManager.GetUserAsync(User);
+            TempData["UserId"] = userBdd.Id;
             return View();
         }
 
