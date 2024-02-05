@@ -23,7 +23,10 @@ namespace PIRESQuestions.Controllers
         public async Task<IActionResult> Index()
         {
             UserPerson userBdd = await _userManager.GetUserAsync(User);
-            TempData["UserId"] = userBdd.Id;
+            if(userBdd != null) 
+            {
+                TempData["UserId"] = userBdd.Id;
+            }         
             return View();
         }
 

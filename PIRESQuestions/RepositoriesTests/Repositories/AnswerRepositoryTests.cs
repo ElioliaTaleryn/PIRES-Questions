@@ -20,7 +20,7 @@ namespace Repositories.Repositories.Tests
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("answer");
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
-            Answer answer1 = new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 };
+            Answer answer1 = new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1, FormId = 1 };
 
             AnswerRepository answerRepository = new AnswerRepository(context);
 
@@ -37,7 +37,7 @@ namespace Repositories.Repositories.Tests
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("answer");
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
-            Answer answer1 = new Answer { Id = 0, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 };
+            Answer answer1 = new Answer { Id = 0, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 , FormId = 1 };
 
             AnswerRepository answerRepository = new AnswerRepository(context);
 
@@ -54,10 +54,10 @@ namespace Repositories.Repositories.Tests
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("answer");
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
-            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 });
+            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
 
             context.SaveChanges();
             AnswerRepository answerRepository = new AnswerRepository(context);
@@ -76,10 +76,10 @@ namespace Repositories.Repositories.Tests
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("answer");
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
-            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 });
+            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
 
             context.SaveChanges();
             AnswerRepository answerRepository = new AnswerRepository(context);
@@ -97,10 +97,10 @@ namespace Repositories.Repositories.Tests
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("answer");
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
-            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 });
+            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1, FormId = 1 });
+            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
 
             context.SaveChanges();
             AnswerRepository answerRepository = new AnswerRepository(context);
@@ -123,10 +123,10 @@ namespace Repositories.Repositories.Tests
             context.Genders.Add(new Gender { Id = 2, Label = "feminin" });
             context.Anonymouses.Add(new Anonymous { Id = 1, Age = 30, GenderId = 1, });
             context.Anonymouses.Add(new Anonymous { Id = 2, Age = 30, GenderId = 2, });
-            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 2 });
-            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 2 });
+            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 2 , FormId = 1 });
+            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 2 , FormId = 1 });
             
             
 
@@ -147,10 +147,10 @@ namespace Repositories.Repositories.Tests
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("answer");
             var context = new ApplicationDbContext(builder.Options);
             context.Database.EnsureDeleted();
-            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1 });
-            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1 });
+            context.Answers.Add(new Answer { Id = 1, Horodatage = DateTime.Now, QuestionId = 12, ChoiceId = 1, AnonymousId = 1, FormId = 1 });
+            context.Answers.Add(new Answer { Id = 2, Horodatage = DateTime.Now, QuestionId = 1, ChoiceId = 1, AnonymousId = 1, FormId = 1 });
+            context.Answers.Add(new Answer { Id = 3, Horodatage = DateTime.Now, QuestionId = 2, ChoiceId = 1, AnonymousId = 1, FormId = 1 });
+            context.Answers.Add(new Answer { Id = 4, Horodatage = DateTime.Now, QuestionId = 10, ChoiceId = 1, AnonymousId = 1, FormId = 1 });
 
             context.SaveChanges();
 

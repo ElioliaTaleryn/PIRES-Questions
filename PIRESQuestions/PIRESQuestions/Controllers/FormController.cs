@@ -162,5 +162,16 @@ namespace PIRESQuestions.Controllers
             return RedirectToAction("Detail", new { Id = form.Id });
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> FormResult(int formId) 
+        {
+            if (formId != 0)
+            {
+                var model = await _formService.GetFormWithQuestionsAndAnswersAsync(formId);
+                return View(model);
+            }
+            else return RedirectToAction("Index", "Dashboard");
+        }
     }
 }

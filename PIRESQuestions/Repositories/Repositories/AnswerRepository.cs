@@ -65,7 +65,7 @@ namespace Repositories.Repositories
         }
         public async Task<List<Answer>> GetAnswerByFormAsync(int formId)
         {
-            List<Answer> answers = await _appContext.Answers.Where(a => a.FormId == formId).ToListAsync();
+            List<Answer> answers = await _appContext.Answers.Include(a => a.Form).Include(a => a.Question).Include(a => a.Choice).Include(a => a.Anonymous).Where(a => a.FormId == formId).ToListAsync();
             if (answers.Any())
             {
                 return answers;

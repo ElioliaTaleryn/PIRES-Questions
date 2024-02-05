@@ -61,7 +61,7 @@
                         {
                             <p class="card-text">@form.Title</p>
                             <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
-                            <a asp-controller="Answer" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Résultats</a>
+                            <a asp-controller="Form" asp-action="FormResult" asp-route-formId="@form.Id" class="btn btn-info">Résultats</a>
                         }
                     }
                 </div>
