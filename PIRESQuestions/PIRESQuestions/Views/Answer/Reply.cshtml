@@ -49,7 +49,8 @@
             console.log("réponse : ", listAnswersPost + "anony : ", newAnonymous);
 
             $.post('/Answer/Reply', { listAnswers: listAnswersPost, anonymous: newAnonymous }, function (data) {
-                
+                window.location.href = '/Home/Index/';
+
             });
             e.preventDefault();
         });
