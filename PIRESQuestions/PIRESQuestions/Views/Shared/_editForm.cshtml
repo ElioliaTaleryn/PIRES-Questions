@@ -8,7 +8,29 @@
         <label asp-for="Title">Titre : </label>
         <input type="text" asp-for="Title" id="inputTitle" />
         <label asp-for="Description">Description</label>
-        <input type="text" asp-for="Description" id="inputDescription" />
+        <input type="text" asp-for="Description" id="inputDescriptionForm" />
+        <button class="btn btn-primary">Editer le formulaire</button>
     </div>
-    <button class="btn btn-primary">Editer le formulaire</button>
 </form>
+
+<script>
+    $(function () {
+        $('#editInfoForm').submit(function (e) {
+            console.log("je rentre");
+            var form = {
+                Id: $('#inputFormID').val(),
+                StatusId: $('#inputStatusID').val(),
+                UserPersonId: $('#inputUserPersonId').val(),
+                Title: $('#inputTitle').val(),
+                Description: $('#inputDescriptionForm').val(),
+            };
+
+            console.log(form);
+
+            $.post('/Form/Edit', { form }, function (data) {
+                $('#divContentForm').html(data);
+            });
+            e.preventDefault();
+        });
+    });
+</script>

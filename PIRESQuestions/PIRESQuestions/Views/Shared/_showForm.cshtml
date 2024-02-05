@@ -40,52 +40,49 @@
         }
         </h6>
 
-        </div>
+    </div>
     <div class="card-body">
+        @{
+            if (Model.Questions != null)
+            {
+                // <partial name="_showQuestions" model="Model.Questions" />
 
-        <div id="divContentQuestion">
-            @{
-                if (Model.Questions != null)
+                @foreach (var question in Model.Questions)
                 {
-                    @foreach (var question in Model.Questions)
-                    {
                         <div class="card mb-5">
                             <div class="card-body">
-                                <input type="text" asp-for="@question.Id" id="inputQuestionId" />
+                                <input type="hidden" asp-for="@question.Id" id="inputQuestionId" />
                                 @* <p class="card-text strong">formulaire : @Model.Form.Title</p> *@
                                 <p class="card-text">@question.Label</p>
                                 <p class="card-text">description : @question.Description</p>
-                                <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@question.Id, @question.FormId);" class="btn btn-danger">Supprimer Via Ajax</button>
                                 <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@question.Id" class="btn btn-info">Modifier</a>
-                                @* <button id="callCreateChoice" data-question-id="@q.Id" class="btn btn-info">Ajouter Choix</button> *@
-                            </div>
-                            @{
-                                if (question.Choices != null)
-                                {
-                                    @foreach (var c in question.Choices)
+                                <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@question.Id, @question.FormId);" class="btn btn-danger">Supprimer</button>
+                                @{
+                                    if (question.Choices != null)
                                     {
-                                        <div class="card-body">
-                                            <p class="card-text">@c.Label</p>
-                                        </div>
+                                    <p class="card-text">
+                                        Réponse :   @foreach (var c in question.Choices)
+                                        {
+                                        <p class="card-text">@c.Label</p>
+                                        }
+                                    </p>
                                     }
                                 }
-                            }
-                        </div>
-                    }
-                };
-            }
-        </div>
+                            </div>
+                        </div>        
+                }
+            };
+        }
     </div>
     <div class="card-footer">
-        <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
         @{
             if (Model.Status.Label == "In progress")
             {
+                <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
                 <button id="editFormButton" class="btn btn-warning">Editer le formulaire</button>
                 //<a type="button" class="btn btn-warning" id="editFormButton" asp-action="Edit" asp-route-Id="@Model.Id">Editer le formulaire</a>
             }
         }
-
         <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-Id="@Model.Id">Supprimer le formulaire</a>
         @{
             if (Model.Status.Label == "In progress")
@@ -107,32 +104,31 @@
     var updateFButton = document.querySelector('#updateInfoFormButton');
     updateFButton.addEventListener('click', hideShowEditForm);
 
+    // var editQButton = document.querySelector('#editQuestionButton');
+    // editQButton.addEventListener('click', hideShowEditQuestion)
+
+    // var updateQButton = document.querySelector('#updateQuestionButton');
+    // updateQButton.addEventListener('click', hideShowEditQuestion);
+
+    // var cancelQbutton = document.querySelector('#cancelEditQuestionButton');
+    // cancelQbutton.addEventListener('click', hideShowEditQuestion);
+
     function hideShowEditForm() {
 
         var divEditForm = document.querySelector('#editInfoForm');
         divEditForm.hidden = !divEditForm.hidden;
-        displayInfoForm
 
         var divDisplayInfo = document.querySelector('#displayInfoForm');
         divDisplayInfo.hidden = !divDisplayInfo.hidden;
     }
 
-    $(function () {
-        console.log("je rentre");
-        $('#editInfoForm').submit(function (e) {
+    // function hideShowEditQuestion() {
 
-            var form = {
-                Id: $('#inputFormID').val(),
-                StatusId: $('#inputStatusID').val(),
-                Title: $('#inputLabel').val(),
-                Description: $('#inputDescription').val()
-            };
+    //     var divEditQuestion = document.querySelector('#updateQuestion');
+    //     divEditQuestion.hidden = !divEditQuestion.hidden;
 
-            console.log(form);
+    //     var divDisplayQuestion = document.querySelector('#divContentQuestion');
+    //     divDisplayQuestion.hidden = !divDisplayQuestion.hidden;
+    // }
 
-            $.post('/Form/Edit', { form }, function (data) {
-            });
-            e.preventDefault();
-        });
-    });
 </script>

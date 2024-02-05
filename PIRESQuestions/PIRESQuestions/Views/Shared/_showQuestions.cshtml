@@ -1,28 +1,25 @@
 ﻿@model List<Question>
 
-    @foreach(var question in Model){
+@foreach (var question in Model)
+{
     <div class="card mb-5">
         <div class="card-body">
-            <input type="text" asp-for="@question.Id" id="inputQuestionId" />
-            @* <p class="card-text strong">formulaire : @Model.Form.Title</p> *@
+            <input type="hidden" asp-for="@question.Id" id="inputQuestionId" />
             <p class="card-text">@question.Label</p>
             <p class="card-text">description : @question.Description</p>
-            <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@question.Id, @question.FormId);" class="btn btn-danger">Supprimer Via Ajax</button>
+            <button onclick="return confirm('es-tu sûr ?') && deleteQuestion(@question.Id, @question.FormId);" class="btn btn-danger">Supprimer</button>
             <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@question.Id" class="btn btn-info">Modifier</a>
-            @* <button id="callCreateChoice" data-question-id="@q.Id" class="btn btn-info">Ajouter Choix</button> *@
-        </div>
-        @{
-            if (question.Choices != null)
+            
+            @if (question.Choices != null)
             {
-                @foreach (var c in question.Choices)
-                {
-                    <div class="card-body">
-                        <p class="card-text">@c.Label</p>
-                    </div>
-                }
+                <p class="card-text">
+                    Réponse :   @foreach (var c in question.Choices)
+                    {
+                    <p class="card-text">@c.Label</p>
+                    }
+                </p>
             }
-        }
-
+        </div>
     </div>
 
 }
