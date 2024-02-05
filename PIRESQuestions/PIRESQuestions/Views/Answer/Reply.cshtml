@@ -1,0 +1,58 @@
+﻿@model FormViewModel
+
+<form asp-action="Reply" asp-controller="Answer" id="answersForm">
+    <div class="form-groupe">
+        <label asp-for="@Model.Anonymous.Age">Veuillez rentrez votre âge :</label>
+        <input type="number" asp-for="@Model.Anonymous.Age" id="inputAge"/>
+        @foreach (Question question in Model.Questions)
+        {
+            <input asp-for="@question.Id" />
+            <fieldset>
+                <legend>@question.Label</legend>
+                @foreach (Choice choise in question.Choices)
+                {
+                    <div>
+                        <input asp-for="@question.Id" type="radio" id="@question.Id+_+@choise.Id" name="@question.Id" value="@choise.Id"/>
+                        <label for="@choise.Id">@choise.Label</label>
+                    </div>
+                }
+            </fieldset>
+        }
+    </div>
+    <a asp-controller="Answer" asp-action="Reply" asp-route-formViewModel=@Model type="submit">Répondre  </a>
+    <button type="submit"class="btn btn-primary">Envoyer la réponse</button>
+</form>
+
+
+<script>
+    $(function () {
+        $('#answersForm').submit(function (e) {
+             var listAnswersPost= [];
+
+            $('fieldset').each(function () {
+                var questionId = $(this).find('input[type="radio"]').attr('name');
+                var selectedAnswerId = $(this).find('input[type="radio"]:checked').val();
+
+                if (selectedAnswerId) {
+                    var currentTime = new Date(); // Obtenir la date actuelle côté client
+                    var formattedTime = currentTime.toISOString(); // Formater la date au format ISO (AAAA-MM-JJTHH:MM:SS)
+
+                    listAnswersPost.push({ questionId: questionId, choiceId: selectedAnswerId, horodatage: formattedTime});
+                }
+            });
+            
+            var newAnonymous =
+            {
+                AnonymousId: 0,
+                Age: $('#inputAge').val(),
+            };
+            console.log("réponse : ", listAnswersPost + "anony : ", newAnonymous);
+
+            $.post('/Answer/Reply', { listAnswers: listAnswersPost, anonymous: newAnonymous }, function (data) {
+                window.location.href = '/Home/Index/';
+
+            });
+            e.preventDefault();
+        });
+    });
+</script>

@@ -25,7 +25,7 @@ namespace Entities
         public required int ChoiceId { get; set; }
         public Choice Choice { get; set; }
         [Required]
-        public required int AnonymousId { get; set; }
+        public int AnonymousId { get; set; }
         public Anonymous Anonymous { get; set; }
         #endregion
     }
