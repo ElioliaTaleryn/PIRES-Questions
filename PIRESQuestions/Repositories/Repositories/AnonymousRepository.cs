@@ -15,6 +15,7 @@ namespace Repositories.Repositories
     {
         public async Task<Anonymous> CreateAnonymousAsync(Anonymous anonymous)
         {
+                    
             if (anonymous.Id != 0)
             {
                 throw new AnonymousRepositoryException($"Anonymous id value invalid: must be 0.");
@@ -23,6 +24,10 @@ namespace Repositories.Repositories
             {
                 throw new AnonymousRepositoryException($"Anonymous Age value invalid: must be higher than 0 and lower than 125.");
             }
+
+            //var anonymousExist = await _context.Anonymouses.OrderByDescending(a => a.Id).FirstOrDefaultAsync();
+            //anonymous.Id = anonymousExist.Id + 1;
+
             _context.Anonymouses.Add(anonymous);
             await _context.SaveChangesAsync();
             return anonymous;

@@ -10,12 +10,14 @@ namespace PIRESQuestions.Controllers
         IFormService _formService;
         IAnswerService _answerService;
         IQuestionService _questionService;
+        IAnonymousService _anonymousService;
 
-        public AnswerController(IFormService formService, IAnswerService answerService, IQuestionService questionService)
+        public AnswerController(IFormService formService, IAnswerService answerService, IQuestionService questionService, IAnonymousService anonymousService)
         {
             _formService = formService;
             _answerService = answerService;
             _questionService = questionService;
+            _anonymousService = anonymousService;
         }
 
         [HttpGet]
@@ -41,8 +43,12 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Reply(FormViewModel formViewModel) {
-            foreach(Answer answer in formViewModel.Answers) {
+        public async Task<IActionResult> Reply(List<Answer>listAnswers, Anonymous anonymous) {
+           
+            var anonymousCreate = await _anonymousService.CreateAnonymousAsync(anonymous);
+
+            foreach (var answer in listAnswers) {
+                answer.AnonymousId = anonymousCreate.Id;
                 await _answerService.CreateAnswerAsync(answer);
             }
             return RedirectToAction("Index", "Home");

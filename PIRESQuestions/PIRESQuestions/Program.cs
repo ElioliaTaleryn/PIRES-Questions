@@ -44,6 +44,8 @@ builder.Services.AddScoped<IFormRepository, FormRepository>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 
+builder.Services.AddScoped<IAnonymousService, AnonymousService>();
+builder.Services.AddScoped<IAnonymousRepository, AnonymousRepository>();
 
 var app = builder.Build();
 
