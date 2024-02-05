@@ -83,7 +83,7 @@ namespace PIRESQuestions.Controllers
 
                 await _questionService.UpdateQuestionAsync(question);        
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Detail", "Form", question.Id);
             }            
         }
 

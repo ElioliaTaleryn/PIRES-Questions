@@ -1,11 +1,11 @@
-﻿@model Form
+﻿@model FormViewModel
 
 <div id="contentAddQuestion" hidden>
-    <partial name="_createQuestion" model="new Question{FormId=Model.Id}" />
+    <partial name="_createQuestion" model="new Question{FormId=Model.Form.Id}" />
 </div>
 
 <div id="divContentForm">
-    <partial name="_showForm" model="@Model" />
+    <partial name="_showForm" model="Model.Form" />
 </div>
 
 
@@ -27,6 +27,7 @@
             });
             var question = {
                 Label: $('#inputLabel').val(),
+                Description: $('#inputDescription').val(),
                 FormId: $('#inputFormId').val(),
             };
 
@@ -39,6 +40,7 @@
         });
     });
 
+   
     function deleteQuestion(id, formId) {
 
         $.get('/Question/DeleteQuestion', { id, formId }, function (data) {

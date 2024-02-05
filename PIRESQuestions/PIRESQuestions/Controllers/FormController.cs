@@ -11,11 +11,13 @@ namespace PIRESQuestions.Controllers
     {
         IFormService _formService;
         IQuestionService _questionService;
+        IChoiceService _choiceService;
         UserManager<UserPerson> _userManager;
 
-        public FormController(IFormService formService, IQuestionService questionService, UserManager<UserPerson> userManager) {
+        public FormController(IFormService formService, IQuestionService questionService, IChoiceService choiceService, UserManager<UserPerson> userManager) {
             _formService = formService;
             _questionService = questionService;
+            _choiceService = choiceService;
             _userManager = userManager;
         }
         public async Task<IActionResult> Index()
@@ -25,7 +27,15 @@ namespace PIRESQuestions.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Detail(int Id) {
-            return View(await _formService.GetByIdFormAsync(Id));
+
+            Form form = await _formService.GetByIdFormAsync(Id);
+            List<Question> questions = await _questionService.GetQuestionByFormIdAsync(form.Id);
+            var model = new FormViewModel
+            { 
+                Form = form, 
+                Questions = questions
+            };
+            return View(model);
         }
 
         [HttpGet]
@@ -64,7 +74,8 @@ namespace PIRESQuestions.Controllers
         {
             await _formService.UpdateFormAsync(form);
             Form formView = await _formService.GetByIdFormAsync(form.Id);
-            return View("Detail", formView);
+            return PartialView("_showForm", formView);
+
         }
         [Authorize]
         public async Task<IActionResult> Delete(int id)
