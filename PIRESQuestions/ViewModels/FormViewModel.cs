@@ -11,5 +11,6 @@ namespace ViewModels
     {
         public Form Form {  get; set; }
         public List<Question> Questions { get; set; }
+        public List<Answer> Answers { get; set; }
     }
 }

@@ -1,0 +1,23 @@
+﻿@model FormViewModel
+
+<form asp-action="Reply" asp-controller="Answer">
+    <div class="form-groupe">
+        @foreach (Question question in Model.Questions)
+        {
+            <input asp-for="@question.Id" />
+            <fieldset>
+                <legend>@question.Label</legend>
+                @foreach (Choice choise in question.Choices)
+                {
+                    <div>
+                        <input asp-for="@question.Id" type="radio" id="@question.Id+_+@choise.Id" name="@question.Id" value="@choise.Id"/>
+                        <label for="@choise.Id">@choise.Label</label>
+                    </div>
+                }
+            </fieldset>
+        }
+    </div>
+    <a asp-controller="Answer" asp-action="Reply" asp-route-formViewMode=@Model type="submit">Répondre  </a>
+    <button type="submit"class="btn btn-primary">Envoyer la réponse</button>
+</form>
+
