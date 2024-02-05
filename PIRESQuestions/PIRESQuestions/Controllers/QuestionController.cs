@@ -81,9 +81,9 @@ namespace PIRESQuestions.Controllers
             {
                 question.Choices = await _choiceService.GetChoicesByIdsAsync(choiceIds);
 
-                await _questionService.UpdateQuestionAsync(question);        
+                await _questionService.UpdateQuestionAsync(question);
 
-                return RedirectToAction("Detail", "Form", question.Id);
+                return RedirectToAction("Detail", "Form", new { Id = question.FormId });
             }            
         }
 
