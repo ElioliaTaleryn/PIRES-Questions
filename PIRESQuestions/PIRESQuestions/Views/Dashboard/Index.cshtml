@@ -9,15 +9,19 @@
                     Mes Formulaires En Attentes
                 </div>
                 <div class="card-body">
-                    @foreach(var form in Model)
+                    @foreach (var form in Model)
                     {
-                        if(form.StatusId == 1)
+                        if (form.StatusId == 1)
                         {
-                            <p class="card-title">@form.Title</p>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        }                       
-                    }               
+                            <p class="card-text">
+                                @form.Title
+                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                                <a asp-controller="Form" asp-action="Delete" asp-route-id="@form.Id" class="btn btn-danger" onclick="return confirm('es-tu sûr de vouloir supprimer le formulaire ?')">Supprimer</a>
+                                <button onclick="return confirm('es-tu sûr de vouloir supprimer le formulaire ?') && deleteForm(@form.Id);" class="btn btn-danger">Supprimer</button>
+                                <button onclick="return confirm('es-tu sûr de vouloir publier le formulaire ?') && validateForm(@form.Id);" class="btn btn-success">Publier</button>
+                            </p>
+                        }
+                    }
                 </div>
             </div>
         </div>
@@ -31,9 +35,13 @@
                     {
                         if (form.StatusId == 2)
                         {
-                            <p class="card-title">@form.Title</p>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            
+                            <p class="card-text">
+                                @form.Title
+                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                                <button onclick="return confirm('es-tu sûr de vouloir clôturer le formulaire ?') && closeForm(@form.Id);" class="btn btn-warning">Clôturer</button>
+                            </p>
+                            
                         }
                     }
                 </div>
@@ -51,9 +59,9 @@
                     {
                         if (form.StatusId == 3)
                         {
-                            <p class="card-title">@form.Title</p>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <p class="card-text">@form.Title</p>
+                            <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                            <a asp-controller="Answer" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Résultats</a>
                         }
                     }
                 </div>
@@ -74,49 +82,22 @@
     </div>
 </div>
 
-@* <h3>Countries</h3>
-
-<ul class="btn-group list-unstyled">
-    <li><button class="btn btn-success m-2" type="button" onclick="CreateCountryFormDisplay()">Create</button></li>
-    <li><button class="btn btn-info m-2" type="button" onclick="ReadCountryFormDisplay()">Read</button></li>
-    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllCountryFormDisplay()">Read All</button></li>
-    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateCountryFormDisplay()">Update</button></li>
-    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteCountryFormDisplay()">Delete</button></li>
-</ul>
-
-<div id="CountriesFormDiv"></div>
-
-<h3>Genders</h3>
-
-<ul class="btn-group list-unstyled">
-    <li><button class="btn btn-success m-2" type="button" onclick="CreateGenderFormDisplay()">Create</button></li>
-    <li><button class="btn btn-info m-2" type="button" onclick="ReadGenderFormDisplay()">Read</button></li>
-    <li><button class="btn btn-primary m-2" type="button" onclick="ReadAllGenderFormDisplay()">Read All</button></li>
-    <li><button class="btn btn-warning m-2" type="button" onclick="UpdateGenderFormDisplay()">Update</button></li>
-    <li><button class="btn btn-danger m-2" type="button" onclick="DeleteGenderFormDisplay()">Delete</button></li>
-</ul>
-
-<script type="text/javascript">
-    const countriesFormDiv = document.querySelector("#CountriesFormDiv");
-    
-    function CreateCountryFormDisplay() {
-        var form = document.createElement("form");
-        form.setAttribute("method", "post");
-        form.setAttribute("action", "/DataDashboard/CreateCountryAsync");
-
-        var nameInput = document.createElement("input");
-        nameInput.setAttribute("type", "text");
-        nameInput.setAttribute("name", "Name");
-        nameInput.setAttribute("placeholder", "Country name");
-
-        var submitButton = document.createElement("button");
-        submitButton.setAttribute("class", "btn btn-secondary");
-        submitButton.setAttribute("type", "submit")
-        submitButton.textContent = "Submit";
-
-        form.appendChild(nameInput);
-        form.appendChild(submitButton);
-        
-        countriesFormDiv.appendChild(form);
+<script>
+    function validateForm(formId) {
+        $.get('/Form/ValidateDashboard', { id: formId }, function (data) {
+            window.location.href = '/Dashboard/Index';
+        });
     }
-</script> *@
+
+    function closeForm(formId) {
+        $.get('/Form/CloseDashboard', { id: formId }, function (data) {
+            window.location.href = '/Dashboard/Index';
+        });
+    }
+
+    function deleteForm(formId) {
+        $.get('/Form/DeleteDashboard', { id: formId }, function (data) {
+            window.location.href = '/Dashboard/Index';
+        });
+    }
+</script>

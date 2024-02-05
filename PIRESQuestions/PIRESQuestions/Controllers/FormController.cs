@@ -84,6 +84,13 @@ namespace PIRESQuestions.Controllers
             await _formService.DeleteFormAsync(formToDelete);
             return RedirectToAction("Index");
         }
+        [Authorize]
+        public async Task<IActionResult> DeleteDashboard(int id)
+        {
+            Form formToDelete = await _formService.GetByIdFormAsync(id);
+            await _formService.DeleteFormAsync(formToDelete);
+            return RedirectToAction("Index", "Dashboard");
+        }
 
         [HttpGet]
         [Authorize]
@@ -115,9 +122,36 @@ namespace PIRESQuestions.Controllers
             await _formService.UpdateFormAsync(form);
             return RedirectToAction("Detail", new { Id = form.Id });
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> ValidateDashboard(int id)
+        {
+            Form form = await _formService.GetByIdFormAsync(id);
+            if (form.StatusId == 1)
+            {
+                form.StatusId = 2;
+            }
+            await _formService.UpdateFormAsync(form);
+            return RedirectToAction("Index", "Dashboard");
+        }
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Close(int id)
+        {
+            Form form = await _formService.GetByIdFormAsync(id);
+            if (form.StatusId == 2)
+            {
+                form.StatusId = 3;
+            }
+            await _formService.UpdateFormAsync(form);
+            return RedirectToAction("Detail", new { Id = form.Id });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> CloseDashboard(int id)
         {
             Form form = await _formService.GetByIdFormAsync(id);
             if (form.StatusId == 2)

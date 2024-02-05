@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IServices;
+using Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace PIRESQuestions.Controllers
 {
@@ -21,16 +23,20 @@ namespace PIRESQuestions.Controllers
         private readonly IGenderService _genderService;
         private readonly ICountryService _countryService;
         private readonly IFormService _formService;
+        UserManager<UserPerson> _userManager;
 
-        public DashboardController(IGenderService genderService, ICountryService countryService, IFormService formService)
+        public DashboardController(IGenderService genderService, ICountryService countryService, IFormService formService, UserManager<UserPerson> userManager)
         {
             _genderService = genderService;
             _countryService = countryService;
             _formService = formService;
+            _userManager = userManager;
         }
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index()
         {
-            var forms = await _formService.GetFormByUserIdAsync(userId);
+            UserPerson userBdd = await _userManager.GetUserAsync(User);
+            TempData["UserId"] = userBdd.Id;
+            var forms = await _formService.GetFormByUserIdAsync(userBdd.Id);
             return View(forms);
         }
     }

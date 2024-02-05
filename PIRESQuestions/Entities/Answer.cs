@@ -16,6 +16,9 @@ namespace Entities
         #endregion
         #region Relative Fields
         [Required]
+        public required int FormId { get; set; }
+        public Form Form { get; set; }
+        [Required]
         public required int QuestionId { get; set; }
         public Question Question { get; set; }
         [Required]

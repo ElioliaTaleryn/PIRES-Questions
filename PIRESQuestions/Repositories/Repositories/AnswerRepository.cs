@@ -63,6 +63,15 @@ namespace Repositories.Repositories
             }
             else throw new Exception("Aucune réponse trouvée");
         }
+        public async Task<List<Answer>> GetAnswerByFormAsync(int formId)
+        {
+            List<Answer> answers = await _appContext.Answers.Where(a => a.FormId == formId).ToListAsync();
+            if (answers.Any())
+            {
+                return answers;
+            }
+            else throw new Exception("Aucune réponse trouvée");
+        }
         public async Task<bool> DeleteAnswerAsync(int id)
         {
             var answer = _appContext.Answers.FirstOrDefault(a => a.Id == id);
