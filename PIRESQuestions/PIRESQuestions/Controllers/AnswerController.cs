@@ -44,8 +44,7 @@ namespace PIRESQuestions.Controllers
         [HttpPost]
         public async Task<IActionResult> Reply(List<Answer>listAnswers, Anonymous anonymous, int formId) {
 
-            if(ModelState.IsValid)
-            {
+           
                 var anonymousCreate = await _anonymousService.CreateAnonymousAsync(anonymous);
 
                 foreach (var answer in listAnswers)
@@ -54,8 +53,7 @@ namespace PIRESQuestions.Controllers
                     await _answerService.CreateAnswerAsync(answer);
                 }
                 return RedirectToAction("Index", "Home");
-            }
-            else return View(formId);
+   
            
         }
 

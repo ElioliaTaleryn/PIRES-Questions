@@ -35,6 +35,7 @@
 
             $.post('/Question/CreateQuestion', { question: question, choiceIds: listChoices }, function (data) {
                 $('#divContentForm').html(data);
+                location.reload();
             });
             e.preventDefault();
         });
