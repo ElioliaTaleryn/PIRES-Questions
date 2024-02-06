@@ -1,5 +1,6 @@
 ﻿using Entities;
 using IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.IdentityModel.Abstractions;
@@ -19,11 +20,15 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+
         public async Task<IActionResult> CreateChoice()
         {
             return View();
         }
         [HttpPost]
+        [Authorize]
+
         public async Task<IActionResult> CreateChoice(Choice choice) 
         {
             if(!ModelState.IsValid && string.IsNullOrEmpty(choice.Label)) 

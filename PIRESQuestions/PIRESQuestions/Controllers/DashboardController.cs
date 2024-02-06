@@ -2,6 +2,7 @@
 using IServices;
 using Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PIRESQuestions.Controllers
 {
@@ -32,6 +33,8 @@ namespace PIRESQuestions.Controllers
             _formService = formService;
             _userManager = userManager;
         }
+
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             UserPerson userBdd = await _userManager.GetUserAsync(User);

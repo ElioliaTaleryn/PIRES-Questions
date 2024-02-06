@@ -1,5 +1,6 @@
 ﻿using Entities;
 using IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.IdentityModel.Abstractions;
@@ -28,11 +29,15 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+
         public async Task<IActionResult> CreateQuestion()
         {
             return View();
         }
         [HttpPost]
+        [Authorize]
+
         public async Task<IActionResult> CreateQuestion(Question question , List<int>choiceIds)
         {
             if(!ModelState.IsValid && string.IsNullOrEmpty(question.Label) && question.FormId == null && choiceIds.Any() ) 
@@ -55,6 +60,8 @@ namespace PIRESQuestions.Controllers
         }
        
         [HttpGet]
+        [Authorize]
+
         public async Task<IActionResult> UpdateQuestion(int id)
         {
             if(id > 0) 
@@ -67,6 +74,8 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+
         public async Task<IActionResult> UpdateQuestion(Question question, List<int> choiceIds)
         {
             if (!ModelState.IsValid && string.IsNullOrEmpty(question.Label) && question.FormId == null && choiceIds.Count() <= 0)
@@ -88,6 +97,7 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> DeleteQuestion(int id, int formId) 
         {
             //TODO : List Questions 
