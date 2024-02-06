@@ -25,6 +25,12 @@
                     }
                 }
             });
+
+            if (listChoices.length === 0) {
+                alert("Veuillez sélectionner au moins un choix.");
+                hideShowAddQuestion();
+            }
+
             var question = {
                 Label: $('#inputLabel').val(),
                 Description: $('#inputDescription').val(),

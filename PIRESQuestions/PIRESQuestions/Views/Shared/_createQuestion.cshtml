@@ -5,7 +5,7 @@
         <input type="hidden" asp-for="FormId" id="inputFormId" />
         <div class="col-md-6 mb-3">
             <label asp-for="Label" class="form-label">Question :</label>
-            <input type="text" asp-for="Label" class="form-control" id="inputLabel" placeholder="Saisissez la question...">
+            <input type="text" asp-for="Label" class="form-control" id="inputLabel" placeholder="Saisissez la question..." required>
             <span asp-validation-for="Label" class="text-danger"></span>
         </div>
         <div class="col-md-6 mb-3">
