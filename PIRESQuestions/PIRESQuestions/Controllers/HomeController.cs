@@ -4,6 +4,7 @@ using Entities;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using ViewModels;
+using IServices;
 
 namespace PIRESQuestions.Controllers
 {
@@ -12,12 +13,14 @@ namespace PIRESQuestions.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<UserPerson> _signInManager;
         private readonly UserManager<UserPerson> _userManager;
+        private readonly IFormService _formService;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<UserPerson> signInManager, UserManager<UserPerson> userManager)
+        public HomeController(ILogger<HomeController> logger, SignInManager<UserPerson> signInManager, UserManager<UserPerson> userManager, IFormService formService)
         {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            _formService = formService;
         }
 
         public async Task<IActionResult> Index()
@@ -27,7 +30,7 @@ namespace PIRESQuestions.Controllers
             {
                 TempData["UserId"] = userBdd.Id;
             }         
-            return View();
+            return View(await _formService.GetAllFormAsync());
         }
 
         public IActionResult Privacy()
