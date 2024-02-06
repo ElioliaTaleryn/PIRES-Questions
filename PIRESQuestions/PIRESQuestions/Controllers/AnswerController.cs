@@ -28,7 +28,7 @@ namespace PIRESQuestions.Controllers
             List<Answer> answers = new List<Answer>();
             foreach (Question question in questions)
             {
-                Answer answer = new() { AnonymousId=0, Horodatage=DateTime.Now, QuestionId=question.Id, ChoiceId=0, FormId = question.FormId };
+                Answer answer = new() { AnonymousId=0, Horodatage=DateTime.Now, QuestionId=question.Id, ChoiceId=0};
                 answers.Add(answer);
             }
             var model = new FormViewModel

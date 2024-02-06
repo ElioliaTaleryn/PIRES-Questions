@@ -42,12 +42,12 @@ namespace Repositories.Repositories
 
         public async Task<bool> DeleteFormAsync(Form form)
         {
-            var answers = await _context.Answers.Where(a => a.FormId == form.Id).ToListAsync();
-            if (answers.Any())
-            {
-                _context.Answers.RemoveRange(answers);
-                await _context.SaveChangesAsync();
-            }
+            //var answers = await _context.Answers.Where(a => a.FormId == form.Id).ToListAsync();
+            //if (answers.Any())
+            //{
+            //    _context.Answers.RemoveRange(answers);
+            //    await _context.SaveChangesAsync();
+            //}
 
             return await _context.Forms.Where(f => f.Id == form.Id).ExecuteDeleteAsync() == 1;
         }

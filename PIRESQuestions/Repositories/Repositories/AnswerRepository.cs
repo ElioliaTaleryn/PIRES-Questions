@@ -63,15 +63,15 @@ namespace Repositories.Repositories
             }
             else throw new Exception("Aucune réponse trouvée");
         }
-        public async Task<List<Answer>> GetAnswerByFormAsync(int formId)
-        {
-            List<Answer> answers = await _appContext.Answers.Include(a => a.Form).Include(a => a.Question).Include(a => a.Choice).Include(a => a.Anonymous).Where(a => a.FormId == formId).ToListAsync();
-            if (answers.Any())
-            {
-                return answers;
-            }
-            else throw new Exception("Aucune réponse trouvée");
-        }
+        //public async Task<List<Answer>> GetAnswerByFormAsync(int formId)
+        //{
+        //    List<Answer> answers = await _appContext.Answers.Include(a => a.Form).Include(a => a.Question).Include(a => a.Choice).Include(a => a.Anonymous).Where(a => a.FormId == formId).ToListAsync();
+        //    if (answers.Any())
+        //    {
+        //        return answers;
+        //    }
+        //    else throw new Exception("Aucune réponse trouvée");
+        //}
         public async Task<bool> DeleteAnswerAsync(int id)
         {
             var answer = _appContext.Answers.FirstOrDefault(a => a.Id == id);

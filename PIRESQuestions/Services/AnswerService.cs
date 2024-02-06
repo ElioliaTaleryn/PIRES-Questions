@@ -67,16 +67,16 @@ namespace Services
             }
             else throw new Exception("L'id saisie ne permet par la recherche d'une réponse");         
         }
-        public async Task<List<Answer>> GetAnswerByFormIdAsync(int formId) 
-        {
-            if(formId != 0) 
-            {
-                return await _answerRepository.GetAnswerByFormAsync(formId);
-            }
-            else
-            {
-                throw new Exception("Aucune réponse trouvé pour le formulaire");
-            }
-        }
+        //public async Task<List<Answer>> GetAnswerByFormIdAsync(int formId) 
+        //{
+        //    if(formId != 0) 
+        //    {
+        //        return await _answerRepository.GetAnswerByFormAsync(formId);
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("Aucune réponse trouvé pour le formulaire");
+        //    }
+        //}
     }
 }

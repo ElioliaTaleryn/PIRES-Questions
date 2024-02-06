@@ -18,10 +18,6 @@ namespace Entities
 
         #region Relative Fields
         [Required]
-        public int FormId { get; set; }
-        public Form Form { get; set; }
-
-        [Required]
         public int QuestionId { get; set; }
         public Question Question { get; set; }
 
