@@ -42,15 +42,21 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Reply(List<Answer>listAnswers, Anonymous anonymous) {
-           
-            var anonymousCreate = await _anonymousService.CreateAnonymousAsync(anonymous);
+        public async Task<IActionResult> Reply(List<Answer>listAnswers, Anonymous anonymous, int formId) {
 
-            foreach (var answer in listAnswers) {
-                answer.AnonymousId = anonymousCreate.Id;
-                await _answerService.CreateAnswerAsync(answer);
+            if(ModelState.IsValid)
+            {
+                var anonymousCreate = await _anonymousService.CreateAnonymousAsync(anonymous);
+
+                foreach (var answer in listAnswers)
+                {
+                    answer.AnonymousId = anonymousCreate.Id;
+                    await _answerService.CreateAnswerAsync(answer);
+                }
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("Index", "Home");
+            else return View(formId);
+           
         }
 
     }

@@ -1,33 +1,61 @@
 ﻿@model FormViewModel
 
-<form asp-action="Reply" asp-controller="Answer" id="answersForm">
-    <div class="form-groupe">
-        <label asp-for="@Model.Anonymous.Age">Veuillez rentrez votre âge :</label>
-        <input type="number" asp-for="@Model.Anonymous.Age" id="inputAge"/>
-        @foreach (Question question in Model.Questions)
-        {
-            <input asp-for="@question.Id" />
-            <fieldset>
-                <legend>@question.Label</legend>
-                @foreach (Choice choise in question.Choices)
-                {
-                    <div>
-                        <input asp-for="@question.Id" type="radio" id="@question.Id+_+@choise.Id" name="@question.Id" value="@choise.Id"/>
-                        <label for="@choise.Id">@choise.Label</label>
-                    </div>
-                }
-            </fieldset>
-        }   
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<div class="card">
+    <div class="card-header text-center" style="background-color: #F4B164;">
+        <h5 class="card-title">@Model.Form.Title</h5>
     </div>
-    <a asp-controller="Answer" asp-action="Reply" asp-route-formViewModel=@Model type="submit">Répondre  </a>
-    <button type="submit"class="btn btn-primary">Envoyer la réponse</button>
-</form>
+    <form asp-action="Reply" asp-controller="Answer" id="answersForm">
+        <div class="card-body">
+            <div class="form-groupe">
+                <div class="card mb-5 col-md-8 mx-auto">
+                    <div class="card-body">
+                        <label asp-for="@Model.Anonymous.Age">Veuillez rentrez votre âge :</label>
+                        <input type="number" asp-for="@Model.Anonymous.Age" id="inputAge" />
+                        <span asp-validation-for="@Model.Anonymous.Age" class="text-danger"></span>
+                    </div>
+                </div>
+                <input asp-for="@Model.Form.Id" type="hidden" id="inputFormId"/>
+                @foreach (Question question in Model.Questions)
+                {
+                    <fieldset>
+                        <div class="card mb-5 col-md-8 mx-auto">
+                            <input asp-for="@question.Id" type="hidden" />
+
+                            <div class="card-header" style="background-color: #F4B164;">
+                                <legend>@question.Label</legend>
+                            </div>
+                            <div class="card-body">
+                                @foreach (Choice choice in question.Choices)
+                                {
+                                    <div>
+                                        <input asp-for="@question.Id" type="radio" id="@question.Id+_+@choice.Id" name="@question.Id" value="@choice.Id" required />
+                                        <label for="@choice.Id">@choice.Label</label>
+                                        <span asp-validation-for="@choice.Label" class="text-danger"></span>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </fieldset>
+                }
+            </div>
+        </div>
+        <div class="card-footer text-body-secondary text-center">
+            <button type="submit" class="btn" style="background-color: #338b98; color: #F5F5F5">Soumettre le formulaire</button>
+        </div>
+    </form>
+</div>
+
 
 
 <script>
     $(function () {
         $('#answersForm').submit(function (e) {
-             var listAnswersPost= [];
+            var listAnswersPost = [];
 
             $('fieldset').each(function () {
                 var questionId = $(this).find('input[type="radio"]').attr('name');
@@ -37,10 +65,10 @@
                     var currentTime = new Date(); // Obtenir la date actuelle côté client
                     var formattedTime = currentTime.toISOString(); // Formater la date au format ISO (AAAA-MM-JJTHH:MM:SS)
 
-                    listAnswersPost.push({ questionId: questionId, choiceId: selectedAnswerId, horodatage: formattedTime});
+                    listAnswersPost.push({ questionId: questionId, choiceId: selectedAnswerId, horodatage: formattedTime });
                 }
             });
-            
+
             var newAnonymous =
             {
                 AnonymousId: 0,
@@ -48,7 +76,7 @@
             };
             console.log("réponse : ", listAnswersPost + "anony : ", newAnonymous);
 
-            $.post('/Answer/Reply', { listAnswers: listAnswersPost, anonymous: newAnonymous }, function (data) {
+            $.post('/Answer/Reply', { listAnswers: listAnswersPost, anonymous: newAnonymous, formId: $('#inputFormId').val() }, function (data) {
                 window.location.href = '/Home/Index/';
 
             });

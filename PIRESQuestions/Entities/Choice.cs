@@ -7,7 +7,7 @@ namespace Entities
         #region Fields
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "la réponse est requise")]
         public required string Label { get; set; }
         #endregion
         #region Relative Fields
