@@ -1,14 +1,29 @@
 ﻿@model FormResultViewModel
 
-<p>@Model.Form.Title</p>
+<div class="card">
+    <div class="card-header text-center" style="background-color: #F4B164;">
+        <h5 class="card-title">@Model.Form.Title</h5>
+    </div>
 
-@foreach(var question in Model.Questions)
-{
-    <p>@question.Label</p>
-    @foreach(var choice in question.Choices)
-    {
-        <p>@choice.Label :
-            @Model.Answers.Where(a => a.QuestionId == question.Id && a.ChoiceId == choice.Id).Count()
-        </p>
-    }
-}
+    <div class="card-body">
+        @foreach (Question question in Model.Questions)
+        {
+            <div class="card mb-5 col-md-8 mx-auto">
+                <div class="card-header" style="background-color: #F4B164;">
+                    <p>@question.Label</p>
+                </div>
+                <div class="card-body">
+                    @foreach (Choice choice in question.Choices)
+                    {
+                        <p>
+                            @choice.Label
+                            :
+                            @Model.Answers.Where(a => a.QuestionId == question.Id && a.ChoiceId == choice.Id).Count()
+                        </p>
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
