@@ -24,3 +24,8 @@ body {
 .card-header {
     background-color: #F4B164;
 }
+
+.btn-modif {
+    background-color: #338b98;
+    color: #F5F5F5
+}

@@ -22,6 +22,14 @@ namespace PIRESQuestions.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            UserPerson userBdd = await _userManager.GetUserAsync(User);
+            TempData["UserId"] = userBdd.Id;
+            var forms = await _formService.GetFormByUserIdAsync(userBdd.Id);
+            return View(forms);
+        }
+
+        public async Task<IActionResult> IndexPublic()
+        {
             return View(await _formService.GetAllFormAsync());
         }
 

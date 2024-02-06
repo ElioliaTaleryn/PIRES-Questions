@@ -1,0 +1,16 @@
+﻿@model List<Form>
+<h1> Formulaires</h1>
+
+@foreach (Form form in Model)
+{
+    if (form.StatusId!=1)
+    {
+        <div id="divContentForms">
+            <partial name="_showFormPublic" model="form" />
+        </div>
+
+    }
+
+
+}
+

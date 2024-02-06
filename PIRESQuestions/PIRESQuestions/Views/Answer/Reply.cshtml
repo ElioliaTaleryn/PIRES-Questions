@@ -5,7 +5,7 @@
 }
 
 <div class="card">
-    <div class="card-header text-center" style="background-color: #F4B164;">
+    <div class="card-header text-center">
         <h5 class="card-title">@Model.Form.Title</h5>
     </div>
     <form asp-action="Reply" asp-controller="Answer" id="answersForm">
@@ -25,7 +25,7 @@
                         <div class="card mb-5 col-md-8 mx-auto">
                             <input asp-for="@question.Id" type="hidden" required/>
 
-                            <div class="card-header" style="background-color: #F4B164;">
+                            <div class="card-header">
                                 <legend>@question.Label</legend>
                             </div>
                             <div class="card-body">
@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="card-footer text-body-secondary text-center">
-            <button type="submit" class="btn" style="background-color: #338b98; color: #F5F5F5">Soumettre le formulaire</button>
+            <button type="submit" class="btn">Soumettre le formulaire</button>
         </div>
     </form>
 </div>

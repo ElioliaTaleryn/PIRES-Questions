@@ -15,7 +15,7 @@
                         {
                             <p class="card-text">
                                 @form.Title
-                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-modif">Visualiser</a>
                                 <button onclick="return confirm('es-tu sûr de vouloir supprimer le formulaire ?') && deleteForm(@form.Id);" class="btn btn-danger">Supprimer</button>
                                 <button onclick="return confirm('es-tu sûr de vouloir publier le formulaire ?') && validateForm(@form.Id);" class="btn btn-success">Publier</button>
                             </p>
@@ -37,7 +37,7 @@
                             
                             <p class="card-text">
                                 @form.Title
-                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-modif">Visualiser</a>
                                 <button onclick="return confirm('es-tu sûr de vouloir clôturer le formulaire ?') && closeForm(@form.Id);" class="btn btn-warning">Clôturer</button>
                             </p>
                             
@@ -59,8 +59,8 @@
                         if (form.StatusId == 3)
                         {
                             <p class="card-text">@form.Title</p>
-                            <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
-                            <a asp-controller="Form" asp-action="FormResult" asp-route-formId="@form.Id" class="btn btn-info">Résultats</a>
+                            <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-modif">Visualiser</a>
+                            <a asp-controller="Form" asp-action="FormResult" asp-route-formId="@form.Id" class="btn btn-modif">Résultats</a>
                         }
                     }
                 </div>

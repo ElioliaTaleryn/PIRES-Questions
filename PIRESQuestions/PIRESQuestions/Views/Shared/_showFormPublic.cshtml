@@ -41,35 +41,18 @@
         </h6>
 
     </div>
-    <div class="card-body">
-        @{
-            if (Model.Questions != null)
-            {
-                @foreach (var question in Model.Questions)
-                {
-                    <div class="card mb-5">
-                        <div class="card-body">
-                            <input type="hidden" asp-for="@question.Id" id="inputQuestionId" />
-                            <p class="card-text">@question.Label</p>
-                            <p class="card-text">description : @question.Description</p>
-                            @{
-                                if (question.Choices != null)
-                                {
-                                    <p class="card-text">
-                                        Réponse :   @foreach (var c in question.Choices)
-                                        {
-                                        <p class="card-text">@c.Label</p>
-                                        }
-                                    </p>
-                                }
-                            }
-                        </div>
-                    </div>
-                }
-            };
-        }
-    </div>
+
     <div class="card-footer">
-        <a asp-action="Reply" asp-controller="Answer" asp-route-ID="@Model.Id">Répondre</a>
+        @{
+            if (Model.StatusId == 2)
+            {
+                <a asp-action="Reply" asp-controller="Answer" asp-route-ID="@Model.Id">Répondre</a>
+            }
+            else
+            {
+                <a asp-action="FormResult" asp-controller="Form" asp-route-formId="@Model.Id">Afficher les résultats</a>
+            }
+
+        }
     </div>
 </div>
