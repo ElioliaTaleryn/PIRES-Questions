@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IServices;
+using Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace PIRESQuestions.Controllers
 {
-    public class DataDashboardController : Controller
+    public class DashboardController : Controller
     {
         // model.isvalid dans les post
         // controller
@@ -20,15 +22,22 @@ namespace PIRESQuestions.Controllers
         }*/
         private readonly IGenderService _genderService;
         private readonly ICountryService _countryService;
+        private readonly IFormService _formService;
+        UserManager<UserPerson> _userManager;
 
-        public DataDashboardController(IGenderService genderService, ICountryService countryService)
+        public DashboardController(IGenderService genderService, ICountryService countryService, IFormService formService, UserManager<UserPerson> userManager)
         {
             _genderService = genderService;
             _countryService = countryService;
+            _formService = formService;
+            _userManager = userManager;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            UserPerson userBdd = await _userManager.GetUserAsync(User);
+            TempData["UserId"] = userBdd.Id;
+            var forms = await _formService.GetFormByUserIdAsync(userBdd.Id);
+            return View(forms);
         }
     }
 }

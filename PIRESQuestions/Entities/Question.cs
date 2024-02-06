@@ -18,7 +18,7 @@ namespace Entities
         #endregion
         #region Relative Fields
         public List<Choice>? Choices { get; set; }
-
+        public List<Answer>? Answers { get; set; }
         [Required]
         public required int FormId { get; set; }
         public Form Form { get; set; }

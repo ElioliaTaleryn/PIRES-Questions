@@ -3,6 +3,7 @@ using IRepositories;
 using IServices;
 using Repositories.Entity_Framework;
 using Services.Exceptions;
+using ViewModels;
 
 namespace Services
 {
@@ -22,12 +23,27 @@ namespace Services
         {
             return await formRepository.GetAllFormsAsync();
         }
-
         public async Task<Form> GetByIdFormAsync(int id)
         {
             return await formRepository.GetByIdFormAsync(id);
         }
+        public async Task<List<Form>> GetFormByUserIdAsync(string userId) 
+        {
+            if (!string.IsNullOrEmpty(userId)) 
+            {
+                return await formRepository.GetFormByUserIdAsync(userId);
+            }
+            else throw new Exception("Impossible de rechercher les formulaires sans la personne");
+        }
 
+        public async Task<FormResultViewModel> GetFormWithQuestionsAndAnswersAsync(int formId) 
+        {
+            if (formId > 0)
+            {
+                return await formRepository.GetFormWithQuestionsAndAnswersAsync(formId);
+            }
+            else throw new Exception("Aucun formulaire trouvé");
+        }
         public async Task<int> UpdateFormAsync(Form form)
         {
             return await formRepository.UpdateFormAsync(form);

@@ -23,13 +23,12 @@ namespace PIRESQuestions.Controllers
         [HttpGet]
         public async Task<IActionResult> Reply(int id)
         {
-
             Form form = await _formService.GetByIdFormAsync(id);
             List<Question> questions = await _questionService.GetQuestionByFormIdAsync(form.Id);
             List<Answer> answers = new List<Answer>();
             foreach (Question question in questions)
             {
-                Answer answer = new() { AnonymousId=0, Horodatage=DateTime.Now, QuestionId=question.Id, ChoiceId=0 };
+                Answer answer = new() { AnonymousId=0, Horodatage=DateTime.Now, QuestionId=question.Id, ChoiceId=0, FormId = question.FormId };
                 answers.Add(answer);
             }
             var model = new FormViewModel

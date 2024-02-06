@@ -1,0 +1,14 @@
+﻿@model FormResultViewModel
+
+<p>@Model.Form.Title</p>
+
+@foreach(var question in Model.Questions)
+{
+    <p>@question.Label</p>
+    @foreach(var choice in question.Choices)
+    {
+        <p>@choice.Label :
+            @Model.Answers.Where(a => a.QuestionId == question.Id && a.ChoiceId == choice.Id).Count()
+        </p>
+    }
+}

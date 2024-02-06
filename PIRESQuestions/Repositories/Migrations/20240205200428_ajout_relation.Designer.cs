@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repositories.Entity_Framework;
 
@@ -11,9 +12,11 @@ using Repositories.Entity_Framework;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240205200428_ajout_relation")]
+    partial class ajout_relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1485,13 +1488,13 @@ namespace Repositories.Migrations
                         {
                             Id = "981173f4-7557-4cde-b839-1ac488b30f9f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6c393230-a060-4a97-b84f-13bd698f2879",
+                            ConcurrencyStamp = "492d3492-a8df-4ae7-b76c-512c36e1ebe0",
                             DateOfBirth = new DateOnly(1991, 12, 25),
                             Email = "john.doe@example.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ef82814d-e055-4f83-8fee-3921b541799c",
+                            SecurityStamp = "a6cff311-7a58-4a2e-ab60-0fada2d6d4b7",
                             TwoFactorEnabled = false,
                             UserName = "JohnDoe"
                         });

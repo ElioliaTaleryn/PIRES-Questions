@@ -33,8 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-info" id="updateQuestionButton">Envoyer</button>
-                @* <button id="cancelEditQuestionButton" class="btn btn-danger">Annuler</button> *@
+                <button type="submit" class="btn btn-info">Envoyer</button>
                 <a asp-controller="Form" asp-action="Detail" asp-route-Id="@Model.FormId" class="btn btn-danger">Annuler</a>
             </form>
         </div>
@@ -95,6 +94,7 @@
             console.log("question : " + listChoices);
 
             $.post('/Question/UpdateQuestion', { question: question, choiceIds: listChoices }, function (data) {
+                window.location.href = '/Form/Detail/' + question.FormId;
             });
             e.preventDefault();
         });

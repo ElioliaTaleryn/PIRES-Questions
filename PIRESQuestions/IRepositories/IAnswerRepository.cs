@@ -14,6 +14,7 @@ namespace IRepositories
         Task<Answer> GetAnswerByIdAsync(int id);
         Task<List<Answer>> GetAnswerByChoiceAsync(int idChoice);
         Task<List<Answer>> GetAnswerByGenderAsync(int idGender);
+        Task<List<Answer>> GetAnswerByFormAsync(int formId);
         Task<bool> DeleteAnswerAsync(int id);
     }
 }

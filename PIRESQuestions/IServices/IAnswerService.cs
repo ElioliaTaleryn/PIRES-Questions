@@ -14,6 +14,7 @@ namespace IServices
         Task<Answer> GetAnswerByIdAsync(int id);
         Task<List<Answer>> GetAnswerByChoiceAsync(int idChoice);
         Task<List<Answer>> GetAnswerByGenderAsync(int idGender);
+        Task<List<Answer>> GetAnswerByFormIdAsync(int formId);
         Task<bool> DeleteAnswerAsync(int id);
     }
 }

@@ -45,14 +45,11 @@
         @{
             if (Model.Questions != null)
             {
-                // <partial name="_showQuestions" model="Model.Questions" />
-
                 @foreach (var question in Model.Questions)
                 {
                         <div class="card mb-5">
                             <div class="card-body">
                                 <input type="hidden" asp-for="@question.Id" id="inputQuestionId" />
-                                @* <p class="card-text strong">formulaire : @Model.Form.Title</p> *@
                                 <p class="card-text">@question.Label</p>
                                 <p class="card-text">description : @question.Description</p>
                                 <a asp-controller="Question" asp-action="UpdateQuestion" asp-route-id="@question.Id" class="btn btn-info">Modifier</a>
@@ -80,7 +77,6 @@
             {
                 <button id="addQuestionButton" class="btn btn-warning"> Ajouter une question</button>
                 <button id="editFormButton" class="btn btn-warning">Editer le formulaire</button>
-                //<a type="button" class="btn btn-warning" id="editFormButton" asp-action="Edit" asp-route-Id="@Model.Id">Editer le formulaire</a>
             }
         }
         <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-Id="@Model.Id">Supprimer le formulaire</a>
@@ -104,15 +100,6 @@
     var updateFButton = document.querySelector('#updateInfoFormButton');
     updateFButton.addEventListener('click', hideShowEditForm);
 
-    // var editQButton = document.querySelector('#editQuestionButton');
-    // editQButton.addEventListener('click', hideShowEditQuestion)
-
-    // var updateQButton = document.querySelector('#updateQuestionButton');
-    // updateQButton.addEventListener('click', hideShowEditQuestion);
-
-    // var cancelQbutton = document.querySelector('#cancelEditQuestionButton');
-    // cancelQbutton.addEventListener('click', hideShowEditQuestion);
-
     function hideShowEditForm() {
 
         var divEditForm = document.querySelector('#editInfoForm');
@@ -121,14 +108,4 @@
         var divDisplayInfo = document.querySelector('#displayInfoForm');
         divDisplayInfo.hidden = !divDisplayInfo.hidden;
     }
-
-    // function hideShowEditQuestion() {
-
-    //     var divEditQuestion = document.querySelector('#updateQuestion');
-    //     divEditQuestion.hidden = !divEditQuestion.hidden;
-
-    //     var divDisplayQuestion = document.querySelector('#divContentQuestion');
-    //     divDisplayQuestion.hidden = !divDisplayQuestion.hidden;
-    // }
-
 </script>

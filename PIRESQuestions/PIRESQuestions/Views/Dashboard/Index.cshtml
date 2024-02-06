@@ -1,0 +1,103 @@
+﻿@model List<Form>
+
+<h2>Dashboard</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Mes Formulaires En Attentes
+                </div>
+                <div class="card-body">
+                    @foreach (var form in Model)
+                    {
+                        if (form.StatusId == 1)
+                        {
+                            <p class="card-text">
+                                @form.Title
+                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                                <a asp-controller="Form" asp-action="Delete" asp-route-id="@form.Id" class="btn btn-danger" onclick="return confirm('es-tu sûr de vouloir supprimer le formulaire ?')">Supprimer</a>
+                                <button onclick="return confirm('es-tu sûr de vouloir supprimer le formulaire ?') && deleteForm(@form.Id);" class="btn btn-danger">Supprimer</button>
+                                <button onclick="return confirm('es-tu sûr de vouloir publier le formulaire ?') && validateForm(@form.Id);" class="btn btn-success">Publier</button>
+                            </p>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Mes Formulaires Publiés
+                </div>
+                <div class="card-body">
+                    @foreach (var form in Model)
+                    {
+                        if (form.StatusId == 2)
+                        {
+                            
+                            <p class="card-text">
+                                @form.Title
+                                <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                                <button onclick="return confirm('es-tu sûr de vouloir clôturer le formulaire ?') && closeForm(@form.Id);" class="btn btn-warning">Clôturer</button>
+                            </p>
+                            
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Mes Formulaires Cloturés
+                </div>
+                <div class="card-body">
+                    @foreach (var form in Model)
+                    {
+                        if (form.StatusId == 3)
+                        {
+                            <p class="card-text">@form.Title</p>
+                            <a asp-controller="Form" asp-action="Detail" asp-route-id="@form.Id" class="btn btn-info">Visualiser</a>
+                            <a asp-controller="Form" asp-action="FormResult" asp-route-formId="@form.Id" class="btn btn-info">Résultats</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-5">
+            <div class="card">
+                <div class="card-header text-center">
+                    Statistiques
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm(formId) {
+        $.get('/Form/ValidateDashboard', { id: formId }, function (data) {
+            window.location.href = '/Dashboard/Index';
+        });
+    }
+
+    function closeForm(formId) {
+        $.get('/Form/CloseDashboard', { id: formId }, function (data) {
+            window.location.href = '/Dashboard/Index';
+        });
+    }
+
+    function deleteForm(formId) {
+        $.get('/Form/DeleteDashboard', { id: formId }, function (data) {
+            window.location.href = '/Dashboard/Index';
+        });
+    }
+</script>
