@@ -14,19 +14,20 @@
                 <div class="card mb-5 col-md-8 mx-auto">
                     <div class="card-body">
                         <label asp-for="@Model.Anonymous.Age">Veuillez rentrez votre âge :</label>
-                        <input type="number" asp-for="@Model.Anonymous.Age" id="inputAge" required/>
+                        <input type="number" asp-for="@Model.Anonymous.Age" id="inputAge" required min="13" max="125" />
                         <span asp-validation-for="@Model.Anonymous.Age" class="text-danger"></span>
                     </div>
                 </div>
-                <input asp-for="@Model.Form.Id" type="hidden" id="inputFormId"/>
+                <input asp-for="@Model.Form.Id" type="hidden" id="inputFormId" />
                 @foreach (Question question in Model.Questions)
                 {
                     <fieldset>
                         <div class="card mb-5 col-md-8 mx-auto">
-                            <input asp-for="@question.Id" type="hidden" required/>
+                            <input asp-for="@question.Id" type="hidden" required />
 
                             <div class="card-header">
                                 <legend>@question.Label</legend>
+                                <p>@question.Description</p>
                             </div>
                             <div class="card-body">
                                 @foreach (Choice choice in question.Choices)
@@ -45,7 +46,7 @@
             </div>
         </div>
         <div class="card-footer text-body-secondary text-center">
-            <button type="submit" class="btn">Soumettre le formulaire</button>
+            <button type="submit" class="btn btn-modif">Soumettre le formulaire</button>
         </div>
     </form>
 </div>

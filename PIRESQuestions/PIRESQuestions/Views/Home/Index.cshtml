@@ -5,7 +5,7 @@
 }
 
 <div class="text-center" style="background-color:#F5F5F5">
-    <img src="/img/logo.png" width="200" height="200" />
+    <img src="/img/logo.png" width="200" height="200" id="logoPIRES"/>
     <h1 class="display-4">Bienvenue sur PIRES - QUESTIONS</h1>
     <p>Bienvenue sur notre site de formulaire et sondage ! Ici, vous pouvez facilement créer, partager et analyser des enquêtes pour recueillir les avis et préférences de votre public cible. Notre plateforme est conçue pour vous offrir une expérience utilisateur fluide, avec des outils intuitifs qui vous permettent de personnaliser vos questionnaires en quelques clics. Que vous souhaitiez mener une étude de marché, recueillir des feedbacks clients, ou organiser un vote, notre site est le partenaire idéal pour toutes vos enquêtes. Commencez dès maintenant à explorer nos fonctionnalités et à engager votre audience de manière significative. Merci de nous avoir choisi pour accompagner vos projets !</p>
     <h1> Choisissez un formulaire ouvert au public pour y répondre.</h1>
@@ -14,18 +14,20 @@
             Nos derniers formulaires
         </div>
 
-    @{
-        foreach (Form form in Model)
-        {
-            if (form.StatusId == 2)
+        @{
+            foreach (Form form in Model)
             {
-                    <p>
-                        @form.Title, @form.Description <a asp-action="Reply" asp-controller="Answer" asp-route-ID="@form.Id">Répondre</a>
-                    </p>
+                if (form.StatusId == 2)
+                {
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            @form.Title, @form.Description <a asp-action="Reply" asp-controller="Answer" asp-route-ID="@form.Id">Répondre</a>
+                        </li>
+                    </ul>
+                }
             }
-        }
 
-    }
+        }
     </div>
 
 </div>
