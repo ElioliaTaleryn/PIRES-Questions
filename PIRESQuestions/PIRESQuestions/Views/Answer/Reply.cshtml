@@ -13,9 +13,9 @@
             <div class="form-groupe">
                 <div class="card mb-5 col-md-8 mx-auto">
                     <div class="card-body">
-                        <label asp-for="@Model.Anonymous.Age">Veuillez rentrez votre âge :</label>
-                        <input type="number" asp-for="@Model.Anonymous.Age" id="inputAge" required min="13" max="125" />
-                        <span asp-validation-for="@Model.Anonymous.Age" class="text-danger"></span>
+                        <label >Veuillez rentrez votre âge :</label>
+                        <input type="number"  id="inputAge" required min="13" max="125" />
+                        <span class="text-danger"></span>
                     </div>
                 </div>
                 <input asp-for="@Model.Form.Id" type="hidden" id="inputFormId" />

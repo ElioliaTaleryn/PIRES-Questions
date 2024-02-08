@@ -171,7 +171,6 @@ namespace PIRESQuestions.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> FormResult(int formId) 
         {
             if (formId != 0)
